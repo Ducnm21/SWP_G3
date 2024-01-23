@@ -1,3 +1,4 @@
+
 package dal;
 
 import java.sql.Connection;
@@ -5,13 +6,17 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+
+/**
+ *
+ * @author nguyen ngoc quang
+ */
 public class DBContext {
-    public static String DB_URL = "jdbc:mysql://localhost:3306/SCAMLAMCHODEMO";
+    public static String DB_URL = "jdbc:mysql://localhost:3306/swpproject";
     public static String USER_NAME = "root";
-    public static String PASSWORD = "12345";
+    public static String PASSWORD = "Quangnn03!";
+
 
     public static void main(String args[]) {
         Connection conn = null;

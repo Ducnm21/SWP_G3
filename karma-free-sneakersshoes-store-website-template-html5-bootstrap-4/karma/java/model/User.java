@@ -1,41 +1,63 @@
+
 package model;
 
 /**
  *
- * @author VIVO-S15
+
+ * @author nguyen ngoc quang
  */
 public class User {
-    private int id;
+    private int user_id;
     private String username;
     private String password;
+    private String fullname;
     private String email;
     private String mobile;
-    private String fullname;
     private String created_at;
-    private String deleted_by;
-    private String updated_by;
+    private String deleted_at;
+    private String updated_at;
+
 
     public User() {
     }
 
-    public User(int id, String username, String password, String email, String mobile, String fullname, String created_at, String deleted_by, String updated_by) {
-        this.id = id;
+
+=======
+    public User(int user_id, String username, String password, String fullname, String email, String mobile) {
+        this.user_id = user_id;
+        this.username = username;
+        this.password = password;
+        this.fullname = fullname;
+        this.email = email;
+        this.mobile = mobile;
+    }
+
+    public User(String username, String password, String fullname, String email, String mobile) {
+        this.username = username;
+        this.password = password;
+        this.fullname = fullname;
+        this.email = email;
+        this.mobile = mobile;
+    }
+
+    public User(int user_id, String username, String password, String email, String mobile, String created_at, String deleted_at, String updated_at) {
+        this.user_id = user_id;
         this.username = username;
         this.password = password;
         this.email = email;
         this.mobile = mobile;
-        this.fullname = fullname;
         this.created_at = created_at;
-        this.deleted_by = deleted_by;
-        this.updated_by = updated_by;
+        this.deleted_at = deleted_at;
+        this.updated_at = updated_at;
     }
 
-    public int getId() {
-        return id;
+    public int getUser_id() {
+        return user_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+
     }
 
     public String getUsername() {
@@ -70,6 +92,7 @@ public class User {
         this.mobile = mobile;
     }
 
+
     public String getFullname() {
         return fullname;
     }
@@ -78,6 +101,7 @@ public class User {
         this.fullname = fullname;
     }
 
+
     public String getCreated_at() {
         return created_at;
     }
@@ -85,6 +109,7 @@ public class User {
     public void setCreated_at(String created_at) {
         this.created_at = created_at;
     }
+
 
     public String getDeleted_by() {
         return deleted_by;
@@ -107,5 +132,6 @@ public class User {
         return "User{" + "id=" + id + ", username=" + username + ", password=" + password + ", email=" + email + ", mobile=" + mobile + ", fullname=" + fullname + ", created_at=" + created_at + ", deleted_by=" + deleted_by + ", updated_by=" + updated_by + '}';
     }
     
+
     
 }

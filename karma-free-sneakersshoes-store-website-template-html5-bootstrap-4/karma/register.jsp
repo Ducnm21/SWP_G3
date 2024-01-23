@@ -164,6 +164,7 @@
                             <div style="color: red;margin-left: 200px" >${checkpass} </div>
                             <div style="color: red;margin-left: 200px" >${checkemail} </div>                    
                             <div style="color: red;margin-left: 200px" >${checkmobile} </div>
+                            <div style="color: red;margin-left: 200px" >${ivalidemail} </div>
                         </div>
                     </div>
 

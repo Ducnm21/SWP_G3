@@ -17,6 +17,21 @@ import java.sql.SQLException;
  * @author nguyen ngoc quang
  */
 public class RegisterDAO extends DBContext{
+    public boolean checkEmail(String email) {
+        String sql = "select * from users where email=?";
+        try {
+            PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
+            st.setString(1, email);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                if (rs.getString("email").equalsIgnoreCase(email)) {
+                    return false;
+                }
+            }
+        } catch (SQLException e) {
+        }
+        return true;
+    }
      public boolean checkRegister(String username) {
         String sql = "select * from users where username=?";
         try {
@@ -79,5 +94,10 @@ public class RegisterDAO extends DBContext{
         }
         return user_id;
 
+    }
+    public static void main(String[] args) {
+        RegisterDAO rd=new RegisterDAO();
+        rd.checkEmail("ngocquang29012003@gmail.com");
+        System.out.println(rd.checkEmail("ngocquang24329012003@gmail.com"));
     }
 }

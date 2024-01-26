@@ -1,0 +1,79 @@
+package model;
+
+import jakarta.mail.Authenticator;
+import jakarta.mail.Message;
+import jakarta.mail.PasswordAuthentication;
+import jakarta.mail.Session;
+import jakarta.mail.Transport;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
+import java.util.*;
+
+/**
+ *
+ * @author User
+ */
+public class Email {
+
+    static final String from = "hung15x2003@gmail.com";
+    static final String password = "ooxn zvva lfyw kkse";
+
+    public boolean sendEmail(String to, String tieude, String noidung) {
+
+      
+       
+        // Properties: khai bao cac thuoc tinh
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com"); //SMTP HOST
+        props.put("mail.smtp.port", "587"); //TLS 587 (google) SSL 465
+        props.put("mail.smtp.auth", "true"); //su dung cai host smtp co phai dang nhap hay k -> khai bao true
+        props.put("mail.smtp.starttls.enable", "true");
+
+        //create Authenticator
+        // la 1 cai pass co san de bo vao du an khi lay ra phien lam viec de gui mail
+        Authenticator auth = new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(from, password);
+            }
+        };
+
+        // tao ra 1 phien lam viec
+        // session cua email
+        Session session = Session.getInstance(props, auth);
+
+        // Gui email
+        //final String to = "hoan1102003@gmail.com";
+        //Message de gui mail
+        MimeMessage mess = new MimeMessage(session);
+        try {
+            // kieu noi dung
+            mess.addHeader("Content-type", "text/HTML; charset = UTF-8");
+            // nguoi gui
+            mess.setFrom(from);
+            // nguoi nhan
+            mess.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to, false));
+            // tieu de email
+            mess.setSubject(tieude,"UTF-8");
+            // quy dinh ngay gui di
+            mess.setSentDate(new Date());
+            mess.setContent(noidung, "text/html;charset = UTF-8");
+            Transport.send(mess);
+            System.out.println("Gui thanh cong");
+            return true;
+        } catch (Exception ex) {
+            System.out.println("Loi trong qua trinh gui email");
+            ex.printStackTrace();
+            return false;
+        }
+    }
+    
+
+    public static void main(String[] args) {
+//        // co the dung vong for de gui email
+//        Email e = new Email();
+//        e.sendEmail("trandaiduong14112000@gmail.com","Tiêu đề ", "tu lieu !");
+//    }
+
+}
+}

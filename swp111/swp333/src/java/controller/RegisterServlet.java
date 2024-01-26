@@ -76,6 +76,7 @@ public class RegisterServlet extends HttpServlet {
     throws ServletException, IOException {
        ValidateRegister va=new ValidateRegister();
         HttpSession session = request.getSession();
+        request.removeAttribute("ivalidemail");
         request.removeAttribute("checkpass");
         request.removeAttribute("checkmobile");
         request.removeAttribute("checkmail");
@@ -94,11 +95,16 @@ public class RegisterServlet extends HttpServlet {
         boolean checkemail=va.CheckEmail(email);
         boolean checkmobile=va.CheckMobile(mobile);
         boolean b = rd.checkRegister(username);
+        boolean e=rd.checkEmail(email);
         if (b == false) {
             request.setAttribute("error_register", "Username has already exist");
             request.getRequestDispatcher("register.jsp").forward(request, response);
         } else if (!password.equals(password1)) {
             request.setAttribute("error_password", "Invalid repassword");
+            request.getRequestDispatcher("register.jsp").forward(request, response);
+        }
+        else if(e==false){
+            request.setAttribute("ivalidemail", "Your email has already exist, please type again!");
             request.getRequestDispatcher("register.jsp").forward(request, response);
         }
         else if(checkpass==false){

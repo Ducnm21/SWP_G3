@@ -56,7 +56,7 @@
                         <!-- Collect the nav links, forms, and other content for toggling -->
                         <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                             <ul class="nav navbar-nav menu_nav ml-auto">
-                                <li class="nav-item"><a class="nav-link" href="index.jsp">Home</a></li>
+                                <li class="nav-item"><a class="nav-link" href="getallproductindex">Home</a></li>
                                 <li class="nav-item submenu dropdown">
                                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                                        aria-expanded="false">Shop</a>
@@ -288,11 +288,13 @@
                                         captchaEntered: captcha
                                     },
                                     success: function (response) {
-                                        // Handle successful login
                                         if (response.trim() === "success") {
-                                            window.location.href = "homepage.jsp";
+                                            window.location.href = "getallproduct";
+                                        } else if (response.trim() === "errorActive") {
+                                            // Display message for a banned account
+                                            $("#errorActive").text("Your Account has been banned!");
                                         } else {
-                                            // Display error message
+                                            // Display general error message
                                             $("#error").text("Invalid username, password, or captcha");
                                         }
                                     },
@@ -302,6 +304,8 @@
                                     }
                                 });
                             }
+
+
         </script>
 
         <script src="js/vendor/jquery-2.2.4.min.js"></script>

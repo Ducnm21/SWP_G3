@@ -194,6 +194,33 @@ public class BodyDAO extends DBContext {
         }
         return null;
     }
+    public List<CartXProduct> TrancastionHistory(int uid) {
+         List<CartXProduct> list = new ArrayList<>();
+        String sql = "SELECT cart.cart_id, products.product_id, cart.status, products.topic, products.customer, products.contactmethod,"
+                + " products.price, products.price, products.bearingtransactionfees, products.transactionfees\n"
+                + "FROM products \n"
+                + "INNER JOIN cart ON cart.product_id = products.product_id WHERE cart.status='completely' and cart.user_id=?";
+         try {
+            PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
+            st.setInt(1, uid);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                CartXProduct c = new CartXProduct(rs.getInt("cart_id"),
+                        rs.getInt("product_id"),
+                        rs.getString("status"),
+                        rs.getString("topic"),
+                        rs.getString("customer"),
+                        rs.getString("contactmethod"),
+                        rs.getDouble("price"),
+                        rs.getString("bearingtransactionfees"),
+                        rs.getInt("transactionfees"));
+                list.add(c);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 
     public static void main(String[] args) {
         BodyDAO d = new BodyDAO();

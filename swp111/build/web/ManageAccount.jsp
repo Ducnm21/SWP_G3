@@ -1,5 +1,6 @@
-<!DOCTYPE html>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
 <html lang="zxx" class="no-js">
 
     <head>
@@ -17,9 +18,6 @@
         <meta charset="UTF-8">
         <!-- Site Title -->
         <title>SCLC</title>
-        <!--
-                CSS
-                ============================================= -->
         <link rel="stylesheet" href="css/linearicons.css">
         <link rel="stylesheet" href="css/font-awesome.min.css">
         <link rel="stylesheet" href="css/themify-icons.css">
@@ -32,23 +30,46 @@
         <link rel="stylesheet" href="css/magnific-popup.css">
         <link rel="stylesheet" href="css/main.css">
         <style>
-            .ordertable {
-                margin-left: 0%;
-                margin-right: 15%;
-            }
-
-            table {
-                width: 140%;
-                margin-left: 10%;
-            }
             .navbar-brand img {
                 width: 150px;
                 height: auto;
                 margin-top: -10px;
                 margin-bottom: -10px;
             }
+            /* Center the navbar */
+            .navbar-nav.navbar-center {
+                position: absolute;
+                left: 20%;
+                bottom: 50%;
+                transform: translateX(-50%);
+            }
+
+            /* Style for the search container */
+            .search_input {
+                display: flex;
+                align-items: center;
+            }
+
+            /* Style for the search input */
+            .search_input input[type="text"] {
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                margin-right: 0px;
+                width: 300px;
+            }
+
+            /* Style for the search button */
+            .search_input button {
+                padding: 6px;
+                background-color: #007bff;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
         </style>
-    </head>
+    </head>        
 
     <body>
 
@@ -58,46 +79,18 @@
                 <nav class="navbar navbar-expand-lg navbar-light main_box">
                     <div class="container">
                         <!-- Brand and toggle get grouped for better mobile display -->
-                        <a class="navbar-brand logo_h" href="index.jsp"><img src="img/logosclc.png" alt=""></a>
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
+                        <a class="navbar-brand logo_h" href="homepage.jsp"><img src="img/logosclc.png" alt=""></a>
+
+
+
+
+
+                        <p style="color: orange">${hello}</p>
                         <!-- Collect the nav links, forms, and other content for toggling -->
                         <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                             <ul class="nav navbar-nav menu_nav ml-auto">
-                                <li class="nav-item active"><a class="nav-link" href="index.jsp">Home</a></li>
-                                <li class="nav-item submenu dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                                       aria-expanded="false">Shop</a>
-                                    <ul class="dropdown-menu">
-                                        <li class="nav-item"><a class="nav-link" href="category.html">Shop Category</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="single-product.html">Product Details</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="checkout.html">Product Checkout</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="cart.html">Shopping Cart</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="confirmation.html">Confirmation</a></li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item submenu dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                                       aria-expanded="false">Blog</a>
-                                    <ul class="dropdown-menu">
-                                        <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="single-blog.html">Blog Details</a></li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item submenu dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                                       aria-expanded="false">Pages</a>
-                                    <ul class="dropdown-menu">
-                                        <li class="nav-item"><a class="nav-link" href="login.jsp">Login</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="tracking.html">Tracking</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                                <li class="nav-item active"><a class="nav-link" href="homepage.jsp">Home</a></li>
+
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
                                 <li class="nav-item"><a href="#" class="cart"><span class="ti-bag"></span></a></li>
@@ -131,27 +124,29 @@
                             <div class="row single-slide align-items-center d-flex">
                                 <div class="col-lg-5 col-md-6">
                                     <div class="banner-content">
-                                        <h1>Welcome to <br>SCLC!</h1>
-                                        <div class="add-bag d-flex align-items-center">
-                                            <a class="add-btn" href=""><span class="lnr lnr-cross"></span></a>
-                                            <span class="add-text text-uppercase">Add to Bag</span>
-                                        </div>
+                                        <h1>SCLC<br>Welcome <span style="color: orange;">${acc.fullname}!</span></h1>
+                                        <form action="search" method="post">
+                                            <div class="add-bag d-flex align-items-center">
+                                                <input name="txt" type="text" class="form-control" id="search_input" placeholder="Search for account by name">
+                                                <button type="submit" class="btn">Search</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
-
                             </div>
                             <!-- single-slide -->
                             <div class="row single-slide align-items-center d-flex">
                                 <div class="col-lg-5 col-md-6">
                                     <div class="banner-content">
-                                        <h1>Welcome to <br>SCLC!</h1>
-                                        <div class="add-bag d-flex align-items-center">
-                                            <a class="add-btn" href=""><span class="lnr lnr-cross"></span></a>
-                                            <span class="add-text text-uppercase">Add to Bag</span>
-                                        </div>
+                                        <h1>SCLC<br>Welcome <span style="color: orange;">${acc.fullname}!</span></h1>
+                                        <form action="search" method="post">
+                                            <div class="add-bag d-flex align-items-center">
+                                                <input name="txt" type="text" class="form-control" id="search_input" placeholder="Search for account by name">
+                                                <button type="submit" class="btn">Search</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -159,41 +154,51 @@
             </div>
         </section>
         <!-- End banner Area -->
+        <div class="donbanhead">
+            <div class="row">
+                <div class="col-lg-9">
+                    <h2>Account management</h2>
+                </div>
+
+            </div>
+        </div>
         <div class="ordertable">
-            <table  class="table table-striped table-hover">
+            <table class="table table-striped table-hover">
+
                 <thead>
-                <th>id</th>
-                <th>Status</th>
-                <th>Seller</th>
-                <th>Product</th>
-                <th>Contact method</th>
-                <th>Public/Private</th>
-                <th>Price(VND)</th>
-                <th>Bearing transaction fees</th>
-                <th>Transaction fees</th>
-                <th>Actual $ received</th>
-                <th>Action</th>
+                    <tr>
+                        <th>ID</th>
+                        <th>User Name</th>
+                        <th>Email</th>
+                        <th>Mobile</th>
+                        <th>Full Name</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
                 </thead>
-                <tbody>
-                    <c:forEach items="${ListProductI}" var="p">
+                <tbody>          
+                    <c:forEach items="${listAccount}" var="u">
                         <tr>
-                            <th><a href="detailoforder?oid=${p.product_id}">${p.product_id}</a></th>
-                            <th>${p.status}</th>
-                            <th>${p.customer}</th>
-                            <th>${p.topic}</th>
-                            <th>${p.contactmethod}</th>
-                            <th>${p.publicprivate}</th>
-                            <th>${priceI}</th>
-                            <th>${p.bearingtransactionfees}</th>
-                            <th>${transactionfeesI}</th>
-                            <th>${p.actualreceived}</th>
-                            <td>
-                            </td>
+                            <td>${u.id}</td>
+                            <td>${u.username}</td>
+                            <td>${u.email}</td>
+                            <td>${u.mobile}</td>
+                            <td>${u.fullname}</td>
+                            <td>${u.banned}</td>
+                            <c:if test="${u.banned == 'active'}">
+                                <td><a href="banmanagement?u_id=${u.id}" >Ban</a></td>
+                            </c:if>
+                            <c:if test="${u.banned == 'banned'}">
+                                <td><a href="unban?u_id=${u.id}" >Unban</a></td>
+                            </c:if> 
+                            
                         </tr>
                     </c:forEach>
-                </tbody>    
+
+                    </form>
             </table>
-        </div>
+        </div><!--
+
 
 
 

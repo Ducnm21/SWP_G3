@@ -140,8 +140,7 @@
             <div class="container" style="margin-left: 130px">
                 <div class="cart_inner">
                     <div class="table-responsive">
-
-                        <table >
+                        <table class="table" style="border-collapse: collapse; width: 100%;">
                             <thead>
                                 <tr>
                                     <th style="padding: 8px; border: 1px solid #dddddd;">Code</th>
@@ -157,7 +156,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <c:forEach var="c" items="${listCart}">
+                                <c:forEach var="c" items="${history}">
                                     <tr>
                                         <td style="padding: 8px; border: 1px solid #dddddd;">${c.product_id}</td>
                                         <td style="padding: 8px; border: 1px solid #dddddd;">${c.status}</td>
@@ -168,41 +167,16 @@
                                         <td style="padding: 8px; border: 1px solid #dddddd;">${c.bearingtransactionfees}</td>
                                         <td style="padding: 8px; border: 1px solid #dddddd;">${c.transactionfees}</td>
                                         <td style="padding: 8px; border: 1px solid #dddddd;">${c.price+c.transactionfees}</td>
-                                        <td style="padding: 8px; border: 1px solid #dddddd;"><a href="deleteOrd?id=${c.product_id}">Delete</a></td>
+                                        <td style="padding: 8px; border: 1px solid #dddddd;"><a href="deleteOrd?id=${c.product_id}">View Detail</a></td>
                                     </tr>
                                 </c:forEach>
                             </tbody>
-
-
                         </table>
-                        <tr style="text-align: center"  >
-                            <td>
-                                <h5>Subtotal</h5>
-                            </td>
-                            <td>
-                                <h5>${totalfee}</h5>
-                            </td>
-                        </tr>
-                        <tr class="shipping_area">
-                            <td>
-
-                            </td>
-                            <td>
-
-                            </td>
-                            <td>
-
-                            <td>
-                                <div class="checkout_btn_inner d-flex align-items-center">
-                                    <a class="primary-btn" style="margin-right: 20px; width: 300px; text-align: center" href="getallproduct">Continue Shopping</a>
-                                    <a class="primary-btn" style="width: 300px; text-align: center" href="processcheckout">Proceed to checkout</a>
-                                </div>
-                            </td>
-                        </tr>
                     </div>
                 </div>
             </div>
         </section>
+
         <!--================End Cart Area =================-->
 
         <!-- start footer Area -->

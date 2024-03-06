@@ -4,9 +4,9 @@
  */
 package controller;
 
+import dal.BodyDAO;
 import dal.RegisterDAO;
 import dal.UserDAO;
-
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,7 +14,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import model.User;
+import model.Wallet;
 import validate.ValidateRegister;
 
 /**
@@ -75,14 +77,19 @@ public class logincontroller extends HttpServlet {
         if (captchaEntered != null && captchaEntered.equals(sessionCaptcha)) {
             UserDAO dao = new UserDAO();
             User u = dao.login(userRaw, rd.encode(passRaw));
-
-            if (u != null && rd.encode(passRaw).equals(u.getPassword()) && checkpass) {
+            HttpSession session = request.getSession();
+            BodyDAO d = new BodyDAO();            
+            Wallet w = d.getWalletById(u.getId());
+            request.setAttribute("balance", w.getBalance());
+            session.setAttribute("walletCurrent", w);
+            if (u != null && u.getBanned().equals("active")) {
                 // Instead of using request dispatcher, send a success response
-                request.setAttribute("uu",  u.getUsername());
-                RequestDispatcher dispatcher = request.getRequestDispatcher("homepage.jsp") ;
+
+                session.setAttribute("user", u);
+                session.setMaxInactiveInterval(30000);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("getallproduct");
                 response.getWriter().write("success");
-            } else {
-                // Instead of using request dispatcher, send an error response
+            }else {
                 response.getWriter().write("error");
             }
         } else {

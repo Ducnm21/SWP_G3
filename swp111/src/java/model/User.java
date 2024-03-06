@@ -27,7 +27,7 @@ public class User {
         this.email = email;
         this.mobile = mobile;
         this.fullname = fullname;
-
+    }
     public User(String username, String password, String email, String mobile, String fullname, int is_admin, String banned) {
         this.username = username;
         this.password = password;

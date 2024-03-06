@@ -4,24 +4,24 @@
  */
 package controller;
 
-import dal.RegisterDAO;
 import dal.UserDAO;
-
-import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 import model.User;
-import validate.ValidateRegister;
 
 /**
  *
- * @author VIVO-S15
+ * @author admin
  */
-public class logincontroller extends HttpServlet {
+@WebServlet(name = "LoadAccount", urlPatterns = {"/LoadAccount"})
+public class LoadAccount extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,6 +34,19 @@ public class logincontroller extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try ( PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet LoadAccount</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet LoadAccount at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -48,7 +61,11 @@ public class logincontroller extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        UserDAO dao = new UserDAO();
+        List<User> users = dao.getAllUser();
+        request.setAttribute("listAccount", users);
+        request.getRequestDispatcher("ManageAccount.jsp").forward(request, response);
+        
     }
 
     /**
@@ -62,34 +79,9 @@ public class logincontroller extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/plain;charset=UTF-8");
-
-        String userRaw = request.getParameter("username");
-        String passRaw = request.getParameter("password");
-        String captchaEntered = request.getParameter("captchaEntered");
-        String sessionCaptcha = (String) request.getSession().getAttribute("captcha");
-        ValidateRegister v = new ValidateRegister();
-        boolean checkpass = v.CheckPassword(passRaw);
-        RegisterDAO rd = new RegisterDAO();
-
-        if (captchaEntered != null && captchaEntered.equals(sessionCaptcha)) {
-            UserDAO dao = new UserDAO();
-            User u = dao.login(userRaw, rd.encode(passRaw));
-
-            if (u != null && rd.encode(passRaw).equals(u.getPassword()) && checkpass) {
-                // Instead of using request dispatcher, send a success response
-                request.setAttribute("uu",  u.getUsername());
-                RequestDispatcher dispatcher = request.getRequestDispatcher("homepage.jsp") ;
-                response.getWriter().write("success");
-            } else {
-                // Instead of using request dispatcher, send an error response
-                response.getWriter().write("error");
-            }
-        } else {
-            // Captcha doesn't match
-            response.getWriter().write("error");
-        }
+        processRequest(request, response);
     }
+    
 
     /**
      * Returns a short description of the servlet.

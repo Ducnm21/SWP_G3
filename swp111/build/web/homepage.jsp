@@ -101,6 +101,7 @@
                                         <ul class="dropdown-menu">
                                             <li class="nav-item"><a class="nav-link" href="logout">Logout</a></li>
                                             <li class="nav-item"><a class="nav-link" href="newscontroll">News</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="history">Transaction History</a></li>
                                             <li class="nav-item"><a class="nav-link" href="changepassword.jsp">Change Password</a></li>
                                             <li class="nav-item"><a class="nav-link" href="UpdateProfile.jsp">Update Profile</a></li>
                                         </ul>
@@ -232,10 +233,10 @@
                                         $("#popupMessage").text(message);
                                         $("#popup").show();
 
-                                        // Tự động ẩn popup sau một khoảng thời gian
+                                        // Tá»± Äá»ng áº©n popup sau má»t khoáº£ng thá»i gian
                                         setTimeout(function () {
                                             $("#popup").hide();
-                                        }, 3000); // 3000 milliseconds (3 seconds) - bạn có thể điều chỉnh thời gian theo ý muốn
+                                        }, 3000); // 3000 milliseconds (3 seconds) - báº¡n cÃ³ thá» Äiá»u chá»nh thá»i gian theo Ã½ muá»n
                                     }
 
         </script>
@@ -289,24 +290,24 @@
             }
             #modalpop .modalpop-body{
                 padding: 10px 20px 15px;
-                width: 100%; /* Thêm dòng này để làm cho nội dung fit toàn bộ thẻ */
-                box-sizing: border-box; /* Bảo đảm tính toàn vẹn của box model */
+                width: 100%; /* ThÃªm dÃ²ng nÃ y Äá» lÃ m cho ná»i dung fit toÃ n bá» tháº» */
+                box-sizing: border-box; /* Báº£o Äáº£m tÃ­nh toÃ n váº¹n cá»§a box model */
                 padding: 10px 20px 15px;
             }
             .modalpop-body {
-                max-height: 70vh; /* Giảm chiều cao tối đa để tránh tràn ngoài màn hình */
-                overflow-y: auto; /* Thêm thanh cuộn nếu nội dung quá dài */
+                max-height: 70vh; /* Giáº£m chiá»u cao tá»i Äa Äá» trÃ¡nh trÃ n ngoÃ i mÃ n hÃ¬nh */
+                overflow-y: auto; /* ThÃªm thanh cuá»n náº¿u ná»i dung quÃ¡ dÃ i */
             }
 
             .tablepop {
                 width: 100%;
-                border-collapse: collapse; /* Loại bỏ khoảng cách giữa các ô */
+                border-collapse: collapse; /* Loáº¡i bá» khoáº£ng cÃ¡ch giá»¯a cÃ¡c Ã´ */
                 margin-left: 0px;
             }
 
             .tablepop th, .tablepop td {
-                padding: 8px; /* Thêm padding để tạo ra khoảng cách giữa nội dung và biên của ô */
-                border: 1px solid #ddd; /* Thêm đường biên */
+                padding: 8px; /* ThÃªm padding Äá» táº¡o ra khoáº£ng cÃ¡ch giá»¯a ná»i dung vÃ  biÃªn cá»§a Ã´ */
+                border: 1px solid #ddd; /* ThÃªm ÄÆ°á»ng biÃªn */
 
             }
 
@@ -397,12 +398,12 @@
             const modalpop_container = document.getElementById
                     ('modalpop-container');
 
-            btnpop_open.addEventListener('click', function () {    // Thêm class 'showpop' vào modalpop_container khi nút được nhấn
+            btnpop_open.addEventListener('click', function () {    // ThÃªm class 'showpop' vÃ o modalpop_container khi nÃºt ÄÆ°á»£c nháº¥n
                 modalpop_container.classList.add('showpop');
             });
 
             btnpop_close.addEventListener('click', function () {
-                // Loại bỏ class 'showpop' khi nút close được nhấn
+                // Loáº¡i bá» class 'showpop' khi nÃºt close ÄÆ°á»£c nháº¥n
                 modalpop_container.classList.remove('showpop');
             });
         </script>

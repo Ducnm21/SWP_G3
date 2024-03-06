@@ -9,9 +9,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DBContext {
-    public static String DB_URL = "jdbc:mysql://localhost:3306/swp391_g3";
+    public static String DB_URL = "jdbc:mysql://localhost:3306/scamlamcho";
     public static String USER_NAME = "root";
-    public static String PASSWORD = "123456";
+    public static String PASSWORD = "1234";
 
     public static void main(String args[]) {
         Connection conn = null;
@@ -25,7 +25,7 @@ public class DBContext {
 
             while (rs.next()) {
                 System.out.println(rs.getInt(1) + "  " + rs.getString(2) + "  " + rs.getString(3) + "  "
-                        + rs.getString(4) + "  " + rs.getString(5) + "  " + rs.getString(6) + "  " + rs.getString(7));
+                        + rs.getString(4) + "  " + rs.getString(5) + "  " + rs.getString(6) );
             }
         } catch (SQLException ex) {
             ex.printStackTrace();

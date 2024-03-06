@@ -27,7 +27,6 @@ public class User {
         this.email = email;
         this.mobile = mobile;
         this.fullname = fullname;
-    }
 
     public User(String username, String password, String email, String mobile, String fullname, int is_admin, String banned) {
         this.username = username;
@@ -38,8 +37,6 @@ public class User {
         this.is_admin = is_admin;
         this.banned = banned;
     }
-
-    
 
     public User(int id, String username, String password, String email, String mobile, String fullname, String created_at, String deleted_by, String updated_by, int is_admin, String banned) {
         this.id = id;

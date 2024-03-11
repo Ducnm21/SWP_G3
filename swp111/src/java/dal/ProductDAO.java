@@ -762,7 +762,7 @@ public class ProductDAO {
 
     public static void main(String[] args) {
         ProductDAO dao = new ProductDAO();
-        List<Product> list = dao.getCustomerBearingOrderByUser_ID(4);
+        List<Product> list = dao.getAllProduct();
         for (Product p : list) {
             System.out.println(p);
         }

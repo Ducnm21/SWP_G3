@@ -16,6 +16,8 @@ import java.util.List;
 import model.Cart;
 import model.CartXOrder;
 import model.CartXProduct;
+import model.PayDTO;
+import model.Product;
 
 import model.User;
 import model.Wallet;
@@ -220,6 +222,19 @@ public class BodyDAO extends DBContext {
             e.printStackTrace();
         }
         return list;
+    }
+    public boolean UpdateWalletSeller(PayDTO p){     
+        ProductDAO pd=new ProductDAO();      
+        Product p1=pd.getProductByID(p.getProduct_id());
+        Wallet w=getWalletById(p1.getUser_id());
+        double balance=w.getBalance()+p1.getActualreceived();
+        updateWallet(balance, p.getUser_id());
+        return true;
+    }
+    public void PurchaseSellers(List<PayDTO> list){
+        for(int i=0;i<list.size();i++){
+            UpdateWalletSeller(list.get(i));
+        }
     }
 
     public static void main(String[] args) {

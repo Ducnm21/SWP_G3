@@ -148,7 +148,6 @@
                                     <th style="padding: 8px; border: 1px solid #dddddd;">Code</th>
                                     <th style="padding: 8px; border: 1px solid #dddddd;">Status</th>
                                     <th style="padding: 8px; border: 1px solid #dddddd;">Topic</th>
-                                    <th style="padding: 8px; border: 1px solid #dddddd;">Seller</th>
                                     <th style="padding: 8px; border: 1px solid #dddddd;">Contact Method</th>
                                     <th style="padding: 8px; border: 1px solid #dddddd;">Price</th>
                                     <th style="padding: 8px; border: 1px solid #dddddd;">Bearing Transaction Fee</th>
@@ -163,7 +162,6 @@
                                         <td style="padding: 8px; border: 1px solid #dddddd;">${c.product_id}</td>
                                         <td style="padding: 8px; border: 1px solid #dddddd;">${c.status}</td>
                                         <td style="padding: 8px; border: 1px solid #dddddd;">${c.topic}</td>
-                                        <td style="padding: 8px; border: 1px solid #dddddd;">${c.customer}</td>
                                         <td style="padding: 8px; border: 1px solid #dddddd;">${c.contactmethod}</td>
                                         <td style="padding: 8px; border: 1px solid #dddddd;">${c.price}</td>
                                         <td style="padding: 8px; border: 1px solid #dddddd;">${c.bearingtransactionfees}</td>

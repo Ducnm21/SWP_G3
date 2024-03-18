@@ -147,7 +147,7 @@
                                 <tr>
                                     <th style="padding: 8px; border: 1px solid #dddddd;">Code</th>
                                     <th style="padding: 8px; border: 1px solid #dddddd;">Status</th>
-                                    <th style="padding: 8px; border: 1px solid #dddddd;">Topic</th>
+                                    <th style="padding: 8px; border: 1px solid #dddddd;">Topic</th>                                    
                                     <th style="padding: 8px; border: 1px solid #dddddd;">Contact Method</th>
                                     <th style="padding: 8px; border: 1px solid #dddddd;">Price</th>
                                     <th style="padding: 8px; border: 1px solid #dddddd;">Bearing Transaction Fee</th>

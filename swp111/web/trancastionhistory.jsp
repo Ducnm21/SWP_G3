@@ -141,34 +141,38 @@
             <div class="container" style="margin-left: 130px">
                 <div class="cart_inner">
                     <div class="table-responsive">
-                        <table class="table" style="border-collapse: collapse; width: 100%;">
-                            <thead>
+                                                    <thead>
                                 <tr>
                                     <th style="padding: 8px; border: 1px solid #dddddd;">Code</th>
-                                    <th style="padding: 8px; border: 1px solid #dddddd;">Status</th>
-                                    <th style="padding: 8px; border: 1px solid #dddddd;">Topic</th>
                                     <th style="padding: 8px; border: 1px solid #dddddd;">Seller</th>
+                                    <th style="padding: 8px; border: 1px solid #dddddd;">Status</th>
+                                    <th style="padding: 8px; border: 1px solid #dddddd;">Topic</th>                                  
                                     <th style="padding: 8px; border: 1px solid #dddddd;">Contact Method</th>
                                     <th style="padding: 8px; border: 1px solid #dddddd;">Price</th>
                                     <th style="padding: 8px; border: 1px solid #dddddd;">Bearing Transaction Fee</th>
                                     <th style="padding: 8px; border: 1px solid #dddddd;">Transaction Fee</th>
                                     <th style="padding: 8px; border: 1px solid #dddddd;">Actual Receive</th>
+                                    <th style="padding: 8px; border: 1px solid #dddddd;">Purchase Time</th>
                                     <th style="padding: 8px; border: 1px solid #dddddd;">Action</th>
+                                    <th style="padding: 8px; border: 1px solid #dddddd;">Action</th>
+                                    
                                 </tr>
                             </thead>
                             <tbody>
                                 <c:forEach var="c" items="${history}">
                                     <tr>
                                         <td style="padding: 8px; border: 1px solid #dddddd;">${c.product_id}</td>
+                                        <td style="padding: 8px; border: 1px solid #dddddd;">${c.username}</td>
                                         <td style="padding: 8px; border: 1px solid #dddddd;">${c.status}</td>
-                                        <td style="padding: 8px; border: 1px solid #dddddd;">${c.topic}</td>
-                                        <td style="padding: 8px; border: 1px solid #dddddd;">${c.customer}</td>
+                                        <td style="padding: 8px; border: 1px solid #dddddd;">${c.topic}</td>                                       
                                         <td style="padding: 8px; border: 1px solid #dddddd;">${c.contactmethod}</td>
                                         <td style="padding: 8px; border: 1px solid #dddddd;">${c.price}</td>
                                         <td style="padding: 8px; border: 1px solid #dddddd;">${c.bearingtransactionfees}</td>
                                         <td style="padding: 8px; border: 1px solid #dddddd;">${c.transactionfees}</td>
                                         <td style="padding: 8px; border: 1px solid #dddddd;">${c.price+c.transactionfees}</td>
-                                        <td style="padding: 8px; border: 1px solid #dddddd;"><a href="deleteOrd?id=${c.product_id}">View Detail</a></td>
+                                        <td style="padding: 8px; border: 1px solid #dddddd;">${c.create_at}</td>
+                                        <td style="padding: 8px; border: 1px solid #dddddd;"><a href="viewdetail?id=${c.product_id}">View Detail</a></td>
+                                        <td style="padding: 8px; border: 1px solid #dddddd;"><a href="sendfeedback?uid=${c.seller_id}&pid=${c.product_id}">Send Feedback</a></td> 
                                     </tr>
                                 </c:forEach>
                             </tbody>

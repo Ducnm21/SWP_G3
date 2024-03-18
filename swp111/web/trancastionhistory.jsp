@@ -90,7 +90,6 @@
                                         <ul class="dropdown-menu">
                                             <li class="nav-item"><a class="nav-link" href="logout">Logout</a></li>
                                             <li class="nav-item"><a class="nav-link" href="newscontroll">News</a></li>
-                                            <li class="nav-item"><a class="nav-link" href="history">Transaction History</a></li>
                                             <li class="nav-item"><a class="nav-link" href="changepassword.jsp">Change Password</a></li>
                                             <li class="nav-item"><a class="nav-link" href="UpdateProfile.jsp">Update Profile</a></li>
                                         </ul>
@@ -128,8 +127,8 @@
                     <div class="col-first">
                         <h1>Cart</h1>
                         <nav class="d-flex align-items-center">
-                            <a href="index.jsp">Home<span class="lnr lnr-arrow-right"></span></a>
-                            <a href="category.html">My Cart</a>
+                            <a href="history"Purchase History<span class="lnr lnr-arrow-right"></span></a>
+                            <a href="soldhistory">Sold History</a>
                         </nav>
                     </div>
                 </div>
@@ -138,10 +137,11 @@
         <!-- End Banner Area -->
         <!--================Cart Area =================-->
         <section class="cart_area">
-            <div class="container" style="margin-left: 130px">
+            <div class="container" style="text-align: center">
                 <div class="cart_inner">
                     <div class="table-responsive">
-                                                    <thead>
+                        <table class="table" style ="border-collapse: collapse; width: 100%;">
+                            <thead>
                                 <tr>
                                     <th style="padding: 8px; border: 1px solid #dddddd;">Code</th>
                                     <th style="padding: 8px; border: 1px solid #dddddd;">Seller</th>

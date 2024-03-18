@@ -25,7 +25,7 @@ import javax.imageio.ImageIO;
  * @author 84353
  */
 @WebServlet(name = "CaptchaGeneratorServlet", urlPatterns = {"/captchaGenerate"})
-public class CaptchaGeneratorServlet extends HttpServlet {
+public class CaptchaGeneratorServlet_1 extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

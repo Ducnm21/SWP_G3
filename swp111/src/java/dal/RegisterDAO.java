@@ -36,7 +36,8 @@ public class RegisterDAO extends DBContext {
         }
         return true;
     }
-public boolean checkEmail(String email) {
+
+    public boolean checkEmail(String email) {
         String sql = "select * from users where email=?";
         try {
             PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
@@ -51,6 +52,7 @@ public boolean checkEmail(String email) {
         }
         return true;
     }
+
     public String encode(String password) {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
@@ -71,8 +73,8 @@ public boolean checkEmail(String email) {
     }
 
     public void AddUser(String username, String password, String email, String mobile, String fullname) {
-        String sql = "INSERT INTO users (username,password,email,mobile,fullname)\n"
-                + "VALUES (?,?,?,?,?) ";
+        String sql = "INSERT INTO users (username, password, email, mobile, fullname, is_admin, banned)\n"
+                + "VALUES (?, ?, ?, ?, ?,  0, 'active');";
         try {
             PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
 
@@ -85,6 +87,18 @@ public boolean checkEmail(String email) {
         } catch (SQLException e) {
         }
     }
+
+    public void AddWalletNewUser() {
+        String sql = "INSERT INTO wallet (user_id, balance)\n"
+                + "SELECT user_id, 0.0 \n"
+                + "FROM users;";
+        try {
+            PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
+            st.executeUpdate();
+        } catch (SQLException e) {
+        }
+    }
+    
 
     public void AddRole() {
         String sql = "INSERT INTO role (user_id, is_admin, is_seller, is_user)\n"

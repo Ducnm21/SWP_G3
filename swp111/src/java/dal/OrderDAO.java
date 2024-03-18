@@ -8,29 +8,32 @@ import static dal.DBContext.DB_URL;
 import static dal.DBContext.PASSWORD;
 import static dal.DBContext.USER_NAME;
 import static dal.DBContext.getConnection;
+import jakarta.servlet.http.HttpSession;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import model.Product;
+import model.Order;
+import model.User;
 
 /**
  *
- * @author admin
+ * @author VIVO-S15
  */
-public class ProductDAO {
+public class OrderDAO {
 
-    public List<Product> getAllProduct() {
-        List<Product> list = new ArrayList<>();
-        String sql = "SELECT p.*, u.username AS sellerName FROM products p INNER JOIN users u ON p.user_id = u.user_id WHERE p.status = 'Available' and p.publicprivate = 'public';";
+    public List<Order> getAllOrder() {
+        List<Order> list = new ArrayList<>();
+        String sql = "SELECT * FROM orders";
         try {
             PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Product p = new Product(
-                        rs.getInt("product_id"),
+                Order o = new Order(
+                        rs.getInt("order_id"),
                         rs.getString("status"),
+                        rs.getString("customer"),
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
@@ -43,7 +46,7 @@ public class ProductDAO {
                         rs.getString("created_at"),
                         rs.getString("updated_at"),
                         rs.getInt("user_id"));
-                list.add(p);
+                list.add(o);
             }
         } catch (SQLException e) {
             System.out.println(e);
@@ -51,31 +54,16 @@ public class ProductDAO {
         return list;
     }
 
-    public int GetListPrice() {
-        List<Product> list = new ArrayList<>();
-        String sql = "SELECT p.price FROM products p INNER JOIN users u ON p.user_id = u.user_id WHERE p.status = 'Available' and p.publicprivate = 'public';";
+    public Order getOrderByID(String id) {
+        String sql = "SELECT * FROM orders WHERE order_id = ?";
         try {
             PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
+            st.setString(1, id);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                return rs.getInt("price");               
-            }
-        } catch (SQLException e) {
-            
-        }
-        return 0;
-    }
-
-    public Product getProductByID(int id) {
-        String sql = "SELECT * FROM products WHERE product_id = ?";
-        try {
-            PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
-            st.setInt(1, id);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                return new Product(
-                        rs.getInt("product_id"),
+                return new Order(rs.getInt("order_id"),
                         rs.getString("status"),
+                        rs.getString("customer"),
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
@@ -95,16 +83,18 @@ public class ProductDAO {
         return null;
     }
 
-    public List<Product> getProductByUser_ID(int uid) {
-        List<Product> list = new ArrayList<>();
-        String sql = "SELECT * FROM products WHERE user_id = ?";
+    public List<Order> getTop3() {
+        List<Order> list = new ArrayList<>();
+        String sql = "SELECT * FROM orders \n"
+                + "LIMIT 3;";
         try {
             PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
-            st.setInt(1, uid);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                list.add(new Product(rs.getInt("product_id"),
+                Order o = new Order(
+                        rs.getInt("order_id"),
                         rs.getString("status"),
+                        rs.getString("customer"),
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
@@ -116,7 +106,8 @@ public class ProductDAO {
                         rs.getString("hiddencontent"),
                         rs.getString("created_at"),
                         rs.getString("updated_at"),
-                        rs.getInt("user_id")));
+                        rs.getInt("user_id"));
+                list.add(o);
             }
         } catch (Exception e) {
 
@@ -124,17 +115,18 @@ public class ProductDAO {
         return list;
     }
 
-    public List<Product> getProductByUser_IDToProfile(int uid) {
-        List<Product> list = new ArrayList<>();
-        String sql = "SELECT * FROM Products where status = 'Available' and user_id = ?;";
+    public List<Order> getTop5ByUser_ID(int uid) {
+        List<Order> list = new ArrayList<>();
+        String sql = "SELECT * FROM orders where user_id = ?\n"
+                + "LIMIT 5;";
         try {
             PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
             st.setInt(1, uid);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                list.add(new Product(
-                        rs.getInt("product_id"),
-                        rs.getString("status"),                        
+                list.add(new Order(rs.getInt("order_id"),
+                        rs.getString("status"),
+                        rs.getString("customer"),
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
@@ -154,11 +146,237 @@ public class ProductDAO {
         return list;
     }
 
-    public void addNewProduct(String topic, String contactmethod, String publicprivate, int price, String bearingtransactionfees, String description, String hiddencontent, int user_id) {
+    public List<Order> getNext5OrderByUser_ID(int uid, int amount) {
+        List<Order> list = new ArrayList<>();
+        String sql = "SELECT * FROM orders \n"
+                + "where user_id = ? \n"
+                + "order by order_id \n"
+                + "LIMIT 5 OFFSET ?;";
+        try {
+            PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
+            st.setInt(1, uid);
+            st.setInt(2, amount);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(new Order(rs.getInt("order_id"),
+                        rs.getString("status"),
+                        rs.getString("customer"),
+                        rs.getString("topic"),
+                        rs.getString("contactmethod"),
+                        rs.getString("publicprivate"),
+                        rs.getInt("price"),
+                        rs.getString("bearingtransactionfees"),
+                        rs.getInt("transactionfees"),
+                        rs.getInt("actualreceived"),
+                        rs.getString("description"),
+                        rs.getString("hiddencontent"),
+                        rs.getString("created_at"),
+                        rs.getString("updated_at"),
+                        rs.getInt("user_id")));
+            }
+        } catch (Exception e) {
+
+        }
+        return list;
+    }
+
+    public List<Order> getOrderByUser_ID(int uid) {
+        List<Order> list = new ArrayList<>();
+        String sql = "SELECT * FROM orders WHERE user_id = ?";
+        try {
+            PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
+            st.setInt(1, uid);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(new Order(rs.getInt("order_id"),
+                        rs.getString("status"),
+                        rs.getString("customer"),
+                        rs.getString("topic"),
+                        rs.getString("contactmethod"),
+                        rs.getString("publicprivate"),
+                        rs.getInt("price"),
+                        rs.getString("bearingtransactionfees"),
+                        rs.getInt("transactionfees"),
+                        rs.getInt("actualreceived"),
+                        rs.getString("description"),
+                        rs.getString("hiddencontent"),
+                        rs.getString("created_at"),
+                        rs.getString("updated_at"),
+                        rs.getInt("user_id")));
+            }
+        } catch (Exception e) {
+
+        }
+        return list;
+    }
+
+    public List<Order> getPublicOrderByUser_ID(int uid) {
+        List<Order> list = new ArrayList<>();
+        String sql = "SELECT * FROM orders where publicprivate = 'public' and user_id = ?";
+        try {
+            PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
+            st.setInt(1, uid);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(new Order(rs.getInt("order_id"),
+                        rs.getString("status"),
+                        rs.getString("customer"),
+                        rs.getString("topic"),
+                        rs.getString("contactmethod"),
+                        rs.getString("publicprivate"),
+                        rs.getInt("price"),
+                        rs.getString("bearingtransactionfees"),
+                        rs.getInt("transactionfees"),
+                        rs.getInt("actualreceived"),
+                        rs.getString("description"),
+                        rs.getString("hiddencontent"),
+                        rs.getString("created_at"),
+                        rs.getString("updated_at"),
+                        rs.getInt("user_id")));
+            }
+        } catch (Exception e) {
+
+        }
+        return list;
+    }
+
+    public List<Order> getPrivateOrderByUser_ID(int uid) {
+        List<Order> list = new ArrayList<>();
+        String sql = "SELECT * FROM orders where publicprivate = 'private' and user_id = ?";
+        try {
+            PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
+            st.setInt(1, uid);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(new Order(rs.getInt("order_id"),
+                        rs.getString("status"),
+                        rs.getString("customer"),
+                        rs.getString("topic"),
+                        rs.getString("contactmethod"),
+                        rs.getString("publicprivate"),
+                        rs.getInt("price"),
+                        rs.getString("bearingtransactionfees"),
+                        rs.getInt("transactionfees"),
+                        rs.getInt("actualreceived"),
+                        rs.getString("description"),
+                        rs.getString("hiddencontent"),
+                        rs.getString("created_at"),
+                        rs.getString("updated_at"),
+                        rs.getInt("user_id")));
+            }
+        } catch (Exception e) {
+
+        }
+        return list;
+    }
+
+    public List<Order> getSellerBearingOrderByUser_ID(int uid) {
+        List<Order> list = new ArrayList<>();
+        String sql = "SELECT * FROM orders where bearingtransactionfees = 'Seller' and user_id = ?";
+        try {
+            PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
+            st.setInt(1, uid);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(new Order(rs.getInt("order_id"),
+                        rs.getString("status"),
+                        rs.getString("customer"),
+                        rs.getString("topic"),
+                        rs.getString("contactmethod"),
+                        rs.getString("publicprivate"),
+                        rs.getInt("price"),
+                        rs.getString("bearingtransactionfees"),
+                        rs.getInt("transactionfees"),
+                        rs.getInt("actualreceived"),
+                        rs.getString("description"),
+                        rs.getString("hiddencontent"),
+                        rs.getString("created_at"),
+                        rs.getString("updated_at"),
+                        rs.getInt("user_id")));
+            }
+        } catch (Exception e) {
+
+        }
+        return list;
+    }
+
+    public List<Order> getCustomerBearingOrderByUser_ID(int uid) {
+        List<Order> list = new ArrayList<>();
+        String sql = "SELECT * FROM orders where bearingtransactionfees = 'Customer' and user_id = ?";
+        try {
+            PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
+            st.setInt(1, uid);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(new Order(rs.getInt("order_id"),
+                        rs.getString("status"),
+                        rs.getString("customer"),
+                        rs.getString("topic"),
+                        rs.getString("contactmethod"),
+                        rs.getString("publicprivate"),
+                        rs.getInt("price"),
+                        rs.getString("bearingtransactionfees"),
+                        rs.getInt("transactionfees"),
+                        rs.getInt("actualreceived"),
+                        rs.getString("description"),
+                        rs.getString("hiddencontent"),
+                        rs.getString("created_at"),
+                        rs.getString("updated_at"),
+                        rs.getInt("user_id")));
+            }
+        } catch (Exception e) {
+
+        }
+        return list;
+    }
+
+    public List<Order> getOrderByStatusAndUser_ID(String status, int uid) {
+        List<Order> list = new ArrayList<>();
+        String sql = "SELECT * FROM orders where status = ? and user_id = ?";
+        try {
+            PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
+            st.setString(1, status);
+            st.setInt(2, uid);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(new Order(rs.getInt("order_id"),
+                        rs.getString("status"),
+                        rs.getString("customer"),
+                        rs.getString("topic"),
+                        rs.getString("contactmethod"),
+                        rs.getString("publicprivate"),
+                        rs.getInt("price"),
+                        rs.getString("bearingtransactionfees"),
+                        rs.getInt("transactionfees"),
+                        rs.getInt("actualreceived"),
+                        rs.getString("description"),
+                        rs.getString("hiddencontent"),
+                        rs.getString("created_at"),
+                        rs.getString("updated_at"),
+                        rs.getInt("user_id")));
+            }
+        } catch (Exception e) {
+
+        }
+        return list;
+    }
+
+    public void deleteOrder(String oid) {
+        String sql = "DELETE FROM orders WHERE order_id = ?";
+        try {
+            PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
+            st.setString(1, oid);
+            st.executeUpdate();
+        } catch (Exception e) {
+
+        }
+    }
+
+    public void addNewOrder(String topic, String contactmethod, String publicprivate, int price, String bearingtransactionfees, String description, String hiddencontent, int user_id) {
         // Tính toán giá trị của transactionfees dựa trên giá trị của price (1% của price)
         int transactionfees = (int) Math.round(price * 0.01);
 
-        String sql = "INSERT INTO products (status,  topic, contactmethod, publicprivate, price, bearingtransactionfees, transactionfees, actualreceived, description, hiddencontent, user_id) "
+        String sql = "INSERT INTO orders (status, customer, topic, contactmethod, publicprivate, price, bearingtransactionfees, transactionfees, actualreceived, description, hiddencontent, user_id) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
         try {
@@ -181,63 +399,18 @@ public class ProductDAO {
         }
     }
 
-    public void updateProduct(int pid, String topic, String contactmethod, String publicprivate, int price, String bearingtransactionfees, int transactionfees, String description, String hiddencontent) {
-        // Tính toán lại giá trị của transactionfees dựa trên giá trị mới của price (1% của price)
-        int newTransactionFees = (int) Math.round(price * 0.01);
-
-        String sql = "UPDATE products\n"
-                + "SET \n"
-                + "    topic = ?,\n"
-                + "    contactmethod = ?,\n"
-                + "    publicprivate = ?,\n"
-                + "    price = ?,\n"
-                + "    bearingtransactionfees = ?,\n"
-                + "    transactionfees = ?,\n"
-                + "    description = ?,\n"
-                + "    hiddencontent = ?\n"
-                + "WHERE\n"
-                + "    product_id = ?;";
+    public List<Order> searchByCustomerNameWithUser_ID(String txtSearch, int uid) {
+        List<Order> list = new ArrayList<>();
+        String sql = "SELECT * FROM orders where customer like ? and user_id = ?";
         try {
             PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
-            st.setString(1, topic);
-            st.setString(2, contactmethod);
-            st.setString(3, publicprivate);
-            st.setInt(4, price);
-            st.setString(5, bearingtransactionfees);
-            st.setInt(6, newTransactionFees); // Sử dụng giá trị mới của transactionfees
-            st.setString(7, description);
-            st.setString(8, hiddencontent);
-            st.setInt(9, pid);
-            st.executeUpdate();
-        } catch (SQLException e) {
-            // Handle exceptions appropriately, e.g., log them
-            e.printStackTrace();
-        }
-    }
-
-    public void deleteProduct(int pid) {
-        String sql = "DELETE FROM products WHERE product_id = ?";
-        try {
-            PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
-            st.setInt(1, pid);
-            st.executeUpdate();
-        } catch (Exception e) {
-
-        }
-    }
-
-    public List<Product> getProductByStatusAndUser_ID(String status, int uid) {
-        List<Product> list = new ArrayList<>();
-        String sql = "SELECT * FROM Products where status = ? and user_id = ?";
-        try {
-            PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
-            st.setString(1, status);
+            st.setString(1, "%" + txtSearch + "%");
             st.setInt(2, uid);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                list.add(new Product(rs.getInt("product_id"),
+                list.add(new Order(rs.getInt("order_id"),
                         rs.getString("status"),
-                        
+                        rs.getString("customer"),
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
@@ -257,10 +430,42 @@ public class ProductDAO {
         return list;
     }
 
-    public List<Product> get0To250kProductByUser_ID(int uid) {
-        List<Product> list = new ArrayList<>();
+    public List<Order> searchByTitleWithUser_ID(String txtSearchT, int uid) {
+        List<Order> list = new ArrayList<>();
+        String sql = "SELECT * FROM orders where topic like ? and user_id = ?";
+        try {
+            PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
+            st.setString(1, "%" + txtSearchT + "%");
+            st.setInt(2, uid);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(new Order(rs.getInt("order_id"),
+                        rs.getString("status"),
+                        rs.getString("customer"),
+                        rs.getString("topic"),
+                        rs.getString("contactmethod"),
+                        rs.getString("publicprivate"),
+                        rs.getInt("price"),
+                        rs.getString("bearingtransactionfees"),
+                        rs.getInt("transactionfees"),
+                        rs.getInt("actualreceived"),
+                        rs.getString("description"),
+                        rs.getString("hiddencontent"),
+                        rs.getString("created_at"),
+                        rs.getString("updated_at"),
+                        rs.getInt("user_id")));
+            }
+        } catch (Exception e) {
+
+        }
+        return list;
+    }
+
+    // code theo giá order
+    public List<Order> get0To250kOrderByUser_ID(int uid) {
+        List<Order> list = new ArrayList<>();
         String sql = "SELECT *\n"
-                + "FROM products\n"
+                + "FROM orders\n"
                 + "WHERE price BETWEEN 0 AND 250000\n"
                 + "AND user_id = ?;";
         try {
@@ -268,9 +473,9 @@ public class ProductDAO {
             st.setInt(1, uid);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                list.add(new Product(rs.getInt("product_id"),
+                list.add(new Order(rs.getInt("order_id"),
                         rs.getString("status"),
-                        
+                        rs.getString("customer"),
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
@@ -290,10 +495,10 @@ public class ProductDAO {
         return list;
     }
 
-    public List<Product> get250kTo500kProductByUser_ID(int uid) {
-        List<Product> list = new ArrayList<>();
+    public List<Order> get250kTo500kOrderByUser_ID(int uid) {
+        List<Order> list = new ArrayList<>();
         String sql = "SELECT *\n"
-                + "FROM products\n"
+                + "FROM orders\n"
                 + "WHERE price BETWEEN 250001 AND 500000\n"
                 + "AND user_id = ?;";
         try {
@@ -301,9 +506,9 @@ public class ProductDAO {
             st.setInt(1, uid);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                list.add(new Product(rs.getInt("product_id"),
+                list.add(new Order(rs.getInt("order_id"),
                         rs.getString("status"),
-                        
+                        rs.getString("customer"),
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
@@ -323,10 +528,10 @@ public class ProductDAO {
         return list;
     }
 
-    public List<Product> get500kTo1mProductByUser_ID(int uid) {
-        List<Product> list = new ArrayList<>();
+    public List<Order> get500kTo1mOrderByUser_ID(int uid) {
+        List<Order> list = new ArrayList<>();
         String sql = "SELECT *\n"
-                + "FROM products\n"
+                + "FROM orders\n"
                 + "WHERE price BETWEEN 500001 AND 1000000\n"
                 + "AND user_id = ?;";
         try {
@@ -334,9 +539,9 @@ public class ProductDAO {
             st.setInt(1, uid);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                list.add(new Product(rs.getInt("product_id"),
+                list.add(new Order(rs.getInt("order_id"),
                         rs.getString("status"),
-                        
+                        rs.getString("customer"),
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
@@ -356,10 +561,10 @@ public class ProductDAO {
         return list;
     }
 
-    public List<Product> get1mTo5mProductByUser_ID(int uid) {
-        List<Product> list = new ArrayList<>();
+    public List<Order> get1mTo5mOrderByUser_ID(int uid) {
+        List<Order> list = new ArrayList<>();
         String sql = "SELECT *\n"
-                + "FROM products\n"
+                + "FROM orders\n"
                 + "WHERE price BETWEEN 1000001 AND 5000000\n"
                 + "AND user_id = ?;";
         try {
@@ -367,9 +572,9 @@ public class ProductDAO {
             st.setInt(1, uid);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                list.add(new Product(rs.getInt("product_id"),
+                list.add(new Order(rs.getInt("order_id"),
                         rs.getString("status"),
-                        
+                        rs.getString("customer"),
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
@@ -389,10 +594,10 @@ public class ProductDAO {
         return list;
     }
 
-    public List<Product> getOver5mProductByUser_ID(int uid) {
-        List<Product> list = new ArrayList<>();
+    public List<Order> getOver5mOrderByUser_ID(int uid) {
+        List<Order> list = new ArrayList<>();
         String sql = "SELECT *\n"
-                + "FROM products\n"
+                + "FROM orders\n"
                 + "WHERE price > 5000000\n"
                 + "AND user_id = ?;";
         try {
@@ -400,9 +605,9 @@ public class ProductDAO {
             st.setInt(1, uid);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                list.add(new Product(rs.getInt("product_id"),
+                list.add(new Order(rs.getInt("order_id"),
                         rs.getString("status"),
-                        
+                        rs.getString("customer"),
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
@@ -424,10 +629,10 @@ public class ProductDAO {
 
     // end code theo giá order
     // code theo tiền thực nhận order
-    public List<Product> get0To250kReceivedByUser_ID(int uid) {
-        List<Product> list = new ArrayList<>();
+    public List<Order> get0To250kReceivedByUser_ID(int uid) {
+        List<Order> list = new ArrayList<>();
         String sql = "SELECT *\n"
-                + "FROM products\n"
+                + "FROM orders\n"
                 + "WHERE actualreceived\\ BETWEEN 0 AND 250000\n"
                 + "AND user_id = ?;";
         try {
@@ -435,9 +640,9 @@ public class ProductDAO {
             st.setInt(1, uid);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                list.add(new Product(rs.getInt("product_id"),
+                list.add(new Order(rs.getInt("order_id"),
                         rs.getString("status"),
-                        
+                        rs.getString("customer"),
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
@@ -457,10 +662,10 @@ public class ProductDAO {
         return list;
     }
 
-    public List<Product> get250kTo500kReceivedByUser_ID(int uid) {
-        List<Product> list = new ArrayList<>();
+    public List<Order> get250kTo500kReceivedByUser_ID(int uid) {
+        List<Order> list = new ArrayList<>();
         String sql = "SELECT *\n"
-                + "FROM products\n"
+                + "FROM orders\n"
                 + "WHERE actualreceived BETWEEN 250001 AND 500000\n"
                 + "AND user_id = ?;";
         try {
@@ -468,9 +673,9 @@ public class ProductDAO {
             st.setInt(1, uid);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                list.add(new Product(rs.getInt("product_id"),
+                list.add(new Order(rs.getInt("order_id"),
                         rs.getString("status"),
-                        
+                        rs.getString("customer"),
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
@@ -490,10 +695,10 @@ public class ProductDAO {
         return list;
     }
 
-    public List<Product> get500kTo1mReceivedByUser_ID(int uid) {
-        List<Product> list = new ArrayList<>();
+    public List<Order> get500kTo1mReceivedByUser_ID(int uid) {
+        List<Order> list = new ArrayList<>();
         String sql = "SELECT *\n"
-                + "FROM products\n"
+                + "FROM orders\n"
                 + "WHERE actualreceived BETWEEN 500001 AND 1000000\n"
                 + "AND user_id = ?;";
         try {
@@ -501,9 +706,9 @@ public class ProductDAO {
             st.setInt(1, uid);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                list.add(new Product(rs.getInt("product_id"),
+                list.add(new Order(rs.getInt("order_id"),
                         rs.getString("status"),
-                        
+                        rs.getString("customer"),
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
@@ -523,10 +728,10 @@ public class ProductDAO {
         return list;
     }
 
-    public List<Product> get1mTo5mReceivedByUser_ID(int uid) {
-        List<Product> list = new ArrayList<>();
+    public List<Order> get1mTo5mReceivedByUser_ID(int uid) {
+        List<Order> list = new ArrayList<>();
         String sql = "SELECT *\n"
-                + "FROM products\n"
+                + "FROM orders\n"
                 + "WHERE actualreceived BETWEEN 1000001 AND 5000000\n"
                 + "AND user_id = ?;";
         try {
@@ -534,9 +739,9 @@ public class ProductDAO {
             st.setInt(1, uid);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                list.add(new Product(rs.getInt("product_id"),
+                list.add(new Order(rs.getInt("order_id"),
                         rs.getString("status"),
-                        
+                        rs.getString("customer"),
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
@@ -556,10 +761,10 @@ public class ProductDAO {
         return list;
     }
 
-    public List<Product> getOver5mReceivedByUser_ID(int uid) {
-        List<Product> list = new ArrayList<>();
+    public List<Order> getOver5mReceivedByUser_ID(int uid) {
+        List<Order> list = new ArrayList<>();
         String sql = "SELECT *\n"
-                + "FROM products\n"
+                + "FROM orders\n"
                 + "WHERE actualreceived > 5000000\n"
                 + "AND user_id = ?;";
         try {
@@ -567,9 +772,9 @@ public class ProductDAO {
             st.setInt(1, uid);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                list.add(new Product(rs.getInt("product_id"),
+                list.add(new Order(rs.getInt("order_id"),
                         rs.getString("status"),
-                        
+                        rs.getString("customer"),
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
@@ -589,236 +794,79 @@ public class ProductDAO {
         return list;
     }
 
-    public List<Product> searchByCustomerNameWithUser_ID(String txtSearch, int uid) {
-        List<Product> list = new ArrayList<>();
-        String sql = "SELECT * FROM products where customer_id like ? and user_id = ?";
+    // end code theo tiền thực nhận order
+    public void updateOrder(String topic, String contactmethod, String publicprivate, int price, String bearingtransactionfees, int transactionfees, String description, String hiddencontent, int id) {
+        String sql = "UPDATE orders\n"
+                + "SET \n"
+                + "    topic = ?,\n"
+                + "    contactmethod = ?,\n"
+                + "    publicprivate = ?,\n"
+                + "    price = ?,\n"
+                + "    bearingtransactionfees = ?,\n"
+                + "    transactionfees = ?,\n"
+                + "    description = ?,\n"
+                + "    hiddencontent = ?\n"
+                + "    updated_at = CURRENT_TIMESTAMP\n"
+                + "WHERE\n"
+                + "    order_id = ?;";
         try {
             PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
-            st.setString(1, "%" + txtSearch + "%");
-            st.setInt(2, uid);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                list.add(new Product(rs.getInt("product_id"),
-                        rs.getString("status"),
-                        
-                        rs.getString("topic"),
-                        rs.getString("contactmethod"),
-                        rs.getString("publicprivate"),
-                        rs.getInt("price"),
-                        rs.getString("bearingtransactionfees"),
-                        rs.getInt("transactionfees"),
-                        rs.getInt("actualreceived"),
-                        rs.getString("description"),
-                        rs.getString("hiddencontent"),
-                        rs.getString("created_at"),
-                        rs.getString("updated_at"),
-                        rs.getInt("user_id")));
-            }
-        } catch (Exception e) {
-
+            st.setString(1, topic);
+            st.setString(2, contactmethod);
+            st.setString(3, publicprivate);
+            st.setInt(4, price);
+            st.setString(5, bearingtransactionfees);
+            st.setInt(6, transactionfees);
+            st.setString(7, description);
+            st.setString(8, hiddencontent);
+            st.setInt(9, id);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            // Handle exceptions appropriately, e.g., log them
+            e.printStackTrace();
         }
-        return list;
-    }
-
-    public List<Product> searchByTitleWithUser_ID(String txtSearchT, int uid) {
-        List<Product> list = new ArrayList<>();
-        String sql = "SELECT * FROM products where topic like ? and user_id = ?";
-        try {
-            PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
-            st.setString(1, "%" + txtSearchT + "%");
-            st.setInt(2, uid);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                list.add(new Product(rs.getInt("product_id"),
-                        rs.getString("status"),
-                        
-                        rs.getString("topic"),
-                        rs.getString("contactmethod"),
-                        rs.getString("publicprivate"),
-                        rs.getInt("price"),
-                        rs.getString("bearingtransactionfees"),
-                        rs.getInt("transactionfees"),
-                        rs.getInt("actualreceived"),
-                        rs.getString("description"),
-                        rs.getString("hiddencontent"),
-                        rs.getString("created_at"),
-                        rs.getString("updated_at"),
-                        rs.getInt("user_id")));
-            }
-        } catch (Exception e) {
-
-        }
-        return list;
-    }
-
-    public List<Product> searchByContactWithUser_ID(String txtSearchC, int uid) {
-        List<Product> list = new ArrayList<>();
-        String sql = "SELECT * FROM products where contactmethod like ? and user_id = ?";
-        try {
-            PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
-            st.setString(1, "%" + txtSearchC + "%");
-            st.setInt(2, uid);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                list.add(new Product(rs.getInt("product_id"),
-                        rs.getString("status"),
-                        
-                        rs.getString("topic"),
-                        rs.getString("contactmethod"),
-                        rs.getString("publicprivate"),
-                        rs.getInt("price"),
-                        rs.getString("bearingtransactionfees"),
-                        rs.getInt("transactionfees"),
-                        rs.getInt("actualreceived"),
-                        rs.getString("description"),
-                        rs.getString("hiddencontent"),
-                        rs.getString("created_at"),
-                        rs.getString("updated_at"),
-                        rs.getInt("user_id")));
-            }
-        } catch (Exception e) {
-
-        }
-        return list;
-    }
-
-    public List<Product> getPublicOrderByUser_ID(int uid) {
-        List<Product> list = new ArrayList<>();
-        String sql = "SELECT * FROM products where publicprivate = 'public' and user_id = ?";
-        try {
-            PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
-            st.setInt(1, uid);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                list.add(new Product(rs.getInt("product_id"),
-                        rs.getString("status"),
-                        
-                        rs.getString("topic"),
-                        rs.getString("contactmethod"),
-                        rs.getString("publicprivate"),
-                        rs.getInt("price"),
-                        rs.getString("bearingtransactionfees"),
-                        rs.getInt("transactionfees"),
-                        rs.getInt("actualreceived"),
-                        rs.getString("description"),
-                        rs.getString("hiddencontent"),
-                        rs.getString("created_at"),
-                        rs.getString("updated_at"),
-                        rs.getInt("user_id")));
-            }
-        } catch (Exception e) {
-
-        }
-        return list;
-    }
-
-    public List<Product> getPrivateOrderByUser_ID(int uid) {
-        List<Product> list = new ArrayList<>();
-        String sql = "SELECT * FROM products where publicprivate = 'private' and user_id = ?";
-        try {
-            PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
-            st.setInt(1, uid);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                list.add(new Product(rs.getInt("product_id"),
-                        rs.getString("status"),
-                        
-                        rs.getString("topic"),
-                        rs.getString("contactmethod"),
-                        rs.getString("publicprivate"),
-                        rs.getInt("price"),
-                        rs.getString("bearingtransactionfees"),
-                        rs.getInt("transactionfees"),
-                        rs.getInt("actualreceived"),
-                        rs.getString("description"),
-                        rs.getString("hiddencontent"),
-                        rs.getString("created_at"),
-                        rs.getString("updated_at"),
-                        rs.getInt("user_id")));
-            }
-        } catch (Exception e) {
-
-        }
-        return list;
-    }
-
-    public List<Product> getSellerBearingOrderByUser_ID(int uid) {
-        List<Product> list = new ArrayList<>();
-        String sql = "SELECT * FROM products where bearingtransactionfees = 'Seller' and user_id = ?";
-        try {
-            PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
-            st.setInt(1, uid);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                list.add(new Product(rs.getInt("product_id"),
-                        rs.getString("status"),
-                        
-                        rs.getString("topic"),
-                        rs.getString("contactmethod"),
-                        rs.getString("publicprivate"),
-                        rs.getInt("price"),
-                        rs.getString("bearingtransactionfees"),
-                        rs.getInt("transactionfees"),
-                        rs.getInt("actualreceived"),
-                        rs.getString("description"),
-                        rs.getString("hiddencontent"),
-                        rs.getString("created_at"),
-                        rs.getString("updated_at"),
-                        rs.getInt("user_id")));
-            }
-        } catch (Exception e) {
-
-        }
-        return list;
-    }
-
-    public List<Product> getCustomerBearingOrderByUser_ID(int uid) {
-        List<Product> list = new ArrayList<>();
-        String sql = "SELECT * FROM products where bearingtransactionfees = 'Customer' and user_id = ?";
-        try {
-            PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
-            st.setInt(1, uid);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                list.add(new Product(rs.getInt("product_id"),
-                        rs.getString("status"),
-                        
-                        rs.getString("topic"),
-                        rs.getString("contactmethod"),
-                        rs.getString("publicprivate"),
-                        rs.getInt("price"),
-                        rs.getString("bearingtransactionfees"),
-                        rs.getInt("transactionfees"),
-                        rs.getInt("actualreceived"),
-                        rs.getString("description"),
-                        rs.getString("hiddencontent"),
-                        rs.getString("created_at"),
-                        rs.getString("updated_at"),
-                        rs.getInt("user_id")));
-            }
-        } catch (Exception e) {
-
-        }
-        return list;
-    }
-
-    public List<Product> getProductByDate() {
-        List<Product> list = new ArrayList<>();
-        String sql = "SELECT * FROM products\n"
-                + "WHERE created_at >= ? AND created_at <= ? AND user_id = ?;";
-        try {
-            PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
-        } catch (Exception e) {
-
-        }
-        return list;
     }
 
     public static void main(String[] args) {
-        ProductDAO dao = new ProductDAO();
-        List<Product> list = dao.getAllProduct();
-        for (Product p : list) {
-            System.out.println(p);
+        OrderDAO dao = new OrderDAO();
+        List<Order> list = dao.getOver5mOrderByUser_ID(6);
+        for (Order order : list) {
+            System.out.println(order);
         }
     }
+
+    public void updateOrder(String oid, String topic, String contactmethod, String publicprivate, int price, String bearingtransactionfees, int transactionfees, String description, String hiddencontent) {
+        // Tính toán lại giá trị của transactionfees dựa trên giá trị mới của price (1% của price)
+        int newTransactionFees = (int) Math.round(price * 0.01);
+
+        String sql = "UPDATE orders\n"
+                + "SET \n"
+                + "    topic = ?,\n"
+                + "    contactmethod = ?,\n"
+                + "    publicprivate = ?,\n"
+                + "    price = ?,\n"
+                + "    bearingtransactionfees = ?,\n"
+                + "    transactionfees = ?,\n"
+                + "    description = ?,\n"
+                + "    hiddencontent = ?\n"
+                + "WHERE\n"
+                + "    order_id = ?;";
+        try {
+            PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
+            st.setString(1, topic);
+            st.setString(2, contactmethod);
+            st.setString(3, publicprivate);
+            st.setInt(4, price);
+            st.setString(5, bearingtransactionfees);
+            st.setInt(6, newTransactionFees); // Sử dụng giá trị mới của transactionfees
+            st.setString(7, description);
+            st.setString(8, hiddencontent);
+            st.setString(9, oid);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            // Handle exceptions appropriately, e.g., log them
+            e.printStackTrace();
+        }
+    }
+
 }

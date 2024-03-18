@@ -16,7 +16,7 @@ import java.util.List;
 import model.Cart;
 import model.CartXOrder;
 import model.CartXProduct;
-import model.PayDTO;
+import model.Order;
 import model.Product;
 
 import model.User;
@@ -28,6 +28,144 @@ import model.Wallet;
  */
 public class BodyDAO extends DBContext {
 
+    public Order getProductById(int order_id) {
+        String sql = "SELECT * FROM orders WHERE order_id=?";
+        try {
+            PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
+            st.setInt(1, order_id);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                Order o = new Order(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6),
+                        rs.getString(7), rs.getInt(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getString(12),
+                        rs.getString(13), rs.getString(14), rs.getString(15));
+                return o;
+            }
+
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
+    public List<Order> getAlLPmarket() {
+        List<Order> list1 = new ArrayList<>();
+        String sql = "SELECT o.order_id,o.contactmethod, o.topic, o.price, o.bearingtransactionfees,"
+                + " o.transactionfees, o.actualreceived, o.created_at, o.updated_at\n"
+                + "FROM orders AS o\n"
+                + "WHERE o.publicprivate = 'Public';";
+        try {
+            PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                User u = new User();
+                Order p = new Order(
+                        rs.getInt("order_id"),
+                        rs.getString("contactmethod"),
+                        rs.getString("topic"),
+                        rs.getInt("price"),
+                        rs.getString("bearingtransactionfees"),
+                        rs.getInt("transactionfees"),
+                        rs.getInt("actualreceived"),
+                        rs.getString("created_at"),
+                        rs.getString("updated_at")
+                );
+                list1.add(p);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list1;
+    }
+
+    public List<Order> getAllOrder() {
+        List<Order> list = new ArrayList<>();
+        String sql = "SELECT * FROM orders";
+        try {
+            PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Order o = new Order(
+                        rs.getInt("order_id"),
+                        rs.getInt("user_id"),
+                        rs.getString("status"),
+                        rs.getString("customer"),
+                        rs.getString("topic"),
+                        rs.getString("contactmethod"),
+                        rs.getString("publicprivate"),
+                        rs.getInt("price"),
+                        rs.getString("bearingtransactionfees"),
+                        rs.getInt("transactionfees"),
+                        rs.getInt("actualreceived"),
+                        rs.getString("description"),
+                        rs.getString("hiddencontent"),
+                        rs.getString("created_at"),
+                        rs.getString("updated_at"));
+
+                list.add(o);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public Order getOrderByID(String id) {
+        String sql = "SELECT * FROM orders WHERE order_id = ?";
+        try {
+            PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
+            st.setString(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                return new Order(rs.getInt("order_id"),
+                        rs.getInt("user_id"),
+                        rs.getString("status"),
+                        rs.getString("customer"),
+                        rs.getString("topic"),
+                        rs.getString("contactmethod"),
+                        rs.getString("publicprivate"),
+                        rs.getInt("price"),
+                        rs.getString("bearingtransactionfees"),
+                        rs.getInt("transactionfees"),
+                        rs.getInt("actualreceived"),
+                        rs.getString("description"),
+                        rs.getString("hiddencontent"),
+                        rs.getString("created_at"),
+                        rs.getString("updated_at"));
+            }
+        } catch (Exception e) {
+
+        }
+        return null;
+    }
+
+    public Order getOrderBySellID(int sid) {
+        List<Order> list = new ArrayList<>();
+        String sql = "SELECT * FROM orders WHERE sell_id = ?";
+        try {
+            PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
+            st.setInt(1, sid);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                return new Order(rs.getInt("order_id"),
+                        rs.getInt("user_id"),
+                        rs.getString("status"),
+                        rs.getString("customer"),
+                        rs.getString("topic"),
+                        rs.getString("contactmethod"),
+                        rs.getString("publicprivate"),
+                        rs.getInt("price"),
+                        rs.getString("bearingtransactionfees"),
+                        rs.getInt("transactionfees"),
+                        rs.getInt("actualreceived"),
+                        rs.getString("description"),
+                        rs.getString("hiddencontent"),
+                        rs.getString("created_at"),
+                        rs.getString("updated_at"));
+            }
+        } catch (Exception e) {
+
+        }
+        return null;
+    }
 
     public void deleteOrder(String oid) {
         String sql = "DELETE FROM orders WHERE order_id = ?";
@@ -103,9 +241,10 @@ public class BodyDAO extends DBContext {
             e.printStackTrace();
         }
     }
+
     public List<CartXProduct> getAllCart(int user_id) {
         List<CartXProduct> list = new ArrayList<>();
-        String sql = "SELECT cart.cart_id, products.product_id, products.user_id, products.status, products.topic, products.contactmethod, products.price, products.bearingtransactionfees, products.transactionfees\n"
+        String sql = "SELECT cart.cart_id, products.product_id, products.status, products.topic, products.customer, products.contactmethod, products.price, products.price, products.bearingtransactionfees, products.transactionfees\n"
                 + "FROM products\n"
                 + "INNER JOIN cart ON cart.product_id = products.product_id\n"
                 + "WHERE cart.status='pending'and cart.user_id=?";
@@ -116,9 +255,9 @@ public class BodyDAO extends DBContext {
             while (rs.next()) {
                 CartXProduct c = new CartXProduct(rs.getInt("cart_id"),
                         rs.getInt("product_id"),
-                        rs.getInt("user_id"),
                         rs.getString("status"),
                         rs.getString("topic"),
+                        rs.getString("customer"),
                         rs.getString("contactmethod"),
                         rs.getDouble("price"),
                         rs.getString("bearingtransactionfees"),
@@ -130,7 +269,6 @@ public class BodyDAO extends DBContext {
         }
         return list;
     }
-
 
     public Wallet updateWallet(double balance, int user_id) {
         String sql = "UPDATE wallet SET balance= ?\n"
@@ -195,50 +333,6 @@ public class BodyDAO extends DBContext {
             e.printStackTrace();
         }
         return null;
-    }
-   public List<CartXProduct> TrancastionHistory(int uid) {
-        List<CartXProduct> list = new ArrayList<>();
-        String sql = "SELECT cart.cart_id,products.product_id,products.user_id,users.username, cart.status, products.topic, products.contactmethod,\n" +
-"                 products.price, products.bearingtransactionfees, products.transactionfees, cart.create_at\n" +
-"                FROM products \n" +
-"                INNER JOIN cart ON cart.product_id = products.product_id \n" +
-"                join users on products.user_id=users.user_id\n" +
-"                WHERE cart.status='completely' and cart.user_id=?";
-        try {
-            PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
-            st.setInt(1, uid);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                CartXProduct c = new CartXProduct(rs.getInt("cart_id"),
-                        rs.getInt("product_id"),
-                        rs.getInt("user_id"),
-                        rs.getString("username"),
-                        rs.getString("status"),
-                        rs.getString("topic"),
-                        rs.getString("contactmethod"),
-                        rs.getDouble("price"),
-                        rs.getString("bearingtransactionfees"),
-                        rs.getInt("transactionfees"),
-                        rs.getString("create_at"));
-                list.add(c);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return list;
-    }
-    public boolean UpdateWalletSeller(PayDTO p){     
-        ProductDAO pd=new ProductDAO();      
-        Product p1=pd.getProductByID(p.getProduct_id());
-        Wallet w=getWalletById(p1.getUser_id());
-        double balance=w.getBalance()+p1.getActualreceived();
-        updateWallet(balance, p.getUser_id());
-        return true;
-    }
-    public void PurchaseSellers(List<PayDTO> list){
-        for(int i=0;i<list.size();i++){
-            UpdateWalletSeller(list.get(i));
-        }
     }
 
     public static void main(String[] args) {

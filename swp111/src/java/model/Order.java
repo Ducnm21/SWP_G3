@@ -4,14 +4,12 @@
  */
 package model;
 
-/**
- *
- * @author admin
- */
-public class Product {
+public class Order {
 
-    private int product_id;
+    private int id;
+    private int user_id;
     private String status;
+    private String customer;
     private String topic;
     private String contactmethod;
     private String publicprivate;
@@ -23,48 +21,15 @@ public class Product {
     private String hiddencontent;
     private String created_at;
     private String updated_at;
-    private int user_id;
-    private String sellerName;
+    
 
-    public Product() {
+    public Order() {
     }
 
-    public Product(int product_id, String status, String topic, String contactmethod, String publicprivate, int price, String bearingtransactionfees, int transactionfees, int actualreceived, String description, String hiddencontent, String created_at, String updated_at, int user_id, String sellerName) {
-        this.product_id = product_id;
+    public Order(int id, String status, String customer, String topic, String contactmethod, String publicprivate, int price, String bearingtransactionfees, int transactionfees, int actualreceived, String description, String hiddencontent, String created_at, String updated_at, int user_id) {
+        this.id = id;
         this.status = status;
-        this.topic = topic;
-        this.contactmethod = contactmethod;
-        this.publicprivate = publicprivate;
-        this.price = price;
-        this.bearingtransactionfees = bearingtransactionfees;
-        this.transactionfees = transactionfees;
-        this.actualreceived = actualreceived;
-        this.description = description;
-        this.hiddencontent = hiddencontent;
-        this.created_at = created_at;
-        this.updated_at = updated_at;
-        this.user_id = user_id;
-        this.sellerName = sellerName;
-    }
-
-    public Product(int product_id, String status, String topic, String contactmethod, String publicprivate, int price, String bearingtransactionfees, int transactionfees, int actualreceived, String description, String hiddencontent, int user_id) {
-        this.product_id = product_id;
-        this.status = status;
-        this.topic = topic;
-        this.contactmethod = contactmethod;
-        this.publicprivate = publicprivate;
-        this.price = price;
-        this.bearingtransactionfees = bearingtransactionfees;
-        this.transactionfees = transactionfees;
-        this.actualreceived = actualreceived;
-        this.description = description;
-        this.hiddencontent = hiddencontent;
-        this.user_id = user_id;
-    }
-
-    public Product(int product_id, String status, String topic, String contactmethod, String publicprivate, int price, String bearingtransactionfees, int transactionfees, int actualreceived, String description, String hiddencontent, String created_at, String updated_at, int user_id) {
-        this.product_id = product_id;
-        this.status = status;
+        this.customer = customer;
         this.topic = topic;
         this.contactmethod = contactmethod;
         this.publicprivate = publicprivate;
@@ -80,19 +45,48 @@ public class Product {
     }
 
 
-
-    public Product(int price) {
-      this.price = price;
+    public Order(int id, String topic, String contactmethod, int price, String bearingtransactionfees, int transactionfees, int actualreceived, String created_at, String updated_at) {
+        this.id = id;
+        this.topic = topic;
+        this.contactmethod = contactmethod;
+        this.price = price;
+        this.bearingtransactionfees = bearingtransactionfees;
+        this.transactionfees = transactionfees;
+        this.actualreceived = actualreceived;
+        this.created_at = created_at;
+        this.updated_at = updated_at;
     }
 
+                        
+    public Order(int id, int user_id, String status, String customer, String topic, String contactmethod, String publicprivate, int price, String bearingtransactionfees, int transactionfees, int actualreceived, String description, String hiddencontent, String created_at, String updated_at) {
+        this.id = id;
+        this.user_id = user_id;
+        this.status = status;
+        this.customer = customer;
+        this.topic = topic;
+        this.contactmethod = contactmethod;
+        this.publicprivate = publicprivate;
+        this.price = price;
+        this.bearingtransactionfees = bearingtransactionfees;
+        this.transactionfees = transactionfees;
+        this.actualreceived = actualreceived;
+        this.description = description;
+        this.hiddencontent = hiddencontent;
+        this.created_at = created_at;
+        this.updated_at = updated_at;
+    }
+    
+    
 
+    
+ 
 
-    public int getProduct_id() {
-        return product_id;
+    public int getId() {
+        return id;
     }
 
-    public void setProduct_id(int product_id) {
-        this.product_id = product_id;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getStatus() {
@@ -103,6 +97,13 @@ public class Product {
         this.status = status;
     }
 
+    public String getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(String customer) {
+        this.customer = customer;
+    }
 
     public String getTopic() {
         return topic;
@@ -200,22 +201,9 @@ public class Product {
         this.user_id = user_id;
     }
 
-    public String getSellerName() {
-        return sellerName;
-    }
-
-    public void setSellerName(String sellerName) {
-        this.sellerName = sellerName;
-    }
-
     @Override
     public String toString() {
-        return "Product{" + "product_id=" + product_id + ", status=" + status + ", topic=" + topic + ", contactmethod=" + contactmethod + ", publicprivate=" + publicprivate + ", price=" + price + ", bearingtransactionfees=" + bearingtransactionfees + ", transactionfees=" + transactionfees + ", actualreceived=" + actualreceived + ", description=" + description + ", hiddencontent=" + hiddencontent + ", created_at=" + created_at + ", updated_at=" + updated_at + ", user_id=" + user_id + ", sellerName=" + sellerName + '}';
+        return "Order{" + "id=" + id + ", user_id=" + user_id + ", status=" + status + ", customer=" + customer + ", topic=" + topic + ", contactmethod=" + contactmethod + ", publicprivate=" + publicprivate + ", price=" + price + ", bearingtransactionfees=" + bearingtransactionfees + ", transactionfees=" + transactionfees + ", actualreceived=" + actualreceived + ", description=" + description + ", hiddencontent=" + hiddencontent + ", created_at=" + created_at + ", updated_at=" + updated_at + '}';
     }
 
-   
-      
-    
-    
-    
 }

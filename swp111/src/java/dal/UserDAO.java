@@ -100,11 +100,11 @@ public class UserDAO extends DBContext {
         return list;
     }
 
-    public User getUserByID(int user_id) {
+    public User getUserByID(int uid) {
         String sql = "Select * from users where user_id = ?";
         try {
             PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
-            st.setInt(1, user_id);
+            st.setInt(1, uid);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 return new User(
@@ -125,7 +125,34 @@ public class UserDAO extends DBContext {
         }
         return null;
     }
-
+    public List<User> getUserProfile(int uid){
+        List<User> list = new ArrayList<>();
+        String sql = "Select * from users where user_id = ?";
+        try {
+            PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
+            st.setInt(1, uid);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                User u = new User(
+                        rs.getInt("user_id"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getString("email"),
+                        rs.getString("mobile"),
+                        rs.getString("fullname"),
+                        rs.getString("created_at"),
+                        rs.getString("deleted_by"),
+                        rs.getString("updated_by"),
+                        rs.getInt("is_admin"),
+                        rs.getString("banned"));
+                list.add(u);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+    
     public User login(String username, String password) {
         String sql = "select * from users\n"
                 + "where username = ?\n"
@@ -219,13 +246,9 @@ public class UserDAO extends DBContext {
 //    }
     public static void main(String[] args) {
         UserDAO dao = new UserDAO();
-        List<User> u = dao.getAllUser();
-        List<User> list = dao.getAllUser();
-        for (User user : list) {
-            System.out.println(user);
+        List<User> list = dao.getUserProfile(4);
+        for(User u : list){
+            System.out.println(u);
         }
-//        RegisterDAO rd = new RegisterDAO();
-//        User us = dao.login("admin", rd.encode("Admin2003@"));
-//        System.out.println(us);
     }
 }

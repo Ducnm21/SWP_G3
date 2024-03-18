@@ -13,11 +13,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 import model.CartXOrder;
 import model.CartXProduct;
-import model.PayDTO;
 import model.User;
 import model.Wallet;
 
@@ -42,25 +40,12 @@ public class CheckOut extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         BodyDAO d = new BodyDAO();
-        
-        List<PayDTO> pdto=new ArrayList<PayDTO>();
         User u = (User) session.getAttribute("user");
         List<CartXProduct> list = d.getAllCart(u.getId());
-        for (int i=0;i<list.size();i++){
-            pdto.add(new PayDTO(list.get(i).getSeller_id(), list.get(i).getProduct_id()));
-        }
-        double feeA=0;
+
         double fee = 0;
         for (int i = 0; i < list.size(); i++) {
-            if(list.get(i).getBearingtransactionfees().equalsIgnoreCase("Seller")){
-                fee += list.get(i).getPrice();
-            }
-            if(list.get(i).getBearingtransactionfees().equalsIgnoreCase("Buyer")){
-                fee += list.get(i).getPrice() + list.get(i).getTransactionfees();
-            }
-        }
-        for(int i=0;i<list.size();i++){
-            feeA+=list.get(i).getTransactionfees();
+            fee += list.get(i).getPrice() + list.get(i).getTransactionfees();
         }
         Wallet w = d.getWalletById(u.getId());
         double balance = w.getBalance();
@@ -70,8 +55,6 @@ public class CheckOut extends HttpServlet {
             request.setAttribute("errorcheckout", "Your account is not enough to pay this bill");
             request.getRequestDispatcher("checkout.jsp").forward(request, response);
         } else {
-            d.PurchaseSellers(pdto);
-            d.updateWallet(balance+feeA, 0);
             d.updateWallet(balance - fee, u.getId());
             d.updateCart(u.getId());
             for (CartXProduct cart : list) {

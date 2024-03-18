@@ -14,7 +14,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 import model.Order;
 import model.Product;
@@ -25,7 +24,7 @@ import model.Wallet;
  *
  * @author VIVO-S15
  */
-public class getorderbyuserid extends HttpServlet {
+public class loadorderbystatusanduserid extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,33 +35,79 @@ public class getorderbyuserid extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         User loggedInUser = (User) session.getAttribute("user");
         int uid = loggedInUser.getId();
+        String status = request.getParameter("status");
         ProductDAO dao = new ProductDAO();
-
-        // Kiểm tra xem đối tượng Order có tồn tại không
-        List<Product> listProductByUserID = new ArrayList<>(); // Tạo một danh sách mới
-        
-        
-        listProductByUserID = dao.getProductByUser_ID(uid);
+        List<Product> list = dao.getProductByStatusAndUser_ID(status, uid);
         BodyDAO d = new BodyDAO();
         Wallet w = d.getWalletById(loggedInUser.getId());
         
         request.setAttribute("balancep", w.getBalance());
-        for (Product product : listProductByUserID) {
+        for (Product product : list) {
                 request.setAttribute("pricepp", String.format("%,.0f",(double) product.getPrice()) + " ₫");
                 request.setAttribute("transactionfeespp", String.format("%,.0f",(double) product.getTransactionfees()) + " ₫");
                 request.setAttribute("actualreceivedpp", String.format("%,.0f",(double) product.getActualreceived()) + " ₫");
         }
-        
-        request.setAttribute("listProductByUserID", listProductByUserID);
-        request.getRequestDispatcher("donbancuatoi.jsp").forward(request, response);
+        try(PrintWriter out = response.getWriter()){
+            out.println("<table class=\"table table-striped table-hover\">\n"
+                + "   <thead>\n"
+                + "       <th>ID</th>\n"
+                + "       <th>Status</th>\n"
+                + "       <th>Customer</th>\n"
+                + "       <th>Topic</th>\n"
+                + "       <th>Contact Method</th>\n"
+                + "       <th>Public/Private</th>\n"
+                + "       <th>Price</th>\n"
+                + "       <th>Bearing Transaction Fees</th>\n"
+                + "       <th>Transaction Fees</th>\n"
+                + "       <th>Actual Received</th>\n"
+                + "       <th>Created At</th>\n"
+                + "       <th>Updated At</th>\n"
+                + "       <th>Actions</th>\n"
+                + "   </thead>\n"
+                + "   <tbody>\n");
 
+        for (Product o : list) {
+            out.println("<tr class=\"product\">\n"
+                    + "   <td><a href=\"detailoforder?pid=" + o.getProduct_id() + "\">" + o.getProduct_id() + "</a></td>\n"
+                    + "   <td>" + o.getStatus() + "</td>\n"
+                    + "   <td>" + o.getTopic() + "</td>\n"
+                    + "   <td>" + o.getContactmethod() + "</td>\n"
+                    + "   <td>" + o.getPublicprivate() + "</td>\n"
+                    + "   <td>" + o.getPrice() + "</td>\n"
+                    + "   <td>" + o.getBearingtransactionfees() + "</td>\n"
+                    + "   <td>" + o.getTransactionfees() + "</td>\n"
+                    + "   <td>" + o.getActualreceived() + "</td>\n"
+                    + "   <td>" + o.getCreated_at() + "</td>\n"
+                    + "   <td>" + o.getUpdated_at() + "</td>\n"
+                    + "   <td>\n"
+                    + "       <a href=\"updateorder?pid=" + o.getProduct_id() + "\" class=\"edit\"><i class=\"material-icons\" title=\"Edit\">Update</i></a>\n"
+                    + "       <a href=\"deleteorder?pid=" + o.getProduct_id() + "\" class=\"delete\"><i class=\"material-icons\">Delete</i></a>\n"
+                    + "   </td>\n"
+                    + "</tr>\n");
+        }
+
+        out.println("   </tbody>\n"
+                + "</table>");
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        
+        
     }
-    
+     public static void main(String[] args) {
+        OrderDAO dao = new OrderDAO();
+        List<Order> list = dao.getOrderByStatusAndUser_ID("Available", 6);
+        for (Order order : list) {
+            System.out.println(order);
+        }
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

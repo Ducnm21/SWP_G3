@@ -4,28 +4,25 @@
  */
 package controller;
 
-import dal.BodyDAO;
-import dal.OrderDAO;
 import dal.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
-import model.Order;
 import model.Product;
 import model.User;
-import model.Wallet;
 
 /**
  *
- * @author VIVO-S15
+ * @author admin
  */
-public class getorderbyuserid extends HttpServlet {
+@WebServlet(name = "ProductDetails", urlPatterns = {"/productdetails"})
+public class ProductDetails extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,33 +33,37 @@ public class getorderbyuserid extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8"); 
+        
         HttpSession session = request.getSession();
-        User loggedInUser = (User) session.getAttribute("user");
-        int uid = loggedInUser.getId();
-        ProductDAO dao = new ProductDAO();
-
-        // Kiểm tra xem đối tượng Order có tồn tại không
-        List<Product> listProductByUserID = new ArrayList<>(); // Tạo một danh sách mới
-        
-        
-        listProductByUserID = dao.getProductByUser_ID(uid);
-        BodyDAO d = new BodyDAO();
-        Wallet w = d.getWalletById(loggedInUser.getId());
-        
-        request.setAttribute("balancep", w.getBalance());
-        for (Product product : listProductByUserID) {
-                request.setAttribute("pricepp", String.format("%,.0f",(double) product.getPrice()) + " ₫");
-                request.setAttribute("transactionfeespp", String.format("%,.0f",(double) product.getTransactionfees()) + " ₫");
-                request.setAttribute("actualreceivedpp", String.format("%,.0f",(double) product.getActualreceived()) + " ₫");
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            // Người dùng chưa đăng nhập, chuyển hướng đến trang đăng nhập hoặc trang chính
+            response.sendRedirect("login.jsp");
+            return;
         }
-        
-        request.setAttribute("listProductByUserID", listProductByUserID);
-        request.getRequestDispatcher("donbancuatoi.jsp").forward(request, response);
+        ProductDAO dao = new ProductDAO();
+        int pid = Integer.parseInt(request.getParameter("pid"));
+        Product p = dao.getProductByID(pid);
+        request.setAttribute("product_idp", p.getProduct_id());
+        request.setAttribute("statusp", p.getStatus());
 
+        request.setAttribute("topicp", p.getTopic());
+        request.setAttribute("contactmethodp", p.getContactmethod());
+        request.setAttribute("publicprivatep", p.getPublicprivate());
+        request.setAttribute("pricep", p.getPrice());
+        request.setAttribute("bearingtransactionfeesp", p.getBearingtransactionfees());
+        request.setAttribute("transactionfeesp", p.getTransactionfees());
+        request.setAttribute("actualreceivedp", p.getActualreceived());
+        request.setAttribute("descriptionp", p.getDescription());
+        request.setAttribute("hiddencontentp", p.getHiddencontent());
+        request.setAttribute("created_atp", p.getCreated_at());
+        request.setAttribute("updated_atp", p.getUpdated_at());
+        request.setAttribute("Details", p);
+        request.getRequestDispatcher("homepage.jsp").forward(request, response);
     }
-    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

@@ -7,6 +7,7 @@ package controller;
 import dal.BodyDAO;
 import dal.RegisterDAO;
 import dal.UserDAO;
+import dal.WalletDAO;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -78,34 +79,40 @@ public class logincontroller extends HttpServlet {
             UserDAO dao = new UserDAO();
             User u = dao.login(userRaw, rd.encode(passRaw));
             HttpSession session = request.getSession();
-            BodyDAO d = new BodyDAO();            
+            BodyDAO d = new BodyDAO();
             Wallet w = d.getWalletById(u.getId());
             request.setAttribute("balance", w.getBalance());
+            WalletDAO dw = new WalletDAO();
+            Wallet AdW = dw.GetWalletAdmin();
+            request.setAttribute("AdminBalance", AdW.getBalance());
             session.setAttribute("walletCurrent", w);
-            if (u != null && u.getBanned().equals("active")) {
-                // Instead of using request dispatcher, send a success response
+            if (u != null) {
+                if (u.getBanned().equals("active")) {
+                    session.setAttribute("user", u);
+                    session.setMaxInactiveInterval(30000);
+                    // Thay đổi dòng này để trả về "success" thay vì sử dụng RequestDispatcher
+                    response.getWriter().write("success");
+                } else {
+                    response.getWriter().write("error");
+                }
 
-                session.setAttribute("user", u);
-                session.setMaxInactiveInterval(30000);
-                RequestDispatcher dispatcher = request.getRequestDispatcher("getallproduct");
-                response.getWriter().write("success");
-            }else {
+            } else {
+                // Captcha doesn't match
                 response.getWriter().write("error");
             }
-        } else {
-            // Captcha doesn't match
-            response.getWriter().write("error");
         }
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
+        /**
+         * Returns a short description of the servlet.
+         *
+         * @return a String containing servlet description
+         */
+        @Override
+        public String getServletInfo
+        
+            () {
         return "Short description";
-    }// </editor-fold>
+        }// </editor-fold>
 
-}
+    }

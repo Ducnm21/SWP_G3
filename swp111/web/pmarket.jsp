@@ -1,4 +1,5 @@
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
 
@@ -16,11 +17,19 @@
         <!-- meta character set -->
         <meta charset="UTF-8">
         <!-- Site Title -->
-        <title>Karma Shop</title>
-        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-        <!--
-                CSS
-                ============================================= -->
+        <title>SCLC</title>
+
+        <link rel="stylesheet" href="css/linearicons.css">
+        <link rel="stylesheet" href="css/font-awesome.min.css">
+        <link rel="stylesheet" href="css/themify-icons.css">
+        <link rel="stylesheet" href="css/bootstrap.css">
+        <link rel="stylesheet" href="css/owl.carousel.css">
+        <link rel="stylesheet" href="css/nice-select.css">
+        <link rel="stylesheet" href="css/nouislider.min.css">
+        <link rel="stylesheet" href="css/ion.rangeSlider.css" />
+        <link rel="stylesheet" href="css/ion.rangeSlider.skinFlat.css" />
+        <link rel="stylesheet" href="css/magnific-popup.css">
+        <link rel="stylesheet" href="css/main.css">
         <style>
             .navbar-brand img {
                 width: 150px;
@@ -29,18 +38,9 @@
                 margin-bottom: -10px;
             }
         </style>
-        <link rel="stylesheet" href="css/linearicons.css">
-        <link rel="stylesheet" href="css/owl.carousel.css">
-        <link rel="stylesheet" href="css/themify-icons.css">
-        <link rel="stylesheet" href="css/font-awesome.min.css">
-        <link rel="stylesheet" href="css/nice-select.css">
-        <link rel="stylesheet" href="css/nouislider.min.css">
-        <link rel="stylesheet" href="css/bootstrap.css">
-        <link rel="stylesheet" href="css/main.css">
-    </head>
+    </head>        
 
     <body>
-
 
         <!-- Start Header Area -->
         <header class="header_area sticky-header">
@@ -48,58 +48,59 @@
                 <nav class="navbar navbar-expand-lg navbar-light main_box">
                     <div class="container">
                         <!-- Brand and toggle get grouped for better mobile display -->
-                        <a class="navbar-brand logo_h" href="getallproduct"><img src="img/logosclc.png" alt=""></a>                       
-
+                        <a class="navbar-brand logo_h" href="homepage.jsp"><img src="img/logosclc.png" alt=""></a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <p style="color: orange">${hello}</p>
                         <!-- Collect the nav links, forms, and other content for toggling -->
                         <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                             <ul class="nav navbar-nav menu_nav ml-auto">
-                                <c:if test="${sessionScope.user.is_admin == 1}">
-                                    <li class="nav-item active"><a class="nav-link" href="LoadAccount">Manage account</a></li>
-                                    </c:if>
-                                <li class="nav-item active"><a class="nav-link" href="getallproduct">Home</a></li>
+                                <li class="nav-item active"><a class="nav-link" href="homepage.jsp">Home</a></li>
                                 <li class="nav-item submenu dropdown">
                                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                                       aria-expanded="false">Payment</a>
+                                       aria-expanded="false">MiddleMan</a>
                                     <ul class="dropdown-menu">
-                                        <li class="nav-item"><a class="nav-link" href="Deposit.jsp">Deposit</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="single-blog.html"></a></li>
+                                        <li class="nav-item"><a class="nav-link" href="pmarket">Public Market</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="donbancuatoi.jsp">My Products</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="donmuacuatoi.jsp">My Orders</a></li>
                                     </ul>
                                 </li>
-
-
                                 <li class="nav-item submenu dropdown">
                                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                                        aria-expanded="false">Shop</a>
                                     <ul class="dropdown-menu">
-                                        <li class="nav-item"><a class="nav-link" href="getallproduct">Public Market</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="getorderbyuserid">My Products</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="cart">My Orders</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="category.html">Shop Category</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="single-product.html">Product Details</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="checkout.html">Product Checkout</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="cart.html">Shopping Cart</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="confirmation.html">Confirmation</a></li>
                                     </ul>
-                                </li>                       
-
-                                <c:if test="${sessionScope.user == null}">
-                                    <li class="nav-item"><a class="nav-link" href="login.jsp">Login</a></li>
-                                    </c:if>
-
-
-
-                                <c:if test="${sessionScope.user!=null}">
-                                    <li class="nav-item submenu dropdown">
-                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                                           aria-expanded="false">Account</a>
-                                        <ul class="dropdown-menu">
-                                            <li class="nav-item"><a class="nav-link" href="logout">Logout</a></li>
-                                            <li class="nav-item"><a class="nav-link" href="newscontroll">News</a></li>
-                                            <li class="nav-item"><a class="nav-link" href="changepassword.jsp">Change Password</a></li>
-                                            <li class="nav-item"><a class="nav-link" href="UpdateProfile.jsp">Update Profile</a></li>
-                                        </ul>
-                                    </li>
-                                    <li style="padding-top: 10px">${balance}</li> 
-                                    </c:if>
-
+                                </li>
+                                <li class="nav-item submenu dropdown">
+                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                       aria-expanded="false">Blog</a>
+                                    <ul class="dropdown-menu">
+                                        <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="single-blog.html">Blog Details</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item submenu dropdown">
+                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                       aria-expanded="false">Pages</a>
+                                    <ul class="dropdown-menu">
+                                        <li class="nav-item"><a class="nav-link" href="login.jsp">Logout</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="tracking.html">Tracking</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
-                                <li class="nav-item"><a href="cart" class="cart"><span class="ti-bag"></span></a></li>
+                                <li class="nav-item"><a href="#" class="cart"><span class="ti-bag"></span></a></li>
                                 <li class="nav-item">
                                     <button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
                                 </li>
@@ -120,69 +121,85 @@
         </header>
         <!-- End Header Area -->
 
-        <!-- Start Banner Area -->
-        <section class="banner-area organic-breadcrumb">
+        <!-- start banner Area -->
+        <section class="banner-area">
             <div class="container">
-                <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
-                    <div class="col-first">
-                        <h1>Cart</h1>
-                        <nav class="d-flex align-items-center">
-                            <a href="history"Purchase History<span class="lnr lnr-arrow-right"></span></a>
-                            <a href="soldhistory">Sold History</a>
-                        </nav>
+                <div class="row fullscreen align-items-center justify-content-start">
+                    <div class="col-lg-12">
+                        <div class="active-banner-slider owl-carousel">
+                            <!-- single-slide -->
+                            <div class="row single-slide align-items-center d-flex">
+                                <div class="col-lg-5 col-md-6">
+                                    <div class="banner-content">
+                                        <h1>SCLC<br>Welcome ${uu.username}!</h1>    
+                                        <div class="add-bag d-flex align-items-center">
+                                            <a class="add-btn" href=""><span class="lnr lnr-cross"></span></a>
+                                            <span class="add-text text-uppercase">Add to Bag</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- single-slide -->
+                            <div class="row single-slide align-items-center d-flex">
+                                <div class="col-lg-5 col-md-6">
+                                    <div class="banner-content">
+                                        <h1>SCLC<br>Welcome!</h1>
+                                        <p>${uu}</p>
+                                        <div class="add-bag d-flex align-items-center">
+                                            <a class="add-btn" href=""><span class="lnr lnr-cross"></span></a>
+                                            <span class="add-text text-uppercase">Add to Bag</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
-        <!-- End Banner Area -->
-        <!--================Cart Area =================-->
-        <section class="cart_area">
-            <div class="container" style="text-align: center">
-                <div class="cart_inner">
-                    <div class="table-responsive">
-                        <table class="table" style ="border-collapse: collapse; width: 100%;">
-                            <thead>
-                                <tr>
-                                    <th style="padding: 8px; border: 1px solid #dddddd;">Code</th>
-                                    <th style="padding: 8px; border: 1px solid #dddddd;">Seller</th>
-                                    <th style="padding: 8px; border: 1px solid #dddddd;">Status</th>
-                                    <th style="padding: 8px; border: 1px solid #dddddd;">Topic</th>                                  
-                                    <th style="padding: 8px; border: 1px solid #dddddd;">Contact Method</th>
-                                    <th style="padding: 8px; border: 1px solid #dddddd;">Price</th>
-                                    <th style="padding: 8px; border: 1px solid #dddddd;">Bearing Transaction Fee</th>
-                                    <th style="padding: 8px; border: 1px solid #dddddd;">Transaction Fee</th>
-                                    <th style="padding: 8px; border: 1px solid #dddddd;">Actual Receive</th>
-                                    <th style="padding: 8px; border: 1px solid #dddddd;">Purchase Time</th>
-                                    <th style="padding: 8px; border: 1px solid #dddddd;">Action</th>
-                                    <th style="padding: 8px; border: 1px solid #dddddd;">Action</th>
-                                    
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <c:forEach var="c" items="${history}">
-                                    <tr>
-                                        <td style="padding: 8px; border: 1px solid #dddddd;">${c.product_id}</td>
-                                        <td style="padding: 8px; border: 1px solid #dddddd;">${c.username}</td>
-                                        <td style="padding: 8px; border: 1px solid #dddddd;">${c.status}</td>
-                                        <td style="padding: 8px; border: 1px solid #dddddd;">${c.topic}</td>                                       
-                                        <td style="padding: 8px; border: 1px solid #dddddd;">${c.contactmethod}</td>
-                                        <td style="padding: 8px; border: 1px solid #dddddd;">${c.price}</td>
-                                        <td style="padding: 8px; border: 1px solid #dddddd;">${c.bearingtransactionfees}</td>
-                                        <td style="padding: 8px; border: 1px solid #dddddd;">${c.transactionfees}</td>
-                                        <td style="padding: 8px; border: 1px solid #dddddd;">${c.price+c.transactionfees}</td>
-                                        <td style="padding: 8px; border: 1px solid #dddddd;">${c.create_at}</td>
-                                        <td style="padding: 8px; border: 1px solid #dddddd;"><a href="viewdetail?id=${c.product_id}">View Detail</a></td>
-                                        <td style="padding: 8px; border: 1px solid #dddddd;"><a href="sendfeedback?uid=${c.seller_id}&pid=${c.product_id}">Send Feedback</a></td> 
-                                    </tr>
-                                </c:forEach>
-                            </tbody>
-                        </table>
-                    </div>
+        <!-- End banner Area -->
+        <div class="donbanhead">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>Public Orders</h2>
                 </div>
-            </div>
-        </section>
 
-        <!--================End Cart Area =================-->
+            </div>
+        </div>
+
+        <div class="pmarkettable">
+            <table  class="table table-striped table-hover">
+                <thead>
+
+                <th>Topic</th>
+                <th>Contact method</th>
+                <th>Price</th>
+                <th>Description</th>
+                <th>Add to bag</th>
+                </thead>
+                <tbody>
+
+                <c:forEach items="${listPmarket}" var="p">
+                    <tr>
+
+                        <th>${p.topic}</th>
+                        <th>${p.contactmethod}</th>
+                        <th>${p.price}</th>
+                        <th> <a href="productdetail?id=${id}" class="social-info">                        
+                                <p class="hover-text">View more</p></th>
+                        <th><a href="addtocart?id=${p.id}">                            
+                                <p>Add</p></th>
+                        </a>
+                    </tr>
+
+                </c:forEach>
+
+                </tbody>    
+            </table>
+        </div>
+
+
+
 
         <!-- start footer Area -->
         <footer class="footer-area section_gap">
@@ -218,8 +235,8 @@
                                         </div>
 
                                         <!-- <div class="col-lg-4 col-md-4">
-                                                                        <button class="bb-btn btn"><span class="lnr lnr-arrow-right"></span></button>
-                                                                </div>  -->
+                                                                <button class="bb-btn btn"><span class="lnr lnr-arrow-right"></span></button>
+                                                        </div>  -->
                                     </div>
                                     <div class="info"></div>
                                 </form>
@@ -264,7 +281,6 @@
         </footer>
         <!-- End footer Area -->
 
-
         <script src="js/vendor/jquery-2.2.4.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
         crossorigin="anonymous"></script>
@@ -273,6 +289,7 @@
         <script src="js/jquery.nice-select.min.js"></script>
         <script src="js/jquery.sticky.js"></script>
         <script src="js/nouislider.min.js"></script>
+        <script src="js/countdown.js"></script>
         <script src="js/jquery.magnific-popup.min.js"></script>
         <script src="js/owl.carousel.min.js"></script>
         <!--gmaps Js-->

@@ -47,7 +47,7 @@
 
         <!-- Start Header Area -->
         <header class="header_area sticky-header">
-                        <div class="main_menu">
+            <div class="main_menu">
                 <nav class="navbar navbar-expand-lg navbar-light main_box">
                     <div class="container">
                         <!-- Brand and toggle get grouped for better mobile display -->
@@ -241,7 +241,11 @@
                     </select>
                     <button id="loadOrdersButton" onclick="orderReceived()">Find</button>
                 </th>
-                <th></th>
+                <th> 
+                    <label for="start_date">Start Date:</label>
+                    <input type="date" id="start_date"><br><br>
+                    <label for="end_date">End Date:</label>
+                    <input type="date" id="end_date"><br><br></th>
                 <th></th>
                 <th></th>
                 </thead>
@@ -271,24 +275,24 @@
             </table>
         </div>
 
-        
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <% String mess = (String) request.getAttribute("mess");
        if (mess != null) { %>
         <script type="text/javascript">
-                alert("<%= mess %>");
+                        alert("<%= mess %>");
         </script>
         <% } %>
         <% String errorMessage = (String) request.getAttribute("errorMessage");
        if (errorMessage != null) { %>
         <script type="text/javascript">
-               alert("<%= errorMessage %>");
+            alert("<%= errorMessage %>");
         </script>
         <% } %>
         <script>
             // Bi?n global ?? l?u tr? ID c?a hàm hi?n t?i ?ang ???c hi?n th?
             var currentFunction = null;
-            
+
             function bearing() {
                 var selectElement = document.getElementById('bearingSelect');
                 var bearing = selectElement.value;
@@ -312,7 +316,7 @@
                 xmlhttp.open("GET", "loadbearingproductbyuserid?bearing=" + bearing, true);
                 xmlhttp.send();
             }
-            
+
             function publicPrivate() {
                 var selectElement = document.getElementById('ppSelect');
                 var publicprivate = selectElement.value;
@@ -336,7 +340,7 @@
                 xmlhttp.open("GET", "loadpublicprivateproductanduserid?publicprivate=" + publicprivate, true);
                 xmlhttp.send();
             }
-            
+
 
             // Hàm x? lý khi click vào nút t?i ??n hàng v?i tr?ng thái c? th?
             document.getElementById("loadOrdersButton").addEventListener("click", function () {

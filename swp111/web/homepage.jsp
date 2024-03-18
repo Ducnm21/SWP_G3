@@ -49,6 +49,7 @@
                 margin-bottom: -10px;
             }
         </style>
+
     </head>        
 
     <body>
@@ -65,7 +66,17 @@
                         <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                             <ul class="nav navbar-nav menu_nav ml-auto">
                                 <c:if test="${sessionScope.user.is_admin == 1}">
-                                    <li class="nav-item active"><a class="nav-link" href="LoadAccount">Manage account</a></li>
+                                    
+                                    <li class="nav-item submenu dropdown">
+                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                               aria-expanded="false">Management</a>
+                                        <ul class="dropdown-menu">                                         
+                                            <li class="nav-item"><a class="nav-link" href="LoadAccount">Manage account</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="#">Manage order</a></li>
+                                        </ul>
+                                    </li>
+
+<!--                                    <li class="nav-item active"><a class="nav-link" href="LoadAccount">Manage account</a></li>-->
                                     </c:if>
                                 <li class="nav-item active"><a class="nav-link" href="getallproduct">Home</a></li>
                                 <li class="nav-item submenu dropdown">
@@ -92,8 +103,6 @@
                                     <li class="nav-item"><a class="nav-link" href="login.jsp">Login</a></li>
                                     </c:if>
 
-
-
                                 <c:if test="${sessionScope.user!=null}">
                                     <li class="nav-item submenu dropdown">
                                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -101,13 +110,19 @@
                                         <ul class="dropdown-menu">
                                             <li class="nav-item"><a class="nav-link" href="logout">Logout</a></li>
                                             <li class="nav-item"><a class="nav-link" href="newscontroll">News</a></li>
-                                            <li class="nav-item"><a class="nav-link" href="history">Transaction History</a></li>
                                             <li class="nav-item"><a class="nav-link" href="changepassword.jsp">Change Password</a></li>
                                             <li class="nav-item"><a class="nav-link" href="UpdateProfile.jsp">Update Profile</a></li>
                                         </ul>
                                     </li>
-                                    <li style="padding-top: 10px">${balance}</li> 
-                                    </c:if>
+                                    <c:if test="${sessionScope.user.is_admin == 0}">
+                                        <li style="padding-top: 10px">${balance}</li> 
+                                        </c:if>
+
+                                    <c:if test="${sessionScope.user.is_admin == 1} ">
+                                        <li style="padding-top: 10px">${AdminBalance}</li> 
+                                        </c:if>
+                                    </c:if> 
+
 
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
@@ -182,62 +197,70 @@
                 <th>Bearing transaction fees</th>
                 <th>Transaction fees</th>
                 <th>Actual $ received</th>             
+
                 <th>Action</th>
 
                 </thead>
                 <tbody>
                     <c:forEach items="${ListProduct}" var="p">
                         <tr>
-                            <th><a href="detailoforder?oid=${p.product_id}">${p.product_id}</a></th>
+                            <th><a href="detailoforder?pid=${p.product_id}">${p.product_id}</a></th>
                             <th>${p.status}</th>
-                            <th>${p.customer}</th>
+                            <th><a href="sellerprofile?uid=${p.user_id}">${p.sellerName}</a></th>
                             <th>${p.topic}</th>
                             <th>${p.contactmethod}</th>
-                            <th>${p.publicprivate}</th>
+                            <th>${p.publicprivate}</th> 
                             <th>${p.price}</th>
                             <th>${p.bearingtransactionfees}</th>
                             <th>${p.transactionfees}</th>
-                            <th>${p.actualreceived}</th>                       
+                            <th>${p.actualreceived}</th>
+
                             <td>
-                                <button type="button" class="btn" onclick="addToCart(${p.product_id})">Add to cart</button>
+                                <c:choose>
+                                    <c:when test="${p.user_id ne sessionScope.user.id}">
+                                        <button type="button" class="btn" onclick="addToCart(${p.product_id})">Add to cart</button>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span>You cannot buy your own product</span>
+                                    </c:otherwise>
+                                </c:choose>
                             </td>
                         </tr>
                     </c:forEach>
                 </tbody>    
             </table>
         </div>   
-        
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
-                                    function addToCart(productId) {
-                                        $.ajax({
-                                            type: "POST",
-                                            url: "addtocart",
-                                            data: {
-                                                id: productId
-                                            },
-                                            success: function (response) {
-                                                if (response.trim() === "success") {
-                                                    showPopup("Product added to cart successfully!");
-                                                } else if (response.trim() === "duplicate") {
-                                                    showPopup("Product is already in the cart!");
-                                                }
-                                            },
-                                            error: function () {
-                                                console.log("An error occurred during the AJAX request.");
+                                            function addToCart(productId) {
+                                                $.ajax({
+                                                    type: "POST",
+                                                    url: "addtocart",
+                                                    data: {
+                                                        id: productId
+                                                    },
+                                                    success: function (response) {
+                                                        if (response.trim() === "success") {
+                                                            showPopup("Product added to cart successfully!");
+                                                        } else if (response.trim() === "duplicate") {
+                                                            showPopup("Product is already in the cart!");
+                                                        }
+                                                    },
+                                                    error: function () {
+                                                        console.log("An error occurred during the AJAX request.");
+                                                    }
+                                                });
                                             }
-                                        });
-                                    }
 
-                                    function showPopup(message) {
-                                        $("#popupMessage").text(message);
-                                        $("#popup").show();
+                                            function showPopup(message) {
+                                                $("#popupMessage").text(message);
+                                                $("#popup").show();
 
-                                        // Tá»± Äá»ng áº©n popup sau má»t khoáº£ng thá»i gian
-                                        setTimeout(function () {
-                                            $("#popup").hide();
-                                        }, 3000); // 3000 milliseconds (3 seconds) - báº¡n cÃ³ thá» Äiá»u chá»nh thá»i gian theo Ã½ muá»n
-                                    }
+                                                // Tự động ẩn popup sau một khoảng thời gian
+                                                setTimeout(function () {
+                                                    $("#popup").hide();
+                                                }, 3000); // 3000 milliseconds (3 seconds) - bạn có thể điều chỉnh thời gian theo ý muốn
+                                            }
 
         </script>
         <style>
@@ -290,24 +313,24 @@
             }
             #modalpop .modalpop-body{
                 padding: 10px 20px 15px;
-                width: 100%; /* ThÃªm dÃ²ng nÃ y Äá» lÃ m cho ná»i dung fit toÃ n bá» tháº» */
-                box-sizing: border-box; /* Báº£o Äáº£m tÃ­nh toÃ n váº¹n cá»§a box model */
+                width: 100%; /* Thêm dòng này để làm cho nội dung fit toàn bộ thẻ */
+                box-sizing: border-box; /* Bảo đảm tính toàn vẹn của box model */
                 padding: 10px 20px 15px;
             }
             .modalpop-body {
-                max-height: 70vh; /* Giáº£m chiá»u cao tá»i Äa Äá» trÃ¡nh trÃ n ngoÃ i mÃ n hÃ¬nh */
-                overflow-y: auto; /* ThÃªm thanh cuá»n náº¿u ná»i dung quÃ¡ dÃ i */
+                max-height: 70vh; /* Giảm chiều cao tối đa để tránh tràn ngoài màn hình */
+                overflow-y: auto; /* Thêm thanh cuộn nếu nội dung quá dài */
             }
 
             .tablepop {
                 width: 100%;
-                border-collapse: collapse; /* Loáº¡i bá» khoáº£ng cÃ¡ch giá»¯a cÃ¡c Ã´ */
+                border-collapse: collapse; /* Loại bỏ khoảng cách giữa các ô */
                 margin-left: 0px;
             }
 
             .tablepop th, .tablepop td {
-                padding: 8px; /* ThÃªm padding Äá» táº¡o ra khoáº£ng cÃ¡ch giá»¯a ná»i dung vÃ  biÃªn cá»§a Ã´ */
-                border: 1px solid #ddd; /* ThÃªm ÄÆ°á»ng biÃªn */
+                padding: 8px; /* Thêm padding để tạo ra khoảng cách giữa nội dung và biên của ô */
+                border: 1px solid #ddd; /* Thêm đường biên */
 
             }
 
@@ -391,22 +414,6 @@
             </div>
         </div>
 
-        <script>
-            const btnpop_open = document.getElementById('btnpop-open');
-            const btnpop_close = document.getElementById('btnpop-close');
-
-            const modalpop_container = document.getElementById
-                    ('modalpop-container');
-
-            btnpop_open.addEventListener('click', function () {    // ThÃªm class 'showpop' vÃ o modalpop_container khi nÃºt ÄÆ°á»£c nháº¥n
-                modalpop_container.classList.add('showpop');
-            });
-
-            btnpop_close.addEventListener('click', function () {
-                // Loáº¡i bá» class 'showpop' khi nÃºt close ÄÆ°á»£c nháº¥n
-                modalpop_container.classList.remove('showpop');
-            });
-        </script>
 
 
         <!-- start footer Area -->

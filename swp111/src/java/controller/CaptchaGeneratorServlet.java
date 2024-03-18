@@ -87,7 +87,7 @@ public class CaptchaGeneratorServlet extends HttpServlet {
     public static String generateCaptcha() {
         Random ran = new Random();
         StringBuilder cap = new StringBuilder();
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 4; i++) {
             cap.append(ALPHABET.charAt(ran.nextInt(ALPHABET.length())));
         }
         return cap.toString();

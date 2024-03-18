@@ -116,7 +116,7 @@
                     <div class="col-first">
                         <h1>Login/Register</h1>
                         <nav class="d-flex align-items-center">
-                            <a href="index.jsp">Home<span class="lnr lnr-arrow-right"></span></a>
+                            <a href="getallproductindex">Home<span class="lnr lnr-arrow-right"></span></a>
                             <a href="category.html">Login/Register</a>
                         </nav>
                     </div>

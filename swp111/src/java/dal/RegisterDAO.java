@@ -100,18 +100,6 @@ public class RegisterDAO extends DBContext {
     }
     
 
-    public void AddRole() {
-        String sql = "INSERT INTO role (user_id, is_admin, is_seller, is_user)\n"
-                + "VALUES (?, 0, 0, 1);";
-        RegisterDAO rd = new RegisterDAO();
-        try {
-            int user_id = rd.getUserID();
-            PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
-            st.setInt(1, user_id);
-            st.executeUpdate();
-        } catch (SQLException e) {
-        }
-    }
 
     public int getUserID() {
         int user_id = 0;

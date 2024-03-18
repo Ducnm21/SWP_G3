@@ -17,7 +17,7 @@ import model.User;
 public class UserDAO extends DBContext {
 
     public void updatepassword(String password, Integer uid) {
-        String sql = "UPDATE `scamlamcho`.`users`\n"
+        String sql = "UPDATE `scamlamchodemo`.`users`\n"
                 + "SET\n"
                 + "`password` = ?\n"
                 + "WHERE `user_id` = ?";
@@ -33,28 +33,26 @@ public class UserDAO extends DBContext {
         }
     }
 
-    public User update(User user) {
-    String sql = "UPDATE `scamlamcho`.`users`\n"
-            + "SET\n"
-            + "`username` = ?,\n"
-            + "`email` = ?,\n"
-            + "`mobile` = ?,\n"
-            + "`fullname` = ?\n"
-            + "WHERE `user_id` = ?";
-    try {
-        PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
-        st.setString(1, user.getUsername());
-        st.setString(2, user.getEmail());
-        st.setString(3, user.getMobile());
-        st.setString(4, user.getFullname());
-        st.setInt(5, user.getId());
-        st.executeUpdate();
-        return user;
-    } catch (SQLException e) {
-        System.out.println(e);
-        return null; // Hoặc xử lý lỗi theo ý của bạn
+    public void update(String username, String email, String mobile, String fullname, int uid) {
+        String sql = "UPDATE `scamlamchodemo`.`users`\n"
+                + "SET\n"
+                + "`username` = ?,\n"
+                + "`email` = ?,\n"
+                + "`mobile` = ?,\n"
+                + "`fullname` = ?\n"
+                + "WHERE `user_id` = ?";
+        try {
+            PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
+            st.setString(1, username);
+            st.setString(2, email);
+            st.setString(3, mobile);
+            st.setString(4, fullname);
+            st.setInt(5, uid);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
     }
-}
 
     public String encode(String password) {
         try {
@@ -197,6 +195,28 @@ public class UserDAO extends DBContext {
         return null;
     }
 
+//    public void Register(String email, String username, String password, String phone, String address, int role) {
+//        String sql = "INSERT INTO [dbo].[user]\n"
+//                + "           ([gmail]\n"
+//                + "           ,[username]\n"
+//                + "           ,[password]\n"
+//                + "           ,[phone]\n"
+//                + "           ,[address]\n"
+//                + "           ,[role])\n"
+//                + "     VALUES\n"
+//                + "           (?,?,?,?,?,?)";
+//        try {
+//            PreparedStatement ps = connection.prepareStatement(sql);
+//            ps.setString(1, email);
+//            ps.setString(2, username);
+//            ps.setString(3, password);
+//            ps.setString(4, phone);
+//            ps.setString(5, address);
+//            ps.setInt(6, role);
+//            ps.executeUpdate();
+//        } catch (SQLException e) {
+//        }
+//    }
     public static void main(String[] args) {
         UserDAO dao = new UserDAO();
         List<User> u = dao.getAllUser();
@@ -204,6 +224,8 @@ public class UserDAO extends DBContext {
         for (User user : list) {
             System.out.println(user);
         }
-       
+//        RegisterDAO rd = new RegisterDAO();
+//        User us = dao.login("admin", rd.encode("Admin2003@"));
+//        System.out.println(us);
     }
 }

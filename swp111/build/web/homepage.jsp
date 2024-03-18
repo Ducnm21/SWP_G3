@@ -100,7 +100,7 @@
                                 </li>                       
 
                                 <c:if test="${sessionScope.user == null}">
-                                    <li class="nav-item"><a class="nav-link" href="login.jsp">Login</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="getallproductindex">Login</a></li>
                                     </c:if>
 
                                 <c:if test="${sessionScope.user!=null}">

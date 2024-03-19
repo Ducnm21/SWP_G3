@@ -1,0 +1,21 @@
+button{
+    background-color: #FF6600;
+    border: 2px solid rgba(255, 255, 255, .5);
+    border-radius: 9px;
+    color: white; 
+}
+.loadbutton{
+    margin-left: 700px;
+    margin-bottom: 30px;
+    padding: 15px;
+}
+.table{
+    border: 5px solid #FF6600;
+}
+a{
+    color: #FF6600;
+    font-weight: 100;
+}
+.addmore a {
+    border: 1px solid #FF6600;
+}

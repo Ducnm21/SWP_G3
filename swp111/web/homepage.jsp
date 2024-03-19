@@ -117,7 +117,6 @@
                                     <c:if test="${sessionScope.user.is_admin == 0}">
                                         <li style="padding-top: 10px">${balance}</li> 
                                         </c:if>
-
                                     <c:if test="${sessionScope.user.is_admin == 1} ">
                                         <li style="padding-top: 10px">${AdminBalance}</li> 
                                         </c:if>

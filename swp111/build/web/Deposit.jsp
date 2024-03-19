@@ -243,26 +243,11 @@
                                                 console.error('Error:', error); // Xử lý lỗi nếu request không thành công
                                             }
                                         });
-                                    }
+                                    }   
 
 
         </script>
-        <script>
-            const btnpop_open = document.getElementById('btnpop-open');
-            const btnpop_close = document.getElementById('btnpop-close');
 
-            const modalpop_container = document.getElementById
-                    ('modalpop-container');
-
-            btnpop_open.addEventListener('click', function () {    // Thêm class 'showpop' vào modalpop_container khi nút được nhấn
-                modalpop_container.classList.add('showpop');
-            });
-
-            btnpop_close.addEventListener('click', function () {
-                // Loại bỏ class 'showpop' khi nút close được nhấn
-                modalpop_container.classList.remove('showpop');
-            });
-        </script>
 
 
 

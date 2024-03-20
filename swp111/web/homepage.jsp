@@ -100,7 +100,7 @@
                                 </li>                       
 
                                 <c:if test="${sessionScope.user == null}">
-                                    <li class="nav-item"><a class="nav-link" href="login.jsp">Login</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="getallproductindex">Login</a></li>
                                     </c:if>
 
                                 <c:if test="${sessionScope.user!=null}">
@@ -117,7 +117,6 @@
                                     <c:if test="${sessionScope.user.is_admin == 0}">
                                         <li style="padding-top: 10px">${balance}</li> 
                                         </c:if>
-
                                     <c:if test="${sessionScope.user.is_admin == 1} ">
                                         <li style="padding-top: 10px">${AdminBalance}</li> 
                                         </c:if>

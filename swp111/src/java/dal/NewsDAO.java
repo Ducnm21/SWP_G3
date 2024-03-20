@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class NewsDAO {
 
     public News getNewsbyOrderidandUserid(int oid, int uid) {
-        String sql = "SELECT * FROM news WHERE order_id = ? AND user_id = ?";
+        String sql = "SELECT * FROM news WHERE product_id = ? AND user_id = ?";
         try {
             PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
             st.setInt(1, oid);
@@ -29,7 +29,7 @@ public class NewsDAO {
                         rs.getInt("news_id"),
                         rs.getString("content"),
                         rs.getInt("user_id"),
-                        rs.getInt("order_id"),
+                        rs.getInt("product_id"),
                         rs.getInt("is_seen")
                 );
             }
@@ -40,7 +40,7 @@ public class NewsDAO {
     }
 
     public News getNewsByUserID(int user_id) {
-        String sql = "select * from news where user_id = ? order by order_id desc limit 1";
+        String sql = "select * from news where user_id = ? order by product_id desc limit 1";
         try ( PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql)) {
             st.setInt(1, user_id);
             try ( ResultSet rs = st.executeQuery()) {
@@ -62,7 +62,7 @@ public class NewsDAO {
 
     public List<News> getNewsListByUserID(int user_id) {
         List<News> newsList = new ArrayList<>();
-        String sql = "SELECT * FROM news WHERE user_id = ? ORDER BY order_id DESC";
+        String sql = "SELECT * FROM news WHERE user_id = ? ORDER BY product_id DESC";
         try ( Connection conn = getConnection(DB_URL, USER_NAME, PASSWORD);  PreparedStatement st = conn.prepareStatement(sql)) {
             st.setInt(1, user_id);
             try ( ResultSet rs = st.executeQuery()) {
@@ -71,7 +71,7 @@ public class NewsDAO {
                             rs.getInt("news_id"),
                             rs.getString("content"),
                             rs.getInt("user_id"),
-                            rs.getInt("order_id"),
+                            rs.getInt("product_id"),
                             rs.getInt("is_seen")
                     );
                     newsList.add(news);
@@ -86,7 +86,7 @@ public class NewsDAO {
     public List<News> getPaginatedNewsListByUserID(int user_id, int page, int recordsPerPage) {
         List<News> newsList = new ArrayList<>();
         int start = (page - 1) * recordsPerPage;
-        String sql = "SELECT * FROM news WHERE user_id = ? ORDER BY order_id DESC LIMIT ?, ?";
+        String sql = "SELECT * FROM news WHERE user_id = ? ORDER BY product_id DESC LIMIT ?, ?";
         try ( Connection conn = getConnection(DB_URL, USER_NAME, PASSWORD);  PreparedStatement st = conn.prepareStatement(sql)) {
             st.setInt(1, user_id);
             st.setInt(2, start);
@@ -97,7 +97,7 @@ public class NewsDAO {
                             rs.getInt("news_id"),
                             rs.getString("content"),
                             rs.getInt("user_id"),
-                            rs.getInt("order_id"),
+                            rs.getInt("product_id"),
                             rs.getInt("is_seen")
                     );
                     newsList.add(news);

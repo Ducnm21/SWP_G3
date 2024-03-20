@@ -105,7 +105,11 @@
                                         dao.setAmount(wallet, total);
                                         Wallet wa2 = wadb.getWalletByID3(wallet.getId(), (total));
 
+<<<<<<< HEAD
                                         ss.setAttribute("walletCurrent", wa2);
+=======
+                                        ss.setAttribute("walletCurrent", wallet);
+>>>>>>> 045c0206b28877ca7fa262c1713ca52ae54128c5
 
                                         // Đặt cờ là đã tính toán total
                                         ss.setAttribute("isTotalCalculated", true);

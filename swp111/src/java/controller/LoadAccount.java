@@ -5,6 +5,7 @@
 package controller;
 
 import dal.UserDAO;
+import dal.WalletDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,9 +13,11 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import model.User;
+import model.Wallet;
 
 /**
  *
@@ -40,7 +43,7 @@ public class LoadAccount extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoadAccount</title>");            
+            out.println("<title>Servlet LoadAccount</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet LoadAccount at " + request.getContextPath() + "</h1>");
@@ -63,9 +66,13 @@ public class LoadAccount extends HttpServlet {
             throws ServletException, IOException {
         UserDAO dao = new UserDAO();
         List<User> users = dao.getAllUser();
+        HttpSession session = request.getSession();
+        WalletDAO dw = new WalletDAO();
+        Wallet AdW = dw.GetWalletAdmin();
+        request.setAttribute("AdminBalance", String.format("%,.0f", AdW.getBalance()) + " ₫");
         request.setAttribute("listAccount", users);
         request.getRequestDispatcher("ManageAccount.jsp").forward(request, response);
-        
+
     }
 
     /**
@@ -81,7 +88,6 @@ public class LoadAccount extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-    
 
     /**
      * Returns a short description of the servlet.

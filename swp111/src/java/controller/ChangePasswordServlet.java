@@ -61,7 +61,9 @@ public class ChangePasswordServlet extends HttpServlet {
         boolean checknewpass = val.CheckPassword(newpassword);
 
         try {
-            int user_id = Integer.parseInt(id_raw);           
+            int user_id = Integer.parseInt(id_raw);
+
+            // Kiểm tra xem tất cả các trường có được điền đầy đủ không
             if (curentpassword.isEmpty() || newpassword.isEmpty() || confirmPassword.isEmpty()) {
                 request.setAttribute("error_password_missinginfo", "Missing info");
                 request.getRequestDispatcher("changepassword.jsp").forward(request, response);
@@ -76,6 +78,7 @@ public class ChangePasswordServlet extends HttpServlet {
                 request.getRequestDispatcher("changepassword.jsp").forward(request, response);
                 return;
             }
+
             // Kiểm tra xem mật khẩu hiện tại có trùng khớp với mật khẩu trong cơ sở dữ liệu không
             User user = ud.getUserByID(user_id);
             if (user == null || !user.getPassword().equals(rd.encode(curentpassword))) {
@@ -83,10 +86,13 @@ public class ChangePasswordServlet extends HttpServlet {
                 request.getRequestDispatcher("changepassword.jsp").forward(request, response);
                 return;
             }
+
             BodyDAO d = new BodyDAO();
             Wallet w = d.getWalletById(user.getId());
             request.setAttribute("balance", w.getBalance());
-            // Thực hiện thay đổi mật khẩu trong cơ sở dữ liệu và chuyển hướng người dùng đến trang homepage.jsp         
+            // Thực hiện thay đổi mật khẩu trong cơ sở dữ liệu và chuyển hướng người dùng đến trang homepage.jsp
+            
+            
             ud.updatepassword(newpassword, user_id);
             request.getRequestDispatcher("homepage.jsp").forward(request, response);
 

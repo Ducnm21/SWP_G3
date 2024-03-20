@@ -68,7 +68,7 @@
                 left: 50%;
                 transform: translate(-50%, -50%);
                 width: 40%;
-                height: 60%;
+                height: 75%;
                 z-index: 999;
             }
 
@@ -115,7 +115,7 @@
                 <nav class="navbar navbar-expand-lg navbar-light main_box">
                     <div class="container">
                         <!-- Brand and toggle get grouped for better mobile display -->
-                        <a class="navbar-brand logo_h" href="index.jsp"><img src="img/logosclc.png" alt=""></a>
+                        <a class="navbar-brand logo_h" href="getallproductindex"><img src="img/logosclc.png" alt=""></a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="icon-bar"></span>
@@ -178,7 +178,7 @@
         <div id="loginPopup" class="login_popup">
             <div class="login_form_inner"> 
                 <div class="formlog" style="border: 5px">
-                    <h3>Login</h3>
+                    <h3 style="font-size: 50px">Login</h3>
                     <button class="close_button" onclick="closeLoginPopup(event)"><i class="fas fa-times"></i></button>
                     <form class="row login_form" id="loginForm" novalidate="novalidate">
                         <p class="text-danger" style="color: red" id="error"></p>
@@ -217,12 +217,14 @@
             function openLoginPopup() {
                 document.getElementById("loginPopup").style.display = "block";
                 document.getElementById("backgroundOverlay").style.display = "block";
+                document.getElementById("backgroundOverlay").addEventListener("click", closeLoginPopup);
             }
 
             function closeLoginPopup(event) {
                 event.preventDefault();
                 document.getElementById("loginPopup").style.display = "none";
                 document.getElementById("backgroundOverlay").style.display = "none";
+                document.getElementById("backgroundOverlay").removeEventListener("click", closeLoginPopup);
             }
         </script>
         <!-- End Header Area -->

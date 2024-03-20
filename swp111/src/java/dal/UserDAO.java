@@ -33,8 +33,8 @@ public class UserDAO extends DBContext {
         }
     }
 
-    public void update(String username, String email, String mobile, String fullname, int uid) {
-        String sql = "UPDATE `scamlamchodemo`.`users`\n"
+    public User update(User user) {
+        String sql = "UPDATE `scamlamcho`.`users`\n"
                 + "SET\n"
                 + "`username` = ?,\n"
                 + "`email` = ?,\n"
@@ -43,14 +43,16 @@ public class UserDAO extends DBContext {
                 + "WHERE `user_id` = ?";
         try {
             PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
-            st.setString(1, username);
-            st.setString(2, email);
-            st.setString(3, mobile);
-            st.setString(4, fullname);
-            st.setInt(5, uid);
+            st.setString(1, user.getUsername());
+            st.setString(2, user.getEmail());
+            st.setString(3, user.getMobile());
+            st.setString(4, user.getFullname());
+            st.setInt(5, user.getId());
             st.executeUpdate();
+            return user;
         } catch (SQLException e) {
             System.out.println(e);
+            return null; // Hoặc xử lý lỗi theo ý của bạn
         }
     }
 
@@ -125,7 +127,8 @@ public class UserDAO extends DBContext {
         }
         return null;
     }
-    public List<User> getUserProfile(int uid){
+
+    public List<User> getUserProfile(int uid) {
         List<User> list = new ArrayList<>();
         String sql = "Select * from users where user_id = ?";
         try {
@@ -152,7 +155,7 @@ public class UserDAO extends DBContext {
         }
         return list;
     }
-    
+
     public User login(String username, String password) {
         String sql = "select * from users\n"
                 + "where username = ?\n"
@@ -222,32 +225,44 @@ public class UserDAO extends DBContext {
         return null;
     }
 
-//    public void Register(String email, String username, String password, String phone, String address, int role) {
-//        String sql = "INSERT INTO [dbo].[user]\n"
-//                + "           ([gmail]\n"
-//                + "           ,[username]\n"
-//                + "           ,[password]\n"
-//                + "           ,[phone]\n"
-//                + "           ,[address]\n"
-//                + "           ,[role])\n"
-//                + "     VALUES\n"
-//                + "           (?,?,?,?,?,?)";
-//        try {
-//            PreparedStatement ps = connection.prepareStatement(sql);
-//            ps.setString(1, email);
-//            ps.setString(2, username);
-//            ps.setString(3, password);
-//            ps.setString(4, phone);
-//            ps.setString(5, address);
-//            ps.setInt(6, role);
-//            ps.executeUpdate();
-//        } catch (SQLException e) {
-//        }
-//    }
+    public boolean isUsernameTaken(String username, int userId) {
+        String sql = "SELECT COUNT(*) AS count FROM users WHERE username = ? AND user_id != ?";
+        try {
+            PreparedStatement statement = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
+            statement.setString(1, username);
+            statement.setInt(2, userId);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                int count = resultSet.getInt("count");
+                return count > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean isPhoneTaken(String phone, int userId) {
+        String sql = "SELECT COUNT(*) AS count FROM users WHERE mobile = ? AND user_id != ?";
+        try {
+            PreparedStatement statement = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
+            statement.setString(1, phone);
+            statement.setInt(2, userId);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                int count = resultSet.getInt("count");
+                return count > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
         UserDAO dao = new UserDAO();
         List<User> list = dao.getUserProfile(4);
-        for(User u : list){
+        for (User u : list) {
             System.out.println(u);
         }
     }

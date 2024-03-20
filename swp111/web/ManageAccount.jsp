@@ -79,21 +79,46 @@
                 <nav class="navbar navbar-expand-lg navbar-light main_box">
                     <div class="container">
                         <!-- Brand and toggle get grouped for better mobile display -->
-                        <a class="navbar-brand logo_h" href="homepage.jsp"><img src="img/logosclc.png" alt=""></a>
+                        <a class="navbar-brand logo_h" href="getallproduct"><img src="img/logosclc.png" alt=""></a>                       
 
-
-
-
-
-                        <p style="color: orange">${hello}</p>
                         <!-- Collect the nav links, forms, and other content for toggling -->
                         <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                             <ul class="nav navbar-nav menu_nav ml-auto">
-                                <li class="nav-item active"><a class="nav-link" href="homepage.jsp">Home</a></li>
+                                <li class="nav-item active"><a class="nav-link" href="getallproduct">Home</a></li>
+                                <li class="nav-item submenu dropdown">
+                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                       aria-expanded="false">Payment</a>
+                                    <ul class="dropdown-menu">
+                                        <li class="nav-item"><a class="nav-link" href="Deposit.jsp">Deposit</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="single-blog.html"></a></li>
+                                    </ul>
+                                </li>
+
+                                <li class="nav-item submenu dropdown">
+                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                       aria-expanded="false">Shop</a>
+                                    <ul class="dropdown-menu">
+                                        <li class="nav-item"><a class="nav-link" href="getallproduct">Public Market</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="getorderbyuserid">My Products</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="cart">My Orders</a></li>
+                                    </ul>
+                                </li>                       
+
+                                <li class="nav-item submenu dropdown">
+                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                       aria-expanded="false">Account</a>
+                                    <ul class="dropdown-menu">
+                                        <li class="nav-item"><a class="nav-link" href="logout">Logout</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="newscontroll">News</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="changepassword.jsp">Change Password</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="UpdateProfile.jsp">Update Profile</a></li>
+                                    </ul>
+                                </li>
+                                <li style="padding-top: 10px">${AdminBalance}</li> 
 
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
-                                <li class="nav-item"><a href="#" class="cart"><span class="ti-bag"></span></a></li>
+                                <li class="nav-item"><a href="cart" class="cart"><span class="ti-bag"></span></a></li>
                                 <li class="nav-item">
                                     <button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
                                 </li>
@@ -124,7 +149,7 @@
                             <div class="row single-slide align-items-center d-flex">
                                 <div class="col-lg-5 col-md-6">
                                     <div class="banner-content">
-                                        <h1>SCLC<br>Welcome <span style="color: orange;">${acc.fullname}!</span></h1>
+                                        <h1><span style="color: orange;">Manage Account</span></h1>
                                         <form action="search" method="post">
                                             <div class="add-bag d-flex align-items-center">
                                                 <input name="txt" type="text" class="form-control" id="search_input" placeholder="Search for account by name">
@@ -138,7 +163,7 @@
                             <div class="row single-slide align-items-center d-flex">
                                 <div class="col-lg-5 col-md-6">
                                     <div class="banner-content">
-                                        <h1>SCLC<br>Welcome <span style="color: orange;">${acc.fullname}!</span></h1>
+                                        <h1><span style="color: orange;">Manage Account</span></h1>
                                         <form action="search" method="post">
                                             <div class="add-bag d-flex align-items-center">
                                                 <input name="txt" type="text" class="form-control" id="search_input" placeholder="Search for account by name">
@@ -159,7 +184,6 @@
                 <div class="col-lg-9">
                     <h2>Account management</h2>
                 </div>
-
             </div>
         </div>
         <div class="ordertable">
@@ -176,7 +200,7 @@
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody>          
+                <tbody>                    
                     <c:forEach items="${listAccount}" var="u">
                         <tr>
                             <td>${u.id}</td>
@@ -184,18 +208,18 @@
                             <td>${u.email}</td>
                             <td>${u.mobile}</td>
                             <td>${u.fullname}</td>
-                            <td>${u.banned}</td>
+                            <td>${u.banned}</td>               
+                            
                             <c:if test="${u.banned == 'active'}">
-                                <td><a href="banmanagement?u_id=${u.id}" >Ban</a></td>
+                                <td><a href="banservlet?u_id=${u.id}" >Ban</a></td>                              
                             </c:if>
                             <c:if test="${u.banned == 'banned'}">
-                                <td><a href="unban?u_id=${u.id}" >Unban</a></td>
+                                <td><a href="banservlet?u_id=${u.id}" >Unban</a></td>
                             </c:if> 
-                            
                         </tr>
                     </c:forEach>
+                
 
-                    </form>
             </table>
         </div><!--
 

@@ -28,6 +28,55 @@
                 margin-top: -10px;
                 margin-bottom: -10px;
             }
+
+            .table-responsive {
+                overflow-x: auto;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+
+            th, td {
+                padding: 12px;
+                text-align: left;
+                border-bottom: 1px solid #dddddd;
+            }
+
+            th {
+                background-color: #f2f2f2;
+            }
+
+            tbody tr:hover {
+                background-color: #f5f5f5;
+            }
+
+            .shipping_area {
+                border-top: 2px solid #ddd;
+            }
+
+            .checkout_btn_inner {
+                justify-content: center;
+            }
+
+            .primary-btn {
+                display: inline-block;
+                padding: 10px 20px;
+                background-color: #ff6b6b;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                text-transform: uppercase;
+                font-weight: bold;
+                text-decoration: none;
+                transition: background-color 0.3s ease;
+            }
+
+            .primary-btn:hover {
+                background-color: #333;
+            }
+
         </style>
         <link rel="stylesheet" href="css/linearicons.css">
         <link rel="stylesheet" href="css/owl.carousel.css">
@@ -90,7 +139,6 @@
                                         <ul class="dropdown-menu">
                                             <li class="nav-item"><a class="nav-link" href="logout">Logout</a></li>
                                             <li class="nav-item"><a class="nav-link" href="newscontroll">News</a></li>
-                                            <li class="nav-item"><a class="nav-link" href="history">Transaction History</a></li>
                                             <li class="nav-item"><a class="nav-link" href="changepassword.jsp">Change Password</a></li>
                                             <li class="nav-item"><a class="nav-link" href="UpdateProfile.jsp">Update Profile</a></li>
                                         </ul>
@@ -137,70 +185,56 @@
         </section>
         <!-- End Banner Area -->
         <!--================Cart Area =================-->
-        <section class="cart_area">
-            <div class="container" style="margin-left: 130px">
-                <div class="cart_inner">
-                    <div class="table-responsive">
-
-                        <table >
-                            <thead>
+        <section class="cart_area" >
+            <div class="container" style="text-align: center"  >
+                <div class="cart_inner table-responsive" >
+                    <table style="text-align: center"  >
+                        <thead>
+                            <tr>
+                                <th style="padding: 8px; border: 1px solid #dddddd;">Code</th>
+                                <th style="padding: 8px; border: 1px solid #dddddd;">Status</th>
+                                <th style="padding: 8px; border: 1px solid #dddddd;">Topic</th>                                    
+                                <th style="padding: 8px; border: 1px solid #dddddd;">Contact Method</th>
+                                <th style="padding: 8px; border: 1px solid #dddddd;">Price</th>
+                                <th style="padding: 8px; border: 1px solid #dddddd;">Bearing Transaction Fee</th>
+                                <th style="padding: 8px; border: 1px solid #dddddd;">Transaction Fee</th>
+                                <th style="padding: 8px; border: 1px solid #dddddd;">Actual Receive</th>
+                                <th style="padding: 8px; border: 1px solid #dddddd;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach var="c" items="${listCart}">
                                 <tr>
-                                    <th style="padding: 8px; border: 1px solid #dddddd;">Code</th>
-                                    <th style="padding: 8px; border: 1px solid #dddddd;">Status</th>
-                                    <th style="padding: 8px; border: 1px solid #dddddd;">Topic</th>
-                                    <th style="padding: 8px; border: 1px solid #dddddd;">Seller</th>
-                                    <th style="padding: 8px; border: 1px solid #dddddd;">Contact Method</th>
-                                    <th style="padding: 8px; border: 1px solid #dddddd;">Price</th>
-                                    <th style="padding: 8px; border: 1px solid #dddddd;">Bearing Transaction Fee</th>
-                                    <th style="padding: 8px; border: 1px solid #dddddd;">Transaction Fee</th>
-                                    <th style="padding: 8px; border: 1px solid #dddddd;">Actual Receive</th>
-                                    <th style="padding: 8px; border: 1px solid #dddddd;">Action</th>
+                                    <td style="padding: 8px; border: 1px solid #dddddd;">${c.product_id}</td>
+                                    <td style="padding: 8px; border: 1px solid #dddddd;">${c.status}</td>
+                                    <td style="padding: 8px; border: 1px solid #dddddd;">${c.topic}</td>
+                                    <td style="padding: 8px; border: 1px solid #dddddd;">${c.contactmethod}</td>
+                                    <td style="padding: 8px; border: 1px solid #dddddd;">${c.price}</td>
+                                    <td style="padding: 8px; border: 1px solid #dddddd;">${c.bearingtransactionfees}</td>
+                                    <td style="padding: 8px; border: 1px solid #dddddd;">${c.transactionfees}</td>
+                                    <td style="padding: 8px; border: 1px solid #dddddd;">${c.price+c.transactionfees}</td>
+                                    <td style="padding: 8px; border: 1px solid #dddddd;"><a href="deleteOrd?id=${c.product_id}">Delete</a></td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                <c:forEach var="c" items="${listCart}">
-                                    <tr>
-                                        <td style="padding: 8px; border: 1px solid #dddddd;">${c.product_id}</td>
-                                        <td style="padding: 8px; border: 1px solid #dddddd;">${c.status}</td>
-                                        <td style="padding: 8px; border: 1px solid #dddddd;">${c.topic}</td>
-                                        <td style="padding: 8px; border: 1px solid #dddddd;">${c.customer}</td>
-                                        <td style="padding: 8px; border: 1px solid #dddddd;">${c.contactmethod}</td>
-                                        <td style="padding: 8px; border: 1px solid #dddddd;">${c.price}</td>
-                                        <td style="padding: 8px; border: 1px solid #dddddd;">${c.bearingtransactionfees}</td>
-                                        <td style="padding: 8px; border: 1px solid #dddddd;">${c.transactionfees}</td>
-                                        <td style="padding: 8px; border: 1px solid #dddddd;">${c.price+c.transactionfees}</td>
-                                        <td style="padding: 8px; border: 1px solid #dddddd;"><a href="deleteOrd?id=${c.product_id}">Delete</a></td>
-                                    </tr>
-                                </c:forEach>
-                            </tbody>
+                            </c:forEach>
+                        </tbody>
 
 
-                        </table>
-                        <tr style="text-align: center"  >
-                            <td>
-                                <h5>Subtotal</h5>
-                            </td>
-                            <td>
-                                <h5>${totalfee}</h5>
-                            </td>
-                        </tr>
-                        <tr class="shipping_area">
-                            <td>
-
-                            </td>
-                            <td>
-
-                            </td>
-                            <td>
-
-                            <td>
-                                <div class="checkout_btn_inner d-flex align-items-center">
-                                    <a class="primary-btn" style="margin-right: 20px; width: 300px; text-align: center" href="getallproduct">Continue Shopping</a>
-                                    <a class="primary-btn" style="width: 300px; text-align: center" href="processcheckout">Proceed to checkout</a>
-                                </div>
-                            </td>
-                        </tr>
+                    </table>
+                    <div class="subtotal_area">
+                        <div style="margin-top:  20px; margin-right: 800px " >
+                            <h5>Subtotal</h5>
+                            <h5>${totalfee}</h5>
+                        </div>
                     </div>
+
+                    <tr class="shipping_area">
+                        <td>
+                            <div class="checkout_btn_inner d-flex align-items-center">
+                                <a class="primary-btn" style="margin-right: 20px; width: 300px; text-align: center" href="getallproduct">Continue Shopping</a>
+                                <a class="primary-btn" style="width: 300px; text-align: center" href="processcheckout">Proceed to checkout</a>
+                            </div>
+                        </td>
+                    </tr>
                 </div>
             </div>
         </section>

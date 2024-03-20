@@ -139,10 +139,10 @@
                             <form class="row login_form" action="newpassword" method="post" id="contactForm" novalidate="novalidate">
                                 <p class="text-danger" style="color: red">${status}</p>
                                 <div class="col-md-12 form-group">
-                                    <input type="text" class="form-control" id="name" name="password" placeholder="New Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'New password'">
+                                    <input type="password" class="form-control" id="name" name="password" placeholder="New Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'New password'">
                                 </div>
                                 <div class="col-md-12 form-group">
-                                    <input type="confpassword" class="form-control" id="name" name="confPassword" placeholder="Confirm New Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Confirm password'">
+                                    <input type="password" class="form-control" id="name" name="confPassword" placeholder="Confirm New Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Confirm password'">
                                 </div>
                                 <div class="col-md-12 form-group">
                                     <button type="submit" class="primary-btn">Enter</button>

@@ -104,7 +104,10 @@
                                     <li class="nav-item"><a class="nav-link" href="newscontroll">News</a></li>
                                     <li class="nav-item"><a class="nav-link" href="changepassword.jsp">Change Password</a></li>
                                     <li class="nav-item"><a class="nav-link" href="UpdateProfile.jsp">Update Profile</a></li>
+<<<<<<< HEAD
                                      <li class="nav-item"><a class="nav-link" href="history">Transaction History</a></li>
+=======
+>>>>>>> 176877d0db5d786b81da53d5e7bc19144dac6a70
                                 </ul>
                             </li>
                             <li style="padding-top: 10px">${balance}</li> 
@@ -158,7 +161,11 @@
                                             </c:if>
                                         </td>
                                         <td>
+<<<<<<< HEAD
                                             <button type="button" class="btn btn-warning text-white" onclick="showMessage('${news.product_id}', '${news.news_id}')">View</button>
+=======
+                                            <button type="button" class="btn btn-warning text-white" onclick="showMessage('${news.order_id}', '${news.news_id}')">View</button>
+>>>>>>> 176877d0db5d786b81da53d5e7bc19144dac6a70
                                         </td>
                                     </tr>
                                 </c:forEach>
@@ -185,14 +192,24 @@
     <!-- JavaScript -->
     <script src="js/jquery.min.js"></script>
     <script>
+<<<<<<< HEAD
                                                 function showMessage(productId, newsId) {
                                                     console.log(productId); // Make sure orderId is correctly logged
                                                     var message = "Đơn hàng có productId ID " + productId + " đã được đăng bán thành công.";
+=======
+                                                function showMessage(orderId, newsId) {
+                                                    console.log(orderId); // Make sure orderId is correctly logged
+                                                    var message = "Đơn hàng có order ID " + orderId + " đã được đăng bán thành công.";
+>>>>>>> 176877d0db5d786b81da53d5e7bc19144dac6a70
                                                     alert(message);
 
                                                     // Update read status to "Đã đọc"
                                                     document.getElementById("readStatus_" + newsId).innerHTML = "Đã đọc";
+<<<<<<< HEAD
                                                     const url = 'detailoforder?pid=' + productId;
+=======
+                                                    const url = 'detailoforder?oid=' + orderId;
+>>>>>>> 176877d0db5d786b81da53d5e7bc19144dac6a70
                                                     // Redirect to another page with the updated order ID
 
                                                     location.href = url;

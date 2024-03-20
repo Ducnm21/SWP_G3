@@ -36,12 +36,15 @@ public class GetAllProductIndex extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         ProductDAO dao = new ProductDAO();
         List<Product> listP = dao.getAllProduct();
+        
+        
+        for (Product product : listP) {
+            request.setAttribute("priceI", String.format("%,.0f", (double) product.getPrice()) + " ₫");
+//            request.setAttribute("transactionfeesI", String.format("%,.0f", (double) product.getTransactionfees()) + " ₫");
+        }
+        
 
         request.setAttribute("ListProductI", listP);
-        for (Product product : listP) {
-                request.setAttribute("priceI", String.format("%,.0f",(double) product.getPrice()) + " ₫");
-                request.setAttribute("transactionfeesI", String.format("%,.0f",(double) product.getTransactionfees()) + " ₫");
-            }
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 

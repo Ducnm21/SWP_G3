@@ -35,8 +35,8 @@ public class newpassword extends HttpServlet {
         RegisterDAO rd = new RegisterDAO();
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/swp391_g3", "root",
-                    "123456");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/SCAMLAMCHODEMO", "root",
+                    "12345");
             PreparedStatement pst = con.prepareStatement("update users set password = ? where email = ? ");
             if (newPassword != null && confPassword != null && newPassword.equals(confPassword)) {
                 pst.setString(1, rd.encode(newPassword));

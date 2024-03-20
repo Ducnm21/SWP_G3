@@ -47,7 +47,7 @@ public class OTP extends HttpServlet {
         User user = (User) session.getAttribute("user");
         if (otp.equals(otpreturn)) {
             rd.AddUser(user.getUsername(), user.getPassword(),user.getEmail(), user.getMobile(), user.getFullname());
-            rd.AddRole();
+            rd.AddWalletNewUser();
             request.getRequestDispatcher("login.jsp").forward(request, response);
         } else {
             String baoLoi = "Mã OTP của bạn không chính xác!";

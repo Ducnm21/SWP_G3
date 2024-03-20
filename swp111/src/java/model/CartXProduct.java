@@ -12,21 +12,54 @@ public class CartXProduct {
 
     private int cart_id;
     private int product_id;
+    private String username;
     private String status;
     private String topic;
-    private String customer;
     private String contactmethod;
     private double price;
     private String bearingtransactionfees;
     private int transactionfees;
+    private int seller_id;
+    private String create_at;
+
+    
+
+    public String getCreate_at() {
+        return create_at;
+    }
+
+    public void setCreate_at(String create_at) {
+        this.create_at = create_at;
+    }
 
     public CartXProduct() {
+    }
+
+    public int getSeller_id() {
+        return seller_id;
+    }
+
+    public void setSeller_id(int seller_id) {
+        this.seller_id = seller_id;
     }
 
     public CartXProduct(int cart_id, int product_id, String status) {
         this.cart_id = cart_id;
         this.product_id = product_id;
         this.status = status;
+    }
+
+    public CartXProduct(int cart_id, int product_id, int seller_id, String status, String topic, String contactmethod, double price, String bearingtransactionfees, int transactionfees, String create_at) {
+        this.cart_id = cart_id;
+        this.seller_id = seller_id;
+        this.product_id = product_id;
+        this.status = status;
+        this.topic = topic;
+        this.contactmethod = contactmethod;
+        this.price = price;
+        this.bearingtransactionfees = bearingtransactionfees;
+        this.transactionfees = transactionfees;
+        this.create_at = create_at;
     }
 
     public CartXProduct(int cart_id, int product_id, String status, double price, int transactionfees) {
@@ -37,17 +70,41 @@ public class CartXProduct {
         this.transactionfees = transactionfees;
     }
 
-    public CartXProduct(int cart_id, int product_id, String status, String topic, String customer, String contactmethod, double price, String bearingtransactionfees, int transactionfees) {
+    public CartXProduct(int cart_id, int product_id, int seller_id, String status, String topic, String contactmethod, double price, String bearingtransactionfees, int transactionfees) {
         this.cart_id = cart_id;
         this.product_id = product_id;
         this.status = status;
         this.topic = topic;
-        this.customer = customer;
         this.contactmethod = contactmethod;
         this.price = price;
         this.bearingtransactionfees = bearingtransactionfees;
         this.transactionfees = transactionfees;
+        this.seller_id = seller_id;
     }
+
+    public CartXProduct(int cart_id, int product_id, int seller_id, String username, String status, String topic, String contactmethod, double price, String bearingtransactionfees, int transactionfees, String create_at) {
+        this.cart_id = cart_id;
+        this.product_id = product_id;
+        this.username = username;
+        this.status = status;
+        this.topic = topic;
+        this.contactmethod = contactmethod;
+        this.price = price;
+        this.bearingtransactionfees = bearingtransactionfees;
+        this.transactionfees = transactionfees;
+        this.seller_id = seller_id;
+        this.create_at = create_at;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    
 
     public String getTopic() {
         return topic;
@@ -55,14 +112,6 @@ public class CartXProduct {
 
     public void setTopic(String topic) {
         this.topic = topic;
-    }
-
-    public String getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(String customer) {
-        this.customer = customer;
     }
 
     public String getContactmethod() {
@@ -80,8 +129,7 @@ public class CartXProduct {
     public void setBearingtransactionfees(String bearingtransactionfees) {
         this.bearingtransactionfees = bearingtransactionfees;
     }
-    
-    
+
     public int getTransactionfees() {
         return transactionfees;
     }
@@ -124,9 +172,9 @@ public class CartXProduct {
 
     @Override
     public String toString() {
-        return "CartXProduct{" + "cart_id=" + cart_id + ", product_id=" + product_id + ", status=" + status + ", topic=" + topic + ", customer=" + customer + ", contactmethod=" + contactmethod + ", price=" + price + ", bearingtransactionfees=" + bearingtransactionfees + ", transactionfees=" + transactionfees + '}';
+        return "CartXProduct{" + "cart_id=" + cart_id + ", product_id=" + product_id + ", status=" + status + ", topic=" + topic + ", contactmethod=" + contactmethod + ", price=" + price + ", bearingtransactionfees=" + bearingtransactionfees + ", transactionfees=" + transactionfees + ", seller_id=" + seller_id + ", create_at=" + create_at + '}';
     }
 
-    
+
 
 }

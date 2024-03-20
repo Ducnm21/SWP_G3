@@ -17,6 +17,9 @@
         <meta charset="UTF-8">
         <!-- Site Title -->
         <title>SCLC</title>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
         <!--
                 CSS
                 ============================================= -->
@@ -31,6 +34,7 @@
         <link rel="stylesheet" href="css/ion.rangeSlider.skinFlat.css" />
         <link rel="stylesheet" href="css/magnific-popup.css">
         <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/popup/PopupLogin.css">
         <style>
             .ordertable {
                 margin-left: 0%;
@@ -47,6 +51,51 @@
                 margin-top: -10px;
                 margin-bottom: -10px;
             }
+
+
+            .login_popup {
+                display: none;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 40%;
+                height: 75%;
+                z-index: 999;
+            }
+
+            .login_form_inner {
+                background-color: rgba(255, 255, 255, 0.9);
+                padding: 30px;
+                border-radius: 5px;
+                position: relative;
+            }
+
+            .background_overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 998;
+                display: none;
+            }
+            .close_button {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                border: none;
+                background: none;
+                cursor: pointer;
+                font-size: 20px;
+                color: #000;
+            }
+
+            .close_button:hover {
+                color: #555;
+            }
+
         </style>
     </head>
 
@@ -58,7 +107,7 @@
                 <nav class="navbar navbar-expand-lg navbar-light main_box">
                     <div class="container">
                         <!-- Brand and toggle get grouped for better mobile display -->
-                        <a class="navbar-brand logo_h" href="index.jsp"><img src="img/logosclc.png" alt=""></a>
+                        <a class="navbar-brand logo_h" href="getallproductindex"><img src="img/logosclc.png" alt=""></a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="icon-bar"></span>
@@ -68,7 +117,8 @@
                         <!-- Collect the nav links, forms, and other content for toggling -->
                         <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                             <ul class="nav navbar-nav menu_nav ml-auto">
-                                <li class="nav-item active"><a class="nav-link" href="index.jsp">Home</a></li>
+
+                                <li class="nav-item active"><a class="nav-link" href="getallproductindex">Home</a></li>
                                 <li class="nav-item submenu dropdown">
                                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                                        aria-expanded="false">Shop</a>
@@ -80,6 +130,9 @@
                                         <li class="nav-item"><a class="nav-link" href="confirmation.html">Confirmation</a></li>
                                     </ul>
                                 </li>
+
+
+
                                 <li class="nav-item submenu dropdown">
                                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                                        aria-expanded="false">Blog</a>
@@ -88,14 +141,8 @@
                                         <li class="nav-item"><a class="nav-link" href="single-blog.html">Blog Details</a></li>
                                     </ul>
                                 </li>
-                                <li class="nav-item submenu dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                                       aria-expanded="false">Pages</a>
-                                    <ul class="dropdown-menu">
-                                        <li class="nav-item"><a class="nav-link" href="login.jsp">Login</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="tracking.html">Tracking</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>
-                                    </ul>
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="javascript:void(0)" onclick="openLoginPopup()">Login</a>
                                 </li>
                                 <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
                             </ul>
@@ -119,6 +166,59 @@
                 </div>
             </div>
         </header>
+
+        <div id="loginPopup" class="login_popup">
+            <div class="login_form_inner"> 
+                <div class="formlog" style="border: 5px">
+                    <h3 style="font-size: 50px">Login</h3>
+                    <button class="close_button" onclick="closeLoginPopup(event)"><i class="fas fa-times"></i></button>
+                    <form class="row login_form" id="loginForm" novalidate="novalidate">
+                        <p class="text-danger" style="color: red" id="error"></p>
+                        <div class="col-md-12 form-group">
+                            <input style="width: 360px ;border-radius: 10px; margin-bottom: 10px; padding-right:8px " type="text" class="form-control" id="username" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <input style="width: 360px ;border-radius: 10px; margin-bottom: 10px;" type="password" class="form-control" id="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+                        </div>
+                        <div class="creat_account"> 
+                            <label> 
+                                <div class="input-group-prepend" style="padding-left: 10px">
+                                    <div style="display: flex;">
+                                        <!-- Add an ID to the image tag for easy selection -->
+                                        <img style="border-radius: 10px; margin-bottom: 10px;" id="captchaImage" src="captchaGenerate" alt="CAPTCHA image" />
+                                        <button id="refreshButton" type="button" class="btn btn-light" style="width: 50px; background-color: white;border-radius: 10px; margin-bottom: 10px;" onclick="refreshCaptcha()">
+                                            <i class="fa fa-refresh" style="color: black;"></i>
+                                        </button>
+                                    </div>
+                                    <input style="border-radius: 10px; margin-bottom: 10px; border: 1px" id="captcha" type="text" placeholder="Enter captcha here" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter captcha here'"/>
+                                </div>                                  
+                            </label>
+                        </div>
+                        <div  class="col-md-12 form-group">
+                            <button type="button" class="primary-btn" onclick="login()">Log In</button>
+                            <a href="forgotpassword.jsp">Forgot Password?</a>
+                        </div>
+                        <p style="padding-left: 70px">New to our website?<a href="register">Create an Account</a></p>
+                    </form>  
+                </div>
+            </div>
+        </div>
+        <div class="background_overlay" id="backgroundOverlay"></div>
+
+        <script>
+            function openLoginPopup() {
+                document.getElementById("loginPopup").style.display = "block";
+                document.getElementById("backgroundOverlay").style.display = "block";
+                document.getElementById("backgroundOverlay").addEventListener("click", closeLoginPopup);
+            }
+
+            function closeLoginPopup(event) {
+                event.preventDefault();
+                document.getElementById("loginPopup").style.display = "none";
+                document.getElementById("backgroundOverlay").style.display = "none";
+                document.getElementById("backgroundOverlay").removeEventListener("click", closeLoginPopup);
+            }
+        </script>
         <!-- End Header Area -->
 
         <!-- start banner Area -->
@@ -171,15 +271,15 @@
                 <th>Price(VND)</th>
                 <th>Bearing transaction fees</th>
                 <th>Transaction fees</th>
-                <th>Actual $ received</th>
+                <th>Total pay</th>
                 <th>Action</th>
                 </thead>
                 <tbody>
                     <c:forEach items="${ListProductI}" var="p">
                         <tr>
-                            <th><a href="detailoforder?oid=${p.product_id}">${p.product_id}</a></th>
+                            <th>${p.product_id}</a></th>
                             <th>${p.status}</th>
-                            <th>${p.customer}</th>
+                            <th>ppp</th>
                             <th>${p.topic}</th>
                             <th>${p.contactmethod}</th>
                             <th>${p.publicprivate}</th>
@@ -194,9 +294,6 @@
                 </tbody>    
             </table>
         </div>
-
-
-
 
         <!-- start footer Area -->
         <footer class="footer-area section_gap">
@@ -276,6 +373,56 @@
                 </div>
             </div>
         </footer>
+        <script>
+            function refreshCaptcha() {
+                // Perform AJAX request to refresh captcha
+                $.ajax({
+                    type: "GET",
+                    url: "captchaGenerate",
+                    success: function (response) {
+                        // Update the captcha image source
+                        $("#captchaImage").attr("src", "captchaGenerate");
+                    },
+                    error: function () {
+                        // Handle error
+                        console.error("Error refreshing captcha");
+                    }
+                });
+            }
+            function login() {
+                var username = $("#username").val();
+                var password = $("#password").val();
+                var captcha = $("#captcha").val();
+
+                // Perform AJAX request
+                $.ajax({
+                    type: "POST",
+                    url: "logincontroller",
+                    data: {
+                        username: username,
+                        password: password,
+                        captchaEntered: captcha
+                    },
+                    success: function (response) {
+                        if (response.trim() === "success") {
+                            window.location.href = "getallproduct";
+                        } else if (response.trim() === "error") {
+                            // Display message for a banned account
+                            $("#error").text("Your Account has been banned!");
+                        } else {
+                            // Display general error message
+                            $("#error").text("Invalid username, password, or captcha");
+                        }
+                    },
+                    error: function () {
+                        // Handle error
+                        $("#error").text("An error occurred during login");
+                    }
+                });
+            }
+
+
+        </script>
         <!-- End footer Area -->
 
         <script src="js/vendor/jquery-2.2.4.min.js"></script>

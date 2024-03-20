@@ -85,7 +85,7 @@
                                 </li>                       
 
                                 <c:if test="${sessionScope.user == null}">
-                                    <li class="nav-item"><a class="nav-link" href="login.jsp">Login</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="getallproductindex">Login</a></li>
                                     </c:if>
 
 
@@ -97,7 +97,6 @@
                                         <ul class="dropdown-menu">
                                             <li class="nav-item"><a class="nav-link" href="logout">Logout</a></li>
                                             <li class="nav-item"><a class="nav-link" href="newscontroll">News</a></li>
-                                            <li class="nav-item"><a class="nav-link" href="history">Transaction History</a></li>
                                             <li class="nav-item"><a class="nav-link" href="changepassword.jsp">Change Password</a></li>
                                             <li class="nav-item"><a class="nav-link" href="UpdateProfile.jsp">Update Profile</a></li>
                                         </ul>

@@ -125,7 +125,10 @@
     <div class="row">
         <div class="col-lg-6">
             <div class="detailform">
-                <h2>${userdetail.username}</h2>
+                <div>
+                    <h2>${userdetail.username}</h2>
+                </div>
+                
                 <table class="table table-striped table-hover">
                     <tr>
                         <td>Full name</td>

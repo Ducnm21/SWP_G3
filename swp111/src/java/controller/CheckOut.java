@@ -64,9 +64,6 @@ public class CheckOut extends HttpServlet {
         }
         Wallet w = d.getWalletById(u.getId());
         double balance = w.getBalance();
-        
-        Wallet w1 = d.getWalletById(5);
-        double balance1 = w1.getBalance();
 
         if (balance < fee) {
             
@@ -74,7 +71,7 @@ public class CheckOut extends HttpServlet {
             request.getRequestDispatcher("checkout.jsp").forward(request, response);
         } else {
             d.PurchaseSellers(pdto);
-            d.updateWallet(balance1+feeA, 5); // 5 la id admin
+            d.updateWallet(balance+feeA, 0);
             d.updateWallet(balance - fee, u.getId());
             d.updateCart(u.getId());
             for (CartXProduct cart : list) {

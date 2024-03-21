@@ -63,7 +63,7 @@ public class loadbearingproductbyuserid extends HttpServlet {
                 + "   <thead>\n"
                 + "       <th>ID</th>\n"
                 + "       <th>Status</th>\n"
-                + "       <th>Customer</th>\n"
+               // + "       <th>Customer</th>\n"
                 + "       <th>Topic</th>\n"
                 + "       <th>Contact Method</th>\n"
                 + "       <th>Public/Private</th>\n"

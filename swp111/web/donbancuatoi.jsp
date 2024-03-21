@@ -77,11 +77,12 @@
                                         <li class="nav-item"><a class="nav-link" href="getallproduct">Public Market</a></li>
                                         <li class="nav-item"><a class="nav-link" href="getorderbyuserid">My Products</a></li>
                                         <li class="nav-item"><a class="nav-link" href="cart">My Orders</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="Sold_Product_History.jsp">Sold Products</li>
                                     </ul>
                                 </li>                       
 
                                 <c:if test="${sessionScope.user == null}">
-                                    <li class="nav-item"><a class="nav-link" href="getallproductindex">Login</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="login.jsp">Login</a></li>
                                     </c:if>
 
 
@@ -175,7 +176,7 @@
                 <thead>
                 <th>id</th>
                 <th>Status</th>
-                <th>Customer</th>
+                <--<!-- <th>Customer</th>comment -->
                 <th>Title</th>
                 <th>Contact method</th>
                 <th>Public/Private</th>
@@ -195,13 +196,14 @@
                         <option value="Available">Available</option>
                         <option value="Completed">Completed</option>
                         <option value="Pending">Pending</option>
+                        <option value="Out of stock">Out of stock</option>
                         <option value="The buyer is checking the order">The buyer is checking the order</option>
                         <option value="Buyer is complaining">Buyer is complaining</option>
                         <option value="Requesting Admin to solve">Requesting Admin to solve</option>
                     </select>
                     <button id="loadOrdersButton" onclick="orderStatus()">Load</button>
                 </th>
-                <th><input value="${sn}" oninput="searchByCustomerName(this)" name="txt" type="text" placeholder="Search..."></th>
+                <!-- <th><input value="${sn}" oninput="searchByCustomerName(this)" name="txt" type="text" placeholder="Search..."></th>comment -->
                 <th><input value="${sntitle}" oninput="searchByTitle(this)" name="txttitle" type="text" placeholder="Title..."></th>
                 <th><input value="${sncontact}" oninput="searchByContact(this)" name="txtcontact" type="text" placeholder="Contact..."></th>
                 <th>
@@ -241,11 +243,7 @@
                     </select>
                     <button id="loadOrdersButton" onclick="orderReceived()">Find</button>
                 </th>
-                <th> 
-                    <label for="start_date">Start Date:</label>
-                    <input type="date" id="start_date"><br><br>
-                    <label for="end_date">End Date:</label>
-                    <input type="date" id="end_date"><br><br></th>
+                <th></th> 
                 <th></th>
                 <th></th>
                 </thead>
@@ -254,7 +252,7 @@
                         <tr class="product">
                             <th><a href="detailoforder?pid=${o.product_id}">${o.product_id}</a></th>
                             <th>${o.status}</th>
-                            <th>${o.customer}</th>
+                            <--<!-- <th>UPDATING</th>comment -->
                             <th>${o.topic}</th>
                             <th>${o.contactmethod}</th>
                             <th>${o.publicprivate}</th>

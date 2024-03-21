@@ -47,11 +47,7 @@ public class sellerprofile extends HttpServlet {
         request.setAttribute("feedback", feedback);
         request.getRequestDispatcher("sellerprofile.jsp").forward(request, response);
     }
-    public static void main(String[] args) {
-        UserDAO dao = new UserDAO();
-        User u = dao.getUserByID(4);
-        System.out.println(u);
-    }
+   
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 

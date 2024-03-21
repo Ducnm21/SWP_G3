@@ -150,12 +150,7 @@
                                 <div class="col-lg-5 col-md-6">
                                     <div class="banner-content">
                                         <h1><span style="color: orange;">Manage Account</span></h1>
-                                        <form action="search" method="post">
-                                            <div class="add-bag d-flex align-items-center">
-                                                <input name="txt" type="text" class="form-control" id="search_input" placeholder="Search for account by name">
-                                                <button type="submit" class="btn">Search</button>
-                                            </div>
-                                        </form>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -179,14 +174,14 @@
             </div>
         </section>
         <!-- End banner Area -->
-        <div class="donbanhead">
+        <div class="donbanhead" style="text-align: center; margin-left: 20%">
             <div class="row">
                 <div class="col-lg-9">
                     <h2>Account management</h2>
                 </div>
             </div>
         </div>
-        <div class="ordertable">
+        <div class="ordertable" style="padding-left: 5%; padding-right: 5%">
             <table class="table table-striped table-hover">
 
                 <thead>
@@ -208,8 +203,7 @@
                             <td>${u.email}</td>
                             <td>${u.mobile}</td>
                             <td>${u.fullname}</td>
-                            <td>${u.banned}</td>               
-                            
+                            <td>${u.banned}</td>                                           
                             <c:if test="${u.banned == 'active'}">
                                 <td><a href="banservlet?u_id=${u.id}" >Ban</a></td>                              
                             </c:if>

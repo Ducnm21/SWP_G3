@@ -81,10 +81,6 @@ public class logincontroller extends HttpServlet {
             HttpSession session = request.getSession();
             BodyDAO d = new BodyDAO();
             Wallet w = d.getWalletById(u.getId());
-            request.setAttribute("balance", w.getBalance());
-            WalletDAO dw = new WalletDAO();
-            Wallet AdW = dw.GetWalletAdmin();
-            request.setAttribute("AdminBalance", AdW.getBalance());
             session.setAttribute("walletCurrent", w);
             if (u != null) {
                 if (u.getBanned().equals("active")) {
@@ -103,16 +99,14 @@ public class logincontroller extends HttpServlet {
         }
     }
 
-        /**
-         * Returns a short description of the servlet.
-         *
-         * @return a String containing servlet description
-         */
-        @Override
-        public String getServletInfo
-        
-            () {
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
         return "Short description";
-        }// </editor-fold>
+    }// </editor-fold>
 
-    }
+}

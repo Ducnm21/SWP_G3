@@ -115,12 +115,10 @@
                 <nav class="navbar navbar-expand-lg navbar-light main_box">
                     <div class="container">
                         <!-- Brand and toggle get grouped for better mobile display -->
-                        <a class="navbar-brand logo_h" href="getallproductindex"><img src="img/logosclc.png" alt=""></a>
+                        <a class="navbar-brand logo_h" href="getallproductindex"><img src="img/logosclc.png" alt=""></a>   
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
+
                         </button>
                         <!-- Collect the nav links, forms, and other content for toggling -->
                         <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
@@ -152,7 +150,7 @@
                                 <li class="nav-item active">
                                     <a class="nav-link" href="javascript:void(0)" onclick="openLoginPopup()">Login</a>
                                 </li>
-                                <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                                
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
                                 <li class="nav-item"><a href="#" class="cart"><span class="ti-bag"></span></a></li>
@@ -239,33 +237,24 @@
                             <div class="row single-slide align-items-center d-flex">
                                 <div class="col-lg-5 col-md-6">
                                     <div class="banner-content">
-                                        <h1>Welcome to <br>SCLC!</h1>
-                                        <div class="add-bag d-flex align-items-center">
-                                            <a class="add-btn" href=""><span class="lnr lnr-cross"></span></a>
-                                            <span class="add-text text-uppercase">Add to Bag</span>
-                                        </div>
+                                        <h1>SCLC<br>Welcome <span style="color: orange;">SCLC !</span></h1>
                                     </div>
                                 </div>
-
                             </div>
                             <!-- single-slide -->
                             <div class="row single-slide align-items-center d-flex">
                                 <div class="col-lg-5 col-md-6">
                                     <div class="banner-content">
-                                        <h1>Welcome to <br>SCLC!</h1>
-                                        <div class="add-bag d-flex align-items-center">
-                                            <a class="add-btn" href=""><span class="lnr lnr-cross"></span></a>
-                                            <span class="add-text text-uppercase">Add to Bag</span>
-                                        </div>
+                                        <h1>SCLC<br>Welcome <span style="color: orange;">SCLC !</span></h1>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+        <!-- End banner Area -->
         <!-- End banner Area -->
         <div class="ordertable">
             <table  class="table table-striped table-hover">
@@ -292,7 +281,7 @@
                             <th>${p.publicprivate}</th>
                             <th>${p.price}</th>
                             <th>${p.bearingtransactionfees}</th>
-                            <th>${transactionfeesI}</th>
+                            <th>${p.transactionfees}</th>
                             <th>${p.actualreceived}</th>
                         </tr>
                     </c:forEach>

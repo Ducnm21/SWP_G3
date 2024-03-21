@@ -37,12 +37,6 @@ public class GetAllProductIndex extends HttpServlet {
         ProductDAO dao = new ProductDAO();
         List<Product> listP = dao.getAllProduct();
         
-        
-        for (Product product : listP) {
-            request.setAttribute("priceI", String.format("%,.0f", (double) product.getPrice()) + " ₫");
-//            request.setAttribute("transactionfeesI", String.format("%,.0f", (double) product.getTransactionfees()) + " ₫");
-        }
-        
 
         request.setAttribute("ListProductI", listP);
         request.getRequestDispatcher("index.jsp").forward(request, response);

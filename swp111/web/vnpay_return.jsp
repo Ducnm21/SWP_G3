@@ -14,6 +14,7 @@
 <%@page import="dal.DepositDAO" %>
 <%@page import="dal.WalletDAO" %>
 <%@page import="model.Wallet" %>
+<%@page import="java.util.Queue" %>
 <%@page import="java.util.LinkedList" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,7 +30,7 @@
         <link href="/vnpay_jsp/assets/jumbotron-narrow.css" rel="stylesheet"> 
         <script src="assets/js/jquery-1.11.3.min.js"></script>
         <link rel="stylesheet" href="css/TransactionDetails.css"/>
-        <<link rel="stylesheet" href="css/bootstrap-grid.css"/>
+        <link rel="stylesheet" href="css/bootstrap-grid.css"/>
 
     </head>
     <body>
@@ -91,14 +92,14 @@
                             HttpSession ss = request.getSession();
                             Wallet wallet = (Wallet) ss.getAttribute("walletCurrent");
     
-                            // Kiểm tra xem đã tính toán total chưa
-                            boolean isTotalCalculated = ss.getAttribute("isTotalCalculated") != null && (boolean) ss.getAttribute("isTotalCalculated");
-
+                            // Tao queue
+                            Queue<Integer> numbers = new LinkedList<>();
+                            numbers.offer(1);
+                            int accessedNumber = numbers.peek();
                             if (signValue.equals(vnp_SecureHash)) {
-                                if (!isTotalCalculated) {
                                     if ("00".equals(request.getParameter("vnp_TransactionStatus"))) {
                                         out.print("Thành công");
-
+                                         int removedNumber = numbers.poll();
                                         double amount2 = dao.getBalanceByDeposit(wallet.getId());
                                         double amount = Double.parseDouble(request.getParameter("vnp_Amount")) / 100;
                                         double total = amount2 + amount;
@@ -107,16 +108,12 @@
 
                                         ss.setAttribute("walletCurrent", wa2);
 
-                                        // Đặt cờ là đã tính toán total
-                                        ss.setAttribute("isTotalCalculated", true);
                                     } else {
+                                    int removedNumber = numbers.poll();
                                         out.print("Không thành công");
                                         dao.updateStatus(wallet, "Không thành công");
                                     }
-                                } else {
-                                    out.print("Thành công.");
-                                }
-                            } else {
+                                }else {
                                 out.print("invalid signature");
                                 dao.updateStatus(wallet, "Pending");
                             }

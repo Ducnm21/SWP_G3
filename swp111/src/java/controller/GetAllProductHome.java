@@ -52,9 +52,7 @@ public class GetAllProductHome extends HttpServlet {
             BodyDAO d = new BodyDAO();
             WalletDAO wd = new WalletDAO();
             Wallet w = d.getWalletById(user.getId());
-            Wallet AdW = wd.GetWalletAdmin();
             request.setAttribute("balance", String.format("%,.0f", w.getBalance()) + " ₫");
-            request.setAttribute("AdminBalance", String.format("%,.0f", AdW.getBalance()) + " ₫");
             request.setAttribute("ListProduct", listP);
             
             request.getRequestDispatcher("homepage.jsp").forward(request, response);

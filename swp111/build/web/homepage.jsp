@@ -197,6 +197,7 @@
                                         <li class="nav-item"><a class="nav-link" href="getallproduct">Public Market</a></li>
                                         <li class="nav-item"><a class="nav-link" href="getorderbyuserid">My Products</a></li>
                                         <li class="nav-item"><a class="nav-link" href="cart">My Orders</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="productSold">Products Sold</a></li>
                                     </ul>
                                 </li>                       
 
@@ -330,50 +331,61 @@
     </div>
     <div class="ordertable">
 
-        <table  class="table table-striped table-hover">
-            <thead>
-            <th style="text-align: justify">id</th>
-            <th>Status</th>
-            <th>Seller</th>
-            <th>Product</th>
-            <th>Contact method</th>
-            <th>Public/Private</th>
-            <th>Price(VND)</th>
-            <th>Bearing transaction fees</th>
-            <th>Transaction fees</th>
-            <th>Actual $ received</th>             
-            <th>Action</th>
+            <table  class="table table-striped table-hover">
+                <thead>
+                <th>Detail</th>
+                <th>Status</th>
+                <th>Seller</th>
+                <th>Product</th>
+                <th>Contact method</th>
+                <th>Public/Private</th>
+                <th>Price(VND)</th>
+                <th>Bearing transaction fees</th>
+                <th>Transaction fees</th>
+                <th>Actual payment</th>             
+                
+                <th>Action</th>
 
-            </thead>
-            <tbody>
-                <c:forEach items="${ListProduct}" var="p">
-                    <tr>
-                        <th><a href="detailoforder?pid=${p.product_id}">${p.product_id}</a></th>
-                        <th>${p.status}</th>
-                        <th><a href="sellerprofile?uid=${p.user_id}">${p.sellerName}</a></th>
-                        <th>${p.topic}</th>
-                        <th>${p.contactmethod}</th>
-                        <th>${p.publicprivate}</th> 
-                        <th>${p.price}</th>
-                        <th>${p.bearingtransactionfees}</th>
-                        <th>${p.transactionfees}</th>
-                        <th>${p.actualreceived}</th>
-
-                        <td>
+                </thead>
+                <tbody>
+                    <c:forEach items="${ListProduct}" var="p">
+                        <tr>
+                            <th><a class="linkpro" href="product_detail_for_customer?pid=${p.product_id}">View</a></th>
+                            <th>${p.status}</th>
+                            <th><a class="linkpro" href="sellerprofile?uid=${p.user_id}">${p.sellerName}</a></th>
+                            <th>${p.topic}</th>
+                            <th>${p.contactmethod}</th>
+                            <th>${p.publicprivate}</th>
+                            <th>${p.price}</th>
+                            <th>${p.bearingtransactionfees}</th>
+                            <th>${p.transactionfees}</th>
+                            
+                            <th>
                             <c:choose>
-                                <c:when test="${p.user_id ne sessionScope.user.id}">
-                                    <button type="button" class="btn" onclick="addToCart(${p.product_id})">Add to cart</button>
-                                </c:when>
-                                <c:otherwise>
-                                    <span>You cannot buy your own product</span>
-                                </c:otherwise>
-                            </c:choose>
-                        </td>
-                    </tr>
-                </c:forEach>
-            </tbody>    
-        </table>
-    </div>   
+                                    <c:when test="${p.bearingtransactionfees eq 'seller'}">
+                                        ${p.price - p.transactionfees} 
+                                    </c:when>
+                                    <c:otherwise>
+                                         ${p.price}
+                                    </c:otherwise>
+                                </c:choose>
+                            </th>
+                            
+                            <td>
+                                <c:choose>
+                                    <c:when test="${p.user_id ne sessionScope.user.id}">
+                                        <button type="button" class="btn" onclick="addToCart(${p.product_id})">Add to cart</button>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span>You cannot buy your own product</span>
+                                    </c:otherwise>
+                                </c:choose>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </tbody>    
+            </table>
+        </div>   
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
                                         function addToCart(productId) {

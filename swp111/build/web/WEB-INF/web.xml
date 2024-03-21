@@ -108,6 +108,14 @@
         <servlet-name>BanServlet</servlet-name>
         <servlet-class>controller.BanServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>product_detail_for_customer</servlet-name>
+        <servlet-class>controller.product_detail_for_customer</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>productSold</servlet-name>
+        <servlet-class>controller.productSold</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>logincontroller</servlet-name>
         <url-pattern>/logincontroller</url-pattern>
@@ -211,6 +219,14 @@
     <servlet-mapping>
         <servlet-name>BanServlet</servlet-name>
         <url-pattern>/banservlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>product_detail_for_customer</servlet-name>
+        <url-pattern>/product_detail_for_customer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>productSold</servlet-name>
+        <url-pattern>/productSold</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

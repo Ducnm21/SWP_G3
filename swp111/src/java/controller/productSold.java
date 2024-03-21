@@ -5,25 +5,24 @@
 
 package controller;
 
-import dal.FeedbackDAO;
 import dal.ProductDAO;
-import dal.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import model.Product;
 import model.User;
-import model.Feedback;
+
 /**
  *
  * @author VIVO-S15
  */
-public class sellerprofile extends HttpServlet {
+public class productSold extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -35,19 +34,15 @@ public class sellerprofile extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        UserDAO dao = new UserDAO();
-        ProductDAO daoproduct = new ProductDAO();
-        FeedbackDAO daofb = new FeedbackDAO();
-        int uid = Integer.parseInt(request.getParameter("uid"));        
-        User u = dao.getUserByID(uid);
-        List<Product> product = daoproduct.getProductByUser_IDToProfile(uid);
-        List<Feedback> feedback = daofb.getFeedbackByUser_ID(uid);
-        request.setAttribute("userdetail", u);
-        request.setAttribute("sellerproduct", product);
-        request.setAttribute("feedback", feedback);
-        request.getRequestDispatcher("sellerprofile.jsp").forward(request, response);
-    }
-   
+        HttpSession session = request.getSession();
+        User loggedInUser = (User) session.getAttribute("user");
+        int uid = loggedInUser.getId();
+        ProductDAO dao = new ProductDAO();
+        List<Product> productSold = new ArrayList<>();
+        productSold = dao.getProductWithCustomerNameAndUser_ID(uid);
+        request.setAttribute("productSold", productSold);
+        request.getRequestDispatcher("Sold_Product_History.jsp").forward(request, response);
+    } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
@@ -84,5 +79,4 @@ public class sellerprofile extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }

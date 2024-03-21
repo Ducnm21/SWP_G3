@@ -281,7 +281,7 @@
                             <th>${p.publicprivate}</th>
                             <th>${p.price}</th>
                             <th>${p.bearingtransactionfees}</th>
-                            <th>${transactionfeesI}</th>
+                            <th>${p.transactionfees}</th>
                             <th>${p.actualreceived}</th>
                         </tr>
                     </c:forEach>

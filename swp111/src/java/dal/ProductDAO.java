@@ -42,28 +42,14 @@ public class ProductDAO {
                         rs.getString("hiddencontent"),
                         rs.getString("created_at"),
                         rs.getString("updated_at"),
-                        rs.getInt("user_id"));
+                        rs.getInt("user_id"),
+                        rs.getString("sellerName"));
                 list.add(p);
             }
         } catch (SQLException e) {
             System.out.println(e);
         }
         return list;
-    }
-
-    public int GetListPrice() {
-        List<Product> list = new ArrayList<>();
-        String sql = "SELECT p.price FROM products p INNER JOIN users u ON p.user_id = u.user_id WHERE p.status = 'Available' and p.publicprivate = 'public';";
-        try {
-            PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                return rs.getInt("price");               
-            }
-        } catch (SQLException e) {
-            
-        }
-        return 0;
     }
 
     public Product getProductByID(int id) {
@@ -123,7 +109,7 @@ public class ProductDAO {
         }
         return list;
     }
-
+    
     public List<Product> getProductByUser_IDToProfile(int uid) {
         List<Product> list = new ArrayList<>();
         String sql = "SELECT * FROM Products where status = 'Available' and user_id = ?;";
@@ -132,9 +118,8 @@ public class ProductDAO {
             st.setInt(1, uid);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                list.add(new Product(
-                        rs.getInt("product_id"),
-                        rs.getString("status"),                        
+                list.add(new Product(rs.getInt("product_id"),
+                        rs.getString("status"),
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
@@ -157,24 +142,28 @@ public class ProductDAO {
     public void addNewProduct(String topic, String contactmethod, String publicprivate, int price, String bearingtransactionfees, String description, String hiddencontent, int user_id) {
         // Tính toán giá trị của transactionfees dựa trên giá trị của price (1% của price)
         int transactionfees = (int) Math.round(price * 0.01);
-
-        String sql = "INSERT INTO products (status,  topic, contactmethod, publicprivate, price, bearingtransactionfees, transactionfees, actualreceived, description, hiddencontent, user_id) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        int received = 0;
+        if (bearingtransactionfees.equals("seller")){
+            received = price - transactionfees;
+        } else if (bearingtransactionfees.equals("customer")){
+            received = price;
+        }
+        String sql = "INSERT INTO products (status, topic, contactmethod, publicprivate, price, bearingtransactionfees, transactionfees, actualreceived, description, hiddencontent, user_id) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
         try {
             PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
             st.setString(1, "Available");
-            st.setString(2, "Not yet");
-            st.setString(3, topic);
-            st.setString(4, contactmethod);
-            st.setString(5, publicprivate);
-            st.setInt(6, price);
-            st.setString(7, bearingtransactionfees);
-            st.setInt(8, transactionfees); // Sử dụng giá trị tính toán
-            st.setInt(9, 0);
-            st.setString(10, description);
-            st.setString(11, hiddencontent);
-            st.setInt(12, user_id);
+            st.setString(2, topic);
+            st.setString(3, contactmethod);
+            st.setString(4, publicprivate);
+            st.setInt(5, price);
+            st.setString(6, bearingtransactionfees);
+            st.setInt(7, transactionfees); // Sử dụng giá trị tính toán
+            st.setInt(8, received);
+            st.setString(9, description);
+            st.setString(10, hiddencontent);
+            st.setInt(11, user_id);
             st.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -237,7 +226,6 @@ public class ProductDAO {
             while (rs.next()) {
                 list.add(new Product(rs.getInt("product_id"),
                         rs.getString("status"),
-                        
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
@@ -270,7 +258,6 @@ public class ProductDAO {
             while (rs.next()) {
                 list.add(new Product(rs.getInt("product_id"),
                         rs.getString("status"),
-                        
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
@@ -303,7 +290,6 @@ public class ProductDAO {
             while (rs.next()) {
                 list.add(new Product(rs.getInt("product_id"),
                         rs.getString("status"),
-                        
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
@@ -336,7 +322,6 @@ public class ProductDAO {
             while (rs.next()) {
                 list.add(new Product(rs.getInt("product_id"),
                         rs.getString("status"),
-                        
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
@@ -369,7 +354,6 @@ public class ProductDAO {
             while (rs.next()) {
                 list.add(new Product(rs.getInt("product_id"),
                         rs.getString("status"),
-                        
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
@@ -402,7 +386,6 @@ public class ProductDAO {
             while (rs.next()) {
                 list.add(new Product(rs.getInt("product_id"),
                         rs.getString("status"),
-                        
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
@@ -437,7 +420,6 @@ public class ProductDAO {
             while (rs.next()) {
                 list.add(new Product(rs.getInt("product_id"),
                         rs.getString("status"),
-                        
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
@@ -470,7 +452,6 @@ public class ProductDAO {
             while (rs.next()) {
                 list.add(new Product(rs.getInt("product_id"),
                         rs.getString("status"),
-                        
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
@@ -503,7 +484,6 @@ public class ProductDAO {
             while (rs.next()) {
                 list.add(new Product(rs.getInt("product_id"),
                         rs.getString("status"),
-                        
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
@@ -536,7 +516,6 @@ public class ProductDAO {
             while (rs.next()) {
                 list.add(new Product(rs.getInt("product_id"),
                         rs.getString("status"),
-                        
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
@@ -569,7 +548,6 @@ public class ProductDAO {
             while (rs.next()) {
                 list.add(new Product(rs.getInt("product_id"),
                         rs.getString("status"),
-                        
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
@@ -591,7 +569,7 @@ public class ProductDAO {
 
     public List<Product> searchByCustomerNameWithUser_ID(String txtSearch, int uid) {
         List<Product> list = new ArrayList<>();
-        String sql = "SELECT * FROM products where customer_id like ? and user_id = ?";
+        String sql = "SELECT * FROM products where customer_name like ? and user_id = ?";
         try {
             PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
             st.setString(1, "%" + txtSearch + "%");
@@ -600,7 +578,6 @@ public class ProductDAO {
             while (rs.next()) {
                 list.add(new Product(rs.getInt("product_id"),
                         rs.getString("status"),
-                        
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
@@ -631,7 +608,6 @@ public class ProductDAO {
             while (rs.next()) {
                 list.add(new Product(rs.getInt("product_id"),
                         rs.getString("status"),
-                        
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
@@ -650,7 +626,7 @@ public class ProductDAO {
         }
         return list;
     }
-
+    
     public List<Product> searchByContactWithUser_ID(String txtSearchC, int uid) {
         List<Product> list = new ArrayList<>();
         String sql = "SELECT * FROM products where contactmethod like ? and user_id = ?";
@@ -662,7 +638,6 @@ public class ProductDAO {
             while (rs.next()) {
                 list.add(new Product(rs.getInt("product_id"),
                         rs.getString("status"),
-                        
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
@@ -681,7 +656,7 @@ public class ProductDAO {
         }
         return list;
     }
-
+    
     public List<Product> getPublicOrderByUser_ID(int uid) {
         List<Product> list = new ArrayList<>();
         String sql = "SELECT * FROM products where publicprivate = 'public' and user_id = ?";
@@ -692,7 +667,6 @@ public class ProductDAO {
             while (rs.next()) {
                 list.add(new Product(rs.getInt("product_id"),
                         rs.getString("status"),
-                        
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
@@ -722,7 +696,6 @@ public class ProductDAO {
             while (rs.next()) {
                 list.add(new Product(rs.getInt("product_id"),
                         rs.getString("status"),
-                        
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
@@ -752,7 +725,6 @@ public class ProductDAO {
             while (rs.next()) {
                 list.add(new Product(rs.getInt("product_id"),
                         rs.getString("status"),
-                        
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
@@ -782,7 +754,6 @@ public class ProductDAO {
             while (rs.next()) {
                 list.add(new Product(rs.getInt("product_id"),
                         rs.getString("status"),
-                        
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
@@ -801,19 +772,57 @@ public class ProductDAO {
         }
         return list;
     }
-
-    public List<Product> getProductByDate() {
+    public List<Product> getProductByDate(){
         List<Product> list = new ArrayList<>();
-        String sql = "SELECT * FROM products\n"
-                + "WHERE created_at >= ? AND created_at <= ? AND user_id = ?;";
-        try {
-            PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
-        } catch (Exception e) {
-
+        String sql = "SELECT * FROM products\n" +
+                     "WHERE created_at >= ? AND created_at <= ? AND user_id = ?;";
+        try{
+            
+        }catch(Exception e){
+            
         }
         return list;
     }
-
+    
+    public List<Product> getProductWithCustomerNameAndUser_ID(int uid){
+        List<Product> list = new ArrayList<>();
+        String sql = "SELECT \n" +
+                        "    users.username AS 'CustomerName', \n" +
+                        "    products.*\n" +
+                        "FROM \n" +
+                        "    cart\n" +
+                        "JOIN \n" +
+                        "    products ON cart.product_id = products.product_id\n" +
+                        "JOIN \n" +
+                        "    users ON users.user_id = cart.user_id\n" +
+                        "WHERE \n" +
+                        "    products.user_id = ?;";
+        try{
+            PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
+            st.setInt(1, uid);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(new Product(rs.getInt("product_id"),
+                        rs.getString("status"),
+                        rs.getString("topic"),
+                        rs.getString("contactmethod"),
+                        rs.getString("publicprivate"),
+                        rs.getInt("price"),
+                        rs.getString("bearingtransactionfees"),
+                        rs.getInt("transactionfees"),
+                        rs.getInt("actualreceived"),
+                        rs.getString("description"),
+                        rs.getString("hiddencontent"),
+                        rs.getString("created_at"),
+                        rs.getString("updated_at"),
+                        rs.getInt("user_id"),
+                        rs.getString("CustomerName")));
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return list;
+    }
     public static void main(String[] args) {
         ProductDAO dao = new ProductDAO();
         List<Product> list = dao.getAllProduct();

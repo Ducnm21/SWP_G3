@@ -116,6 +116,10 @@
         <servlet-name>productSold</servlet-name>
         <servlet-class>controller.productSold</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FeedbackServlet</servlet-name>
+        <servlet-class>controller.FeedbackServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>logincontroller</servlet-name>
         <url-pattern>/logincontroller</url-pattern>
@@ -227,6 +231,10 @@
     <servlet-mapping>
         <servlet-name>productSold</servlet-name>
         <url-pattern>/productSold</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FeedbackServlet</servlet-name>
+        <url-pattern>/sendfeedback</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

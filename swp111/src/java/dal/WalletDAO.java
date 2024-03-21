@@ -89,7 +89,7 @@ public class WalletDAO {
     }
 
     public Wallet getWalletByID3(int id, double amount) {
-        String sql = "SELECT * FROM swpproject.wallet WHERE id = ?";
+        String sql = "SELECT * FROM wallet WHERE user_id = ?";
         try ( Connection con = getConnection(DB_URL, USER_NAME, PASSWORD);  PreparedStatement st = con.prepareStatement(sql)) {
             st.setInt(1, id);
             try ( ResultSet rs = st.executeQuery()) {

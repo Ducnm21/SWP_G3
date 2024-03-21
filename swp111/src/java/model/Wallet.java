@@ -15,6 +15,10 @@ public class Wallet {
 
     public Wallet() {
     }
+    
+    public Wallet(int id) {
+        this.id = id;
+    }
 
     public Wallet(int id, double balance) {
         this.id = id;

@@ -63,9 +63,11 @@
             .modal-content {
                 background-color: #fefefe;
                 margin: 15%;
+                margin-left: 20.5%;
                 padding: 20px;
                 border: 1px solid #888;
-                width: 70%; /* Điều chỉnh kích thước cửa sổ popup tại đây */
+                width: 58%; /* Điều chỉnh kích thước cửa sổ popup tại đây */
+                height: 58%;
                 border-radius: 10px;
                 position: relative;
             }
@@ -78,6 +80,7 @@
                 top: 0;
                 left: 0;
                 cursor: pointer;
+                z-index: -1;
             }
 
 
@@ -96,7 +99,7 @@
                 position: fixed;
                 top: 0;
                 left: 0;
-                z-index: 999999;
+                z-index: 999999999;
                 opacity: 0;
                 pointer-events: none;
             }
@@ -185,7 +188,7 @@
                                        aria-expanded="false">Payment</a>
                                     <ul class="dropdown-menu">
                                         <li class="nav-item"><a class="nav-link" onclick="openDepositPopup()">Deposit</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="single-blog.html"></a></li>
+                                        <li class="nav-item"><a class="nav-link" href="WithdrawalRequest.jsp">Withdrawal Request</a></li>
                                     </ul>
                                 </li>
 
@@ -212,6 +215,7 @@
                                         <ul class="dropdown-menu">
                                             <li class="nav-item"><a class="nav-link" href="getallproductindex">Logout</a></li>
                                             <li class="nav-item"><a class="nav-link" href="newscontroll">News</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="history">Transaction History</a></li>
                                             <li class="nav-item"><a class="nav-link" href="changepassword.jsp">Change Password</a></li>
                                             <li class="nav-item"><a class="nav-link" href="UpdateProfile.jsp">Update Profile</a></li>
                                         </ul>
@@ -278,52 +282,42 @@
 
 
         <!-- Deposit Popup-->
-        <div id="depositModal" class="modal">
+                <div id="depositModal" class="modal">
             <div class="modal-content">
                 <div class="modal-background" onclick="closeDepositPopup()"></div>
-
-                    <div class="main_menu">
-                        <div class="modal_body" style="min-height: 0vh;margin-top: 2%">
-                            <div class="modal_inner">
-                                <!-- Deposit form-->
-                                <div class="deposit-form">
-                                    <form action="ajaxServlet" id="frmCreateOrder" method="post">
-                                        <div class="deposit__header">
-                                            <h2>DEPOSIT REQUEST</h2>
-                                        </div>
-                                        <table>
-                                            <tr>
-                                                <td style="padding-right:10px;">CHOOSE PAYMENT METHOD(*)</td>
-                                                <td class="button">
-                                                    <div>
-                                                        <input type="radio" id="money1" value="" name="deposit_method" required>
-                                                        <label for="money1">PAYMENT GATEWAY (CHARGING AN ADDITIONAL 3% SERVICE FEE OR 3K FOR TRANSACTIONS BELOW 100K)</label>
-                                                    </div>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>Account (VND)(*)</td>
-                                                <td><input id="tien" type="number" placeholder="Số tiền cần nạp (Tối thiểu 10,000 vnđ)" name="amount" oninput="formatCurrency(this)" required style="width: 626.85px" value="10000">
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td class="des">Payment Description</td>
-                                                <td><textarea type="text" id="description" class="description" placeholder="Ghi chú khoản nạp khi cần thiết" style="overflow-y: auto;width: 646.85px;padding-bottom: 60px;font-family: sans-serif"></textarea>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                        <div class="deposit" style="padding-top:0" ><button onclick="LoadError()" type="submit" id="naptien">DEPOSIT</button></div>
-                                    </form>
-                                </div>
+                    <!-- Deposit form-->
+                    <div class="deposit-form"  style="width: 80%">
+                        <form action="ajaxServlet" id="frmCreateOrder" method="post">
+                            <div class="deposit__header" style="margin-left: 150px">
+                                <h2>DEPOSIT REQUEST</h2>
                             </div>
-                        </div>
-                    </div>
-                
+                            <table style="margin-left: -20px; width: 50%">
+                                <tr>
+                                    <td style="padding-right:10px;">CHOOSE PAYMENT METHOD(*)</td>
+                                    <td class="button">
+                                        <div>
+                                            <input type="radio" id="money1" value="" name="deposit_method" required>
+                                            <label for="money1">PAYMENT GATEWAY (CHARGING AN ADDITIONAL 3% SERVICE FEE OR 3K FOR TRANSACTIONS BELOW 100K)</label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Account (VND)(*)</td>
+                                    <td><input id="tien" type="number" placeholder="Số tiền cần nạp (Tối thiểu 10,000 vnđ)" name="amount" oninput="formatCurrency(this)" required style="width: 626.85px" value="10000">
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="des">Payment Description</td>
+                                    <td><textarea type="text" id="description" class="description" placeholder="Ghi chú khoản nạp khi cần thiết" style="overflow-y: auto;width: 646.85px;padding-bottom: 60px;font-family: sans-serif"></textarea>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="deposit" style="padding-top:0" ><button onclick="LoadError()" type="submit" id="naptien">DEPOSIT</button></div>
+                        </form>
+                    </div>                           
             </div>
         </div>
-    </div>
 
 
     <div id="popup" style="display: none; text-align: center; color: red">

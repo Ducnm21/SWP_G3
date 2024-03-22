@@ -54,7 +54,7 @@ public class WalletDAO {
         List<Wallet> list = new ArrayList<>();
         String sql = "SELECT * FROM wallet WHERE user_id = ?";
         try {
-            PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
+            PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).pr    epareStatement(sql);
             st.setInt(1, uid);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
@@ -126,9 +126,21 @@ public class WalletDAO {
         }
         return null;
     }
+    
+    
+    public void updateWalletAfterAdd(Wallet w, double balance) {
+        String sql = "UPDATE wallet SET balance = ? WHERE wallet_id = ?";
+        try ( Connection con = getConnection(DB_URL, USER_NAME, PASSWORD);  PreparedStatement st = con.prepareStatement(sql)) {
+            st.setDouble(1, balance);
+            st.setInt(2, w.getId());
+            st.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public void updateWalletByID(Wallet w) {
-        String sql = "UPDATE wallet SET balance = ? WHERE id = ?";
+        String sql = "UPDATE wallet SET balance = ? WHERE wallet_id = ?";
         try ( Connection con = getConnection(DB_URL, USER_NAME, PASSWORD);  PreparedStatement st = con.prepareStatement(sql)) {
             st.setDouble(1, w.getBalance());
             st.setInt(2, w.getId());
@@ -139,10 +151,8 @@ public class WalletDAO {
     }
 
     public static void main(String[] args) {
-        WalletDAO w = new WalletDAO();
-        List<Wallet> h = w.getAllWallet();
-        for (Wallet wallet : h) {
-            System.out.println(wallet);
-        }
+        WalletDAO wd = new WalletDAO();
+        Wallet w = wd.GetWalletAdmin();
+        System.out.println(w);
     }
 }

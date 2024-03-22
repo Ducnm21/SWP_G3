@@ -138,6 +138,8 @@ public class ProductDAO {
         }
         return list;
     }
+    
+    
 
     public void addNewProduct(String topic, String contactmethod, String publicprivate, double price, String bearingtransactionfees, String description, String hiddencontent, int user_id) {
         // Tính toán giá trị của transactionfees dựa trên giá trị của price (1% của price)

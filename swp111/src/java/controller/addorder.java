@@ -4,6 +4,7 @@
  */
 package controller;
 import dal.ProductDAO;
+import dal.WalletDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,6 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.User;
+import model.Wallet;
 
 /**
  *
@@ -55,6 +57,12 @@ public class addorder extends HttpServlet {
 
                     if (title != null && contactmethod != null && publicprivate != null && bearingtransactionfees != null && description != null && hiddencontent != null) {
                         ProductDAO dao = new ProductDAO();
+                        WalletDAO wd = new WalletDAO();
+                        Wallet w = wd.getWalletByID(loggedInUser.getId());
+                        wd.updateWalletAfterAdd(w, w.getBalance()-500);
+                        Wallet wad = wd.GetWalletAdmin();
+                        wd.updateWalletAfterAdd(wad, wad.getBalance()+500);
+                        
                         dao.addNewProduct(title, contactmethod, publicprivate, price, bearingtransactionfees, description, hiddencontent, user_id);
                         request.setAttribute("mess", "The sale order has been add successfully");
                         //response.sendRedirect("getorderbyuserid");

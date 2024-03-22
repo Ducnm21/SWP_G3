@@ -15,10 +15,10 @@ public class Product {
     private String topic;
     private String contactmethod;
     private String publicprivate;
-    private int price;
+    private double price;
     private String bearingtransactionfees;
-    private int transactionfees;
-    private int actualreceived;
+    private double transactionfees;
+    private double actualreceived;
     private String description;
     private String hiddencontent;
     private String created_at;
@@ -29,7 +29,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(int product_id, String status, String topic, String contactmethod, String publicprivate, int price, String bearingtransactionfees, int transactionfees, int actualreceived, String description, String hiddencontent, String created_at, String updated_at, int user_id, String sellerName) {
+    public Product(int product_id, String status, String topic, String contactmethod, String publicprivate, double price, String bearingtransactionfees, double transactionfees, double actualreceived, String description, String hiddencontent, String created_at, String updated_at, int user_id, String sellerName) {
         this.product_id = product_id;
         this.status = status;
         this.topic = topic;
@@ -47,7 +47,7 @@ public class Product {
         this.sellerName = sellerName;
     }
 
-    public Product(int product_id, String status, String topic, String contactmethod, String publicprivate, int price, String bearingtransactionfees, int transactionfees, int actualreceived, String description, String hiddencontent, int user_id) {
+    public Product(int product_id, String status, String topic, String contactmethod, String publicprivate, double price, String bearingtransactionfees, double transactionfees, double actualreceived, String description, String hiddencontent, int user_id) {
         this.product_id = product_id;
         this.status = status;
         this.topic = topic;
@@ -62,7 +62,7 @@ public class Product {
         this.user_id = user_id;
     }
 
-    public Product(int product_id, String status, String topic, String contactmethod, String publicprivate, int price, String bearingtransactionfees, int transactionfees, int actualreceived, String description, String hiddencontent, String created_at, String updated_at, int user_id) {
+    public Product(int product_id, String status, String topic, String contactmethod, String publicprivate, double price, String bearingtransactionfees, double transactionfees, double actualreceived, String description, String hiddencontent, String created_at, String updated_at, int user_id) {
         this.product_id = product_id;
         this.status = status;
         this.topic = topic;
@@ -81,7 +81,7 @@ public class Product {
 
 
 
-    public Product(int price) {
+    public Product(double price) {
       this.price = price;
     }
 
@@ -128,11 +128,11 @@ public class Product {
         this.publicprivate = publicprivate;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -144,19 +144,19 @@ public class Product {
         this.bearingtransactionfees = bearingtransactionfees;
     }
 
-    public int getTransactionfees() {
+    public double getTransactionfees() {
         return transactionfees;
     }
 
-    public void setTransactionfees(int transactionfees) {
+    public void setTransactionfees(double transactionfees) {
         this.transactionfees = transactionfees;
     }
 
-    public int getActualreceived() {
+    public double getActualreceived() {
         return actualreceived;
     }
 
-    public void setActualreceived(int actualreceived) {
+    public void setActualreceived(double actualreceived) {
         this.actualreceived = actualreceived;
     }
 

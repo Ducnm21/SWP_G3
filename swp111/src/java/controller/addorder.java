@@ -3,8 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 package controller;
-
-import dal.OrderDAO;
 import dal.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -47,20 +45,20 @@ public class addorder extends HttpServlet {
             
             
             try {
-                int price = Integer.parseInt(prices);
+                double price = Integer.parseInt(prices);
                 if (price < 0) {
                     request.setAttribute("errorMessage", "Price must be greater than 0.");
                     request.getRequestDispatcher("addneworder.jsp").forward(request, response);
                 } else {
                     double transactionfeesPercentage = 0.01;
-                    int transactionfees = (int) (price * transactionfeesPercentage);
+                    double transactionfees =  (price * transactionfeesPercentage);
 
                     if (title != null && contactmethod != null && publicprivate != null && bearingtransactionfees != null && description != null && hiddencontent != null) {
                         ProductDAO dao = new ProductDAO();
                         dao.addNewProduct(title, contactmethod, publicprivate, price, bearingtransactionfees, description, hiddencontent, user_id);
                         request.setAttribute("mess", "The sale order has been add successfully");
                         //response.sendRedirect("getorderbyuserid");
-                        request.getRequestDispatcher("donbancuatoi.jsp").forward(request, response);
+                        request.getRequestDispatcher("getorderbyuserid").forward(request, response);
                     } else {
                         response.getWriter().println("Some parameters are missing.");
                     }

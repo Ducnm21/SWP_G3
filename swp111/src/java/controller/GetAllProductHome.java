@@ -43,7 +43,7 @@ public class GetAllProductHome extends HttpServlet {
 
         if (user == null) {
             // Người dùng chưa đăng nhập, chuyển hướng đến trang đăng nhập hoặc trang chính
-            response.sendRedirect("login.jsp");
+            response.sendRedirect("Home");
             return;
         } else {
             ProductDAO dao = new ProductDAO();
@@ -52,7 +52,9 @@ public class GetAllProductHome extends HttpServlet {
             BodyDAO d = new BodyDAO();
             WalletDAO wd = new WalletDAO();
             Wallet w = d.getWalletById(user.getId());
+            
             request.setAttribute("balance", String.format("%,.0f", w.getBalance()) + " ₫");
+            
             request.setAttribute("ListProduct", listP);
             
             request.getRequestDispatcher("homepage.jsp").forward(request, response);

@@ -176,7 +176,6 @@
                 <thead>
                 <th>id</th>
                 <th>Status</th>
-                <--<!-- <th>Customer</th>comment -->
                 <th>Title</th>
                 <th>Contact method</th>
                 <th>Public/Private</th>
@@ -252,14 +251,14 @@
                         <tr class="product">
                             <th><a href="detailoforder?pid=${o.product_id}">${o.product_id}</a></th>
                             <th>${o.status}</th>
-                            <--<!-- <th>UPDATING</th>comment -->
+           
                             <th>${o.topic}</th>
                             <th>${o.contactmethod}</th>
                             <th>${o.publicprivate}</th>
-                            <th>${pricepp}</th>
+                            <th>${o.price}</th>
                             <th>${o.bearingtransactionfees}</th>
-                            <th>${transactionfeespp}</th>
-                            <th>${actualreceivedpp}</th>
+                            <th>${o.transactionfees}</th>
+                            <th>${o.actualreceived}</th>
                             <th>${o.created_at}</th>
                             <th>${o.updated_at}</th>
                             <td>

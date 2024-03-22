@@ -5,7 +5,6 @@
 package controller;
 
 import dal.BodyDAO;
-import dal.OrderDAO;
 import dal.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -52,11 +51,11 @@ public class getorderbyuserid extends HttpServlet {
         Wallet w = d.getWalletById(loggedInUser.getId());
         
         request.setAttribute("balancep", w.getBalance());
-        for (Product product : listProductByUserID) {
-                request.setAttribute("pricepp", String.format("%,.0f",(double) product.getPrice()) + " ₫");
-                request.setAttribute("transactionfeespp", String.format("%,.0f",(double) product.getTransactionfees()) + " ₫");
-                request.setAttribute("actualreceivedpp", String.format("%,.0f",(double) product.getActualreceived()) + " ₫");
-        }
+//        for (Product product : listProductByUserID) {
+//                request.setAttribute("pricepp", String.format("%,.0f",(double) product.getPrice()) + " ₫");
+//                request.setAttribute("transactionfeespp", String.format("%,.0f",(double) product.getTransactionfees()) + " ₫");
+//                request.setAttribute("actualreceivedpp", String.format("%,.0f",(double) product.getActualreceived()) + " ₫");
+//        }
         
         request.setAttribute("listProductByUserID", listProductByUserID);
         request.getRequestDispatcher("donbancuatoi.jsp").forward(request, response);

@@ -13,7 +13,7 @@ public class Order {
     private String topic;
     private String contactmethod;
     private String publicprivate;
-    private int price;
+    private double price;
     private String bearingtransactionfees;
     private int transactionfees;
     private int actualreceived;
@@ -26,7 +26,7 @@ public class Order {
     public Order() {
     }
 
-    public Order(int id, String status, String customer, String topic, String contactmethod, String publicprivate, int price, String bearingtransactionfees, int transactionfees, int actualreceived, String description, String hiddencontent, String created_at, String updated_at, int user_id) {
+    public Order(int id, String status, String customer, String topic, String contactmethod, String publicprivate, double price, String bearingtransactionfees, int transactionfees, int actualreceived, String description, String hiddencontent, String created_at, String updated_at, int user_id) {
         this.id = id;
         this.status = status;
         this.customer = customer;
@@ -45,7 +45,7 @@ public class Order {
     }
 
 
-    public Order(int id, String topic, String contactmethod, int price, String bearingtransactionfees, int transactionfees, int actualreceived, String created_at, String updated_at) {
+    public Order(int id, String topic, String contactmethod, double price, String bearingtransactionfees, int transactionfees, int actualreceived, String created_at, String updated_at) {
         this.id = id;
         this.topic = topic;
         this.contactmethod = contactmethod;
@@ -58,7 +58,7 @@ public class Order {
     }
 
                         
-    public Order(int id, int user_id, String status, String customer, String topic, String contactmethod, String publicprivate, int price, String bearingtransactionfees, int transactionfees, int actualreceived, String description, String hiddencontent, String created_at, String updated_at) {
+    public Order(int id, int user_id, String status, String customer, String topic, String contactmethod, String publicprivate, double price, String bearingtransactionfees, int transactionfees, int actualreceived, String description, String hiddencontent, String created_at, String updated_at) {
         this.id = id;
         this.user_id = user_id;
         this.status = status;
@@ -129,11 +129,11 @@ public class Order {
         this.publicprivate = publicprivate;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

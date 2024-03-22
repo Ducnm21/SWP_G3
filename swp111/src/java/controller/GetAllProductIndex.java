@@ -19,7 +19,7 @@ import model.Product;
  *
  * @author admin
  */
-@WebServlet(name = "GetAllProductIndex", urlPatterns = {"/getallproductindex"})
+@WebServlet(name = "GetAllProductIndex", urlPatterns = {"/Home"})
 public class GetAllProductIndex extends HttpServlet {
 
     /**
@@ -36,8 +36,6 @@ public class GetAllProductIndex extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         ProductDAO dao = new ProductDAO();
         List<Product> listP = dao.getAllProduct();
-        
-
         request.setAttribute("ListProductI", listP);
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }

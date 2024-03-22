@@ -22,8 +22,8 @@ public class WalletDAO {
             while (rs.next()) {
                 Wallet w = new Wallet(
                         rs.getInt("wallet_id"),
-                        rs.getInt("balance"),
-                        rs.getInt("user_id"));
+                        rs.getInt("user_id"),
+                        rs.getDouble("balance"));
                 list.add(w);
             }
         } catch (Exception e) {
@@ -31,9 +31,9 @@ public class WalletDAO {
         }
         return list;
     }
-    
-    public Wallet GetWalletAdmin(){
-        String sql = "SELECT * FROM wallet where user_id = 5";      
+
+    public Wallet GetWalletAdmin() {
+        String sql = "SELECT * FROM wallet where user_id = 5";
         try ( Connection con = getConnection(DB_URL, USER_NAME, PASSWORD);  PreparedStatement st = con.prepareStatement(sql)) {
             try ( ResultSet rs = st.executeQuery()) {
                 if (rs.next()) {
@@ -45,7 +45,7 @@ public class WalletDAO {
                 }
             }
         } catch (Exception e) {
-            
+
         }
         return null;
     }
@@ -58,9 +58,10 @@ public class WalletDAO {
             st.setInt(1, uid);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                list.add(new Wallet(rs.getInt("wallet_id"),
-                        rs.getInt("balance"),
-                        rs.getInt("user_id")));
+                list.add(new Wallet(
+                        rs.getInt("wallet_id"),
+                        rs.getInt("user_id"),
+                        rs.getDouble("balance")));
             }
         } catch (Exception e) {
 
@@ -96,7 +97,7 @@ public class WalletDAO {
                 if (rs.next()) {
                     Wallet w = new Wallet();
                     w.setId(rs.getInt(1));
-                    w.setBalance(rs.getDouble(2));
+                    w.setBalance(amount);
                     w.setUser_id(rs.getInt(3));
                     return w;
                 }
@@ -106,8 +107,6 @@ public class WalletDAO {
         }
         return null;
     }
-    
-
 
     public Wallet getWalletByUserID(int id) {
         String sql = "SELECT * FROM swpproject.wallet WHERE user_id = ?";
@@ -141,7 +140,9 @@ public class WalletDAO {
 
     public static void main(String[] args) {
         WalletDAO w = new WalletDAO();
-        Wallet h = w.GetWalletAdmin();
-        System.out.println(h.getBalance());
+        List<Wallet> h = w.getAllWallet();
+        for (Wallet wallet : h) {
+            System.out.println(wallet);
+        }
     }
 }

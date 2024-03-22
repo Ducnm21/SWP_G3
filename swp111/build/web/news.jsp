@@ -192,7 +192,7 @@
 
                                                     // Update read status to "Đã đọc"
                                                     document.getElementById("readStatus_" + newsId).innerHTML = "Đã đọc";
-                                                    const url = 'detailoforder?pid=' + productId;
+                                                    const url = 'updateorder?pid=' + productId;
                                                     // Redirect to another page with the updated order ID
 
                                                     location.href = url;

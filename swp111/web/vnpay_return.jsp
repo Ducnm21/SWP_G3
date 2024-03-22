@@ -144,11 +144,11 @@
 
     <script>
         function redirectToHome() {
-            window.location.href = "/swp123/getallproduct";
+            window.location.href = "/swp111/getallproduct";
         }
 
         function createNewTransaction() {
-            window.location.href = "/swp123/Deposit.jsp";
+            window.location.href = "/swp111/Deposit.jsp";
         }
     </script>
 

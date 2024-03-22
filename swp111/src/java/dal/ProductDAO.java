@@ -34,10 +34,10 @@ public class ProductDAO {
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
-                        rs.getInt("price"),
+                        rs.getDouble("price"),
                         rs.getString("bearingtransactionfees"),
-                        rs.getInt("transactionfees"),
-                        rs.getInt("actualreceived"),
+                        rs.getDouble("transactionfees"),
+                        rs.getDouble("actualreceived"),
                         rs.getString("description"),
                         rs.getString("hiddencontent"),
                         rs.getString("created_at"),
@@ -65,10 +65,10 @@ public class ProductDAO {
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
-                        rs.getInt("price"),
+                        rs.getDouble("price"),
                         rs.getString("bearingtransactionfees"),
-                        rs.getInt("transactionfees"),
-                        rs.getInt("actualreceived"),
+                        rs.getDouble("transactionfees"),
+                        rs.getDouble("actualreceived"),
                         rs.getString("description"),
                         rs.getString("hiddencontent"),
                         rs.getString("created_at"),
@@ -94,10 +94,10 @@ public class ProductDAO {
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
-                        rs.getInt("price"),
+                        rs.getDouble("price"),
                         rs.getString("bearingtransactionfees"),
-                        rs.getInt("transactionfees"),
-                        rs.getInt("actualreceived"),
+                        rs.getDouble("transactionfees"),
+                        rs.getDouble("actualreceived"),
                         rs.getString("description"),
                         rs.getString("hiddencontent"),
                         rs.getString("created_at"),
@@ -123,10 +123,10 @@ public class ProductDAO {
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
-                        rs.getInt("price"),
+                        rs.getDouble("price"),
                         rs.getString("bearingtransactionfees"),
-                        rs.getInt("transactionfees"),
-                        rs.getInt("actualreceived"),
+                        rs.getDouble("transactionfees"),
+                        rs.getDouble("actualreceived"),
                         rs.getString("description"),
                         rs.getString("hiddencontent"),
                         rs.getString("created_at"),
@@ -139,10 +139,10 @@ public class ProductDAO {
         return list;
     }
 
-    public void addNewProduct(String topic, String contactmethod, String publicprivate, int price, String bearingtransactionfees, String description, String hiddencontent, int user_id) {
+    public void addNewProduct(String topic, String contactmethod, String publicprivate, double price, String bearingtransactionfees, String description, String hiddencontent, int user_id) {
         // Tính toán giá trị của transactionfees dựa trên giá trị của price (1% của price)
-        int transactionfees = (int) Math.round(price * 0.01);
-        int received = 0;
+        double transactionfees =  Math.round(price * 0.01);
+        double received = 0;
         if (bearingtransactionfees.equals("seller")){
             received = price - transactionfees;
         } else if (bearingtransactionfees.equals("customer")){
@@ -157,10 +157,10 @@ public class ProductDAO {
             st.setString(2, topic);
             st.setString(3, contactmethod);
             st.setString(4, publicprivate);
-            st.setInt(5, price);
+            st.setDouble(5, price);
             st.setString(6, bearingtransactionfees);
-            st.setInt(7, transactionfees); // Sử dụng giá trị tính toán
-            st.setInt(8, received);
+            st.setDouble(7, transactionfees); // Sử dụng giá trị tính toán
+            st.setDouble(8, received);
             st.setString(9, description);
             st.setString(10, hiddencontent);
             st.setInt(11, user_id);
@@ -170,9 +170,9 @@ public class ProductDAO {
         }
     }
 
-    public void updateProduct(int pid, String topic, String contactmethod, String publicprivate, int price, String bearingtransactionfees, int transactionfees, String description, String hiddencontent) {
+    public void updateProduct(int pid, String topic, String contactmethod, String publicprivate, double price, String bearingtransactionfees, double transactionfees, String description, String hiddencontent) {
         // Tính toán lại giá trị của transactionfees dựa trên giá trị mới của price (1% của price)
-        int newTransactionFees = (int) Math.round(price * 0.01);
+        double newTransactionFees = Math.round(price * 0.01);
 
         String sql = "UPDATE products\n"
                 + "SET \n"
@@ -191,9 +191,9 @@ public class ProductDAO {
             st.setString(1, topic);
             st.setString(2, contactmethod);
             st.setString(3, publicprivate);
-            st.setInt(4, price);
+            st.setDouble(4, price);
             st.setString(5, bearingtransactionfees);
-            st.setInt(6, newTransactionFees); // Sử dụng giá trị mới của transactionfees
+            st.setDouble(6, newTransactionFees); // Sử dụng giá trị mới của transactionfees
             st.setString(7, description);
             st.setString(8, hiddencontent);
             st.setInt(9, pid);
@@ -229,10 +229,10 @@ public class ProductDAO {
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
-                        rs.getInt("price"),
+                        rs.getDouble("price"),
                         rs.getString("bearingtransactionfees"),
-                        rs.getInt("transactionfees"),
-                        rs.getInt("actualreceived"),
+                        rs.getDouble("transactionfees"),
+                        rs.getDouble("actualreceived"),
                         rs.getString("description"),
                         rs.getString("hiddencontent"),
                         rs.getString("created_at"),
@@ -261,10 +261,10 @@ public class ProductDAO {
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
-                        rs.getInt("price"),
+                        rs.getDouble("price"),
                         rs.getString("bearingtransactionfees"),
-                        rs.getInt("transactionfees"),
-                        rs.getInt("actualreceived"),
+                        rs.getDouble("transactionfees"),
+                        rs.getDouble("actualreceived"),
                         rs.getString("description"),
                         rs.getString("hiddencontent"),
                         rs.getString("created_at"),
@@ -293,10 +293,10 @@ public class ProductDAO {
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
-                        rs.getInt("price"),
+                        rs.getDouble("price"),
                         rs.getString("bearingtransactionfees"),
-                        rs.getInt("transactionfees"),
-                        rs.getInt("actualreceived"),
+                        rs.getDouble("transactionfees"),
+                        rs.getDouble("actualreceived"),
                         rs.getString("description"),
                         rs.getString("hiddencontent"),
                         rs.getString("created_at"),
@@ -325,10 +325,10 @@ public class ProductDAO {
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
-                        rs.getInt("price"),
+                        rs.getDouble("price"),
                         rs.getString("bearingtransactionfees"),
-                        rs.getInt("transactionfees"),
-                        rs.getInt("actualreceived"),
+                        rs.getDouble("transactionfees"),
+                        rs.getDouble("actualreceived"),
                         rs.getString("description"),
                         rs.getString("hiddencontent"),
                         rs.getString("created_at"),
@@ -357,10 +357,10 @@ public class ProductDAO {
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
-                        rs.getInt("price"),
+                        rs.getDouble("price"),
                         rs.getString("bearingtransactionfees"),
-                        rs.getInt("transactionfees"),
-                        rs.getInt("actualreceived"),
+                        rs.getDouble("transactionfees"),
+                        rs.getDouble("actualreceived"),
                         rs.getString("description"),
                         rs.getString("hiddencontent"),
                         rs.getString("created_at"),
@@ -389,10 +389,10 @@ public class ProductDAO {
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
-                        rs.getInt("price"),
+                        rs.getDouble("price"),
                         rs.getString("bearingtransactionfees"),
-                        rs.getInt("transactionfees"),
-                        rs.getInt("actualreceived"),
+                        rs.getDouble("transactionfees"),
+                        rs.getDouble("actualreceived"),
                         rs.getString("description"),
                         rs.getString("hiddencontent"),
                         rs.getString("created_at"),
@@ -423,10 +423,10 @@ public class ProductDAO {
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
-                        rs.getInt("price"),
+                        rs.getDouble("price"),
                         rs.getString("bearingtransactionfees"),
-                        rs.getInt("transactionfees"),
-                        rs.getInt("actualreceived"),
+                        rs.getDouble("transactionfees"),
+                        rs.getDouble("actualreceived"),
                         rs.getString("description"),
                         rs.getString("hiddencontent"),
                         rs.getString("created_at"),
@@ -455,10 +455,10 @@ public class ProductDAO {
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
-                        rs.getInt("price"),
+                        rs.getDouble("price"),
                         rs.getString("bearingtransactionfees"),
-                        rs.getInt("transactionfees"),
-                        rs.getInt("actualreceived"),
+                        rs.getDouble("transactionfees"),
+                        rs.getDouble("actualreceived"),
                         rs.getString("description"),
                         rs.getString("hiddencontent"),
                         rs.getString("created_at"),
@@ -487,10 +487,10 @@ public class ProductDAO {
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
-                        rs.getInt("price"),
+                        rs.getDouble("price"),
                         rs.getString("bearingtransactionfees"),
-                        rs.getInt("transactionfees"),
-                        rs.getInt("actualreceived"),
+                        rs.getDouble("transactionfees"),
+                        rs.getDouble("actualreceived"),
                         rs.getString("description"),
                         rs.getString("hiddencontent"),
                         rs.getString("created_at"),
@@ -519,10 +519,10 @@ public class ProductDAO {
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
-                        rs.getInt("price"),
+                        rs.getDouble("price"),
                         rs.getString("bearingtransactionfees"),
-                        rs.getInt("transactionfees"),
-                        rs.getInt("actualreceived"),
+                        rs.getDouble("transactionfees"),
+                        rs.getDouble("actualreceived"),
                         rs.getString("description"),
                         rs.getString("hiddencontent"),
                         rs.getString("created_at"),
@@ -551,10 +551,10 @@ public class ProductDAO {
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
-                        rs.getInt("price"),
+                        rs.getDouble("price"),
                         rs.getString("bearingtransactionfees"),
-                        rs.getInt("transactionfees"),
-                        rs.getInt("actualreceived"),
+                        rs.getDouble("transactionfees"),
+                        rs.getDouble("actualreceived"),
                         rs.getString("description"),
                         rs.getString("hiddencontent"),
                         rs.getString("created_at"),
@@ -581,10 +581,10 @@ public class ProductDAO {
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
-                        rs.getInt("price"),
+                        rs.getDouble("price"),
                         rs.getString("bearingtransactionfees"),
-                        rs.getInt("transactionfees"),
-                        rs.getInt("actualreceived"),
+                        rs.getDouble("transactionfees"),
+                        rs.getDouble("actualreceived"),
                         rs.getString("description"),
                         rs.getString("hiddencontent"),
                         rs.getString("created_at"),
@@ -611,10 +611,10 @@ public class ProductDAO {
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
-                        rs.getInt("price"),
+                        rs.getDouble("price"),
                         rs.getString("bearingtransactionfees"),
-                        rs.getInt("transactionfees"),
-                        rs.getInt("actualreceived"),
+                        rs.getDouble("transactionfees"),
+                        rs.getDouble("actualreceived"),
                         rs.getString("description"),
                         rs.getString("hiddencontent"),
                         rs.getString("created_at"),
@@ -641,10 +641,10 @@ public class ProductDAO {
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
-                        rs.getInt("price"),
+                        rs.getDouble("price"),
                         rs.getString("bearingtransactionfees"),
-                        rs.getInt("transactionfees"),
-                        rs.getInt("actualreceived"),
+                        rs.getDouble("transactionfees"),
+                        rs.getDouble("actualreceived"),
                         rs.getString("description"),
                         rs.getString("hiddencontent"),
                         rs.getString("created_at"),
@@ -670,10 +670,10 @@ public class ProductDAO {
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
-                        rs.getInt("price"),
+                        rs.getDouble("price"),
                         rs.getString("bearingtransactionfees"),
-                        rs.getInt("transactionfees"),
-                        rs.getInt("actualreceived"),
+                        rs.getDouble("transactionfees"),
+                        rs.getDouble("actualreceived"),
                         rs.getString("description"),
                         rs.getString("hiddencontent"),
                         rs.getString("created_at"),
@@ -699,10 +699,10 @@ public class ProductDAO {
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
-                        rs.getInt("price"),
+                        rs.getDouble("price"),
                         rs.getString("bearingtransactionfees"),
-                        rs.getInt("transactionfees"),
-                        rs.getInt("actualreceived"),
+                        rs.getDouble("transactionfees"),
+                        rs.getDouble("actualreceived"),
                         rs.getString("description"),
                         rs.getString("hiddencontent"),
                         rs.getString("created_at"),
@@ -728,10 +728,10 @@ public class ProductDAO {
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
-                        rs.getInt("price"),
+                        rs.getDouble("price"),
                         rs.getString("bearingtransactionfees"),
-                        rs.getInt("transactionfees"),
-                        rs.getInt("actualreceived"),
+                        rs.getDouble("transactionfees"),
+                        rs.getDouble("actualreceived"),
                         rs.getString("description"),
                         rs.getString("hiddencontent"),
                         rs.getString("created_at"),
@@ -757,10 +757,10 @@ public class ProductDAO {
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
-                        rs.getInt("price"),
+                        rs.getDouble("price"),
                         rs.getString("bearingtransactionfees"),
-                        rs.getInt("transactionfees"),
-                        rs.getInt("actualreceived"),
+                        rs.getDouble("transactionfees"),
+                        rs.getDouble("actualreceived"),
                         rs.getString("description"),
                         rs.getString("hiddencontent"),
                         rs.getString("created_at"),
@@ -807,10 +807,10 @@ public class ProductDAO {
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
-                        rs.getInt("price"),
+                        rs.getDouble("price"),
                         rs.getString("bearingtransactionfees"),
-                        rs.getInt("transactionfees"),
-                        rs.getInt("actualreceived"),
+                        rs.getDouble("transactionfees"),
+                        rs.getDouble("actualreceived"),
                         rs.getString("description"),
                         rs.getString("hiddencontent"),
                         rs.getString("created_at"),

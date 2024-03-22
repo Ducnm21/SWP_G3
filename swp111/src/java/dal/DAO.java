@@ -36,7 +36,7 @@ public class DAO {
                         rs.getString("topic"),
                         rs.getString("contactmethod"),
                         rs.getString("publicprivate"),
-                        rs.getInt("price"),
+                        rs.getDouble("price"),
                         rs.getString("bearingtransactionfees"),
                         rs.getInt("transactionfees"),
                         rs.getInt("actualreceived"),

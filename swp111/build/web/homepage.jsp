@@ -205,7 +205,7 @@
                                 </li>                       
 
                                 <c:if test="${sessionScope.user == null}">
-                                    <li class="nav-item"><a class="nav-link" href="getallproductindex">Login</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="Home">Login</a></li>
                                     </c:if>
 
                                 <c:if test="${sessionScope.user!=null}">
@@ -213,7 +213,7 @@
                                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                                            aria-expanded="false">Account</a>
                                         <ul class="dropdown-menu">
-                                            <li class="nav-item"><a class="nav-link" href="getallproductindex">Logout</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="Home">Logout</a></li>
                                             <li class="nav-item"><a class="nav-link" href="newscontroll">News</a></li>
                                             <li class="nav-item"><a class="nav-link" href="history">Transaction History</a></li>
                                             <li class="nav-item"><a class="nav-link" href="changepassword.jsp">Change Password</a></li>
@@ -306,7 +306,6 @@
                                     <td><input id="tien" type="number" placeholder="Số tiền cần nạp (Tối thiểu 10,000 vnđ)" name="amount" oninput="formatCurrency(this)" required style="width: 626.85px" value="10000">
                                     </td>
                                 </tr>
-
                                 <tr>
                                     <td class="des">Payment Description</td>
                                     <td><textarea type="text" id="description" class="description" placeholder="Ghi chú khoản nạp khi cần thiết" style="overflow-y: auto;width: 646.85px;padding-bottom: 60px;font-family: sans-serif"></textarea>
@@ -337,7 +336,6 @@
                 <th>Bearing transaction fees</th>
                 <th>Transaction fees</th>
                 <th>Actual payment</th>             
-                
                 <th>Action</th>
 
                 </thead>
@@ -500,83 +498,6 @@
                                         });
 
     </script>
-
-    <div id="modalpop-container">
-        <div id="modalpop">
-            <div class="modalpop-header">
-                <h3>Details</h3>
-                <button id="btnpop-close"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <div class="modalpop-body">
-                <table class="tablepop">
-                    <thead>
-                        <tr>
-                            <th>Information</th>
-                            <th>Details</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>t
-                            <td>Order Code</td>
-                            <td>${product_idp}</td>
-                        </tr>
-                        <tr>
-                            <td>Status</td>
-                            <td>${statusp}</td>
-                        </tr>
-                        <tr>
-                            <td>Customer</td>
-                            <td>${customerp}</td>
-                        </tr>
-                        <tr>
-                            <td>Title</td>
-                            <td>${topicp}</td>
-                        </tr>
-                        <tr>
-                            <td>Contact method</td>
-                            <td>${contactmethodp}</td>
-                        </tr>
-                        <tr>
-                            <td>Public/Private</td>
-                            <td>${publicprivatep}</td>
-                        </tr>
-                        <tr>
-                            <td>Price(VND)</td>
-                            <td>${pricep}</td>
-                        </tr>
-                        <tr>
-                            <td>Bearing transaction fees</td>
-                            <td>${bearingtransactionfeesp}</td>
-                        </tr>
-                        <tr>
-                            <td>Transaction fees</td>
-                            <td>${transactionfeesp}</td>
-                        </tr>
-                        <tr>
-                            <td>Actual $ received</td>
-                            <td>${actualreceivedp}</td>
-                        </tr>
-                        <tr>
-                            <td>Description</td>
-                            <td>${descriptionp}</td>
-                        </tr>
-                        <tr>
-                            <td>Hidden content</td>
-                            <td>${hiddencontentp}</td>
-                        </tr>
-                        <tr>
-                            <td>Create at</td>
-                            <td>${created_atp}</td>
-                        </tr>
-                        <tr>
-                            <td>Update at</td>
-                            <td>${updated_atp}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
 
 
 

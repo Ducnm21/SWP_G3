@@ -5,7 +5,6 @@
 
 package controller;
 
-import dal.OrderDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -36,7 +35,6 @@ public class loadsellerbearingorder extends HttpServlet {
          HttpSession session = request.getSession();
         User loggedInUser = (User) session.getAttribute("user");
         int uid = loggedInUser.getId();
-        OrderDAO dao = new OrderDAO();
         List<Order> list = dao.getSellerBearingOrderByUser_ID(uid);
         PrintWriter out = response.getWriter();
         out.println("<h2>Your Seller Bearing Transactionfees Orders</h2>");

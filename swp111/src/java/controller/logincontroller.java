@@ -86,6 +86,7 @@ public class logincontroller extends HttpServlet {
                 if (u.getBanned().equals("active")) {
                     session.setAttribute("user", u);
                     session.setMaxInactiveInterval(30000);
+                    
                     // Thay đổi dòng này để trả về "success" thay vì sử dụng RequestDispatcher
                     response.getWriter().write("success");
                 } else {

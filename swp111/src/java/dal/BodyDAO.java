@@ -14,7 +14,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import model.Cart;
-import model.CartXOrder;
 import model.CartXProduct;
 import model.PayDTO;
 import model.Product;
@@ -48,7 +47,7 @@ public class BodyDAO extends DBContext {
             st.setString(1, topic);
             st.setString(2, contactmethod);
             st.setString(3, publicprivate);
-            st.setInt(4, price);
+            st.setDouble(4, price);
             st.setString(5, bearingtransactionfees);
             st.setInt(6, transactionfees);
             st.setString(7, description);
@@ -160,26 +159,6 @@ public class BodyDAO extends DBContext {
         return null;
     }
 
-    public List<CartXOrder> getAllCartPending(int user_id) {
-        List<CartXOrder> list = new ArrayList<>();
-        String sql = "SELECT cart.cart_id, cart.user_id, products.product_id, products.status\n"
-                + "                FROM products\n"
-                + "                INNER JOIN cart ON cart.product_id = products.product_id\n"
-                + "                WHERE cart.status='pending' and cart.user_id=?";
-        try {
-            PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
-            st.setInt(1, user_id);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                CartXOrder c = new CartXOrder(rs.getInt("cart_id"), rs.getInt("order_id"), rs.getInt("user_id"), rs.getString("status"), rs.getString("topic"),
-                        rs.getString("username"), rs.getString("contactmethod"), rs.getInt("price"), rs.getString("bearingtransactionfees"), rs.getInt("transactionfees"));
-                list.add(c);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return list;
-    }
 
     public Cart deleteCart(int product_id, int user_id) {
         String sql = "UPDATE cart\n"

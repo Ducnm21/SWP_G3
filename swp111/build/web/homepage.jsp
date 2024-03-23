@@ -1,6 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.text.DecimalFormat" %>
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
 
@@ -160,95 +159,7 @@
     <body>
 
         <!-- Start Header Area -->
-        <header class="header_area sticky-header">
-            <div class="main_menu">
-                <nav class="navbar navbar-expand-lg navbar-light main_box">
-                    <div class="container">
-                        <!-- Brand and toggle get grouped for better mobile display -->
-                        <a class="navbar-brand logo_h" href="getallproduct"><img src="img/logosclc.png" alt=""></a>                       
-
-                        <!-- Collect the nav links, forms, and other content for toggling -->
-                        <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
-                            <ul class="nav navbar-nav menu_nav ml-auto">
-                                <c:if test="${sessionScope.user.is_admin == 1}">
-
-                                    <li class="nav-item submenu dropdown">
-                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                                           aria-expanded="false">Management</a>
-                                        <ul class="dropdown-menu">                                         
-                                            <li class="nav-item"><a class="nav-link" href="LoadAccount">Manage account</a></li>
-                                            <li class="nav-item"><a class="nav-link" href="#">Manage order</a></li>
-                                        </ul>
-                                    </li>
-
-                                </c:if>
-                                <li class="nav-item active"><a class="nav-link" href="getallproduct">Home</a></li>
-                                <li class="nav-item submenu dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                                       aria-expanded="false">Payment</a>
-                                    <ul class="dropdown-menu">
-                                        <li class="nav-item"><a class="nav-link" onclick="openDepositPopup()">Deposit</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="WithdrawalRequest.jsp">Withdrawal Request</a></li>
-                                    </ul>
-                                </li>
-
-
-                                <li class="nav-item submenu dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                                       aria-expanded="false">Shop</a>
-                                    <ul class="dropdown-menu">
-                                        <li class="nav-item"><a class="nav-link" href="getallproduct">Public Market</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="getorderbyuserid">My Products</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="cart">My Orders</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="productSold">Products Sold</a></li>
-                                    </ul>
-                                </li>                       
-
-                                <c:if test="${sessionScope.user == null}">
-                                    <li class="nav-item"><a class="nav-link" href="Home">Login</a></li>
-                                    </c:if>
-
-                                <c:if test="${sessionScope.user!=null}">
-                                    <li class="nav-item submenu dropdown">
-                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                                           aria-expanded="false">Account</a>
-                                        <ul class="dropdown-menu">
-                                            <li class="nav-item"><a class="nav-link" href="Home">Logout</a></li>
-                                            <li class="nav-item"><a class="nav-link" href="newscontroll">News</a></li>
-                                            <li class="nav-item"><a class="nav-link" href="history">Transaction History</a></li>
-                                            <li class="nav-item"><a class="nav-link" href="changepassword.jsp">Change Password</a></li>
-                                            <li class="nav-item"><a class="nav-link" href="UpdateProfile.jsp">Update Profile</a></li>
-                                        </ul>
-                                    </li>                         
-                                    <li style="padding-top: 10px">${balance}</li> 
-                                    </c:if> 
-
-
-                            </ul>
-                            <ul class="nav navbar-nav navbar-right">
-                                <li class="nav-item"><a href="cart" class="cart"><span class="ti-bag"></span></a></li>
-                                <li class="nav-item">
-                                    <button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-
-
-            <!-- Search -->
-            <div class="search_input" id="search_input_box">
-                <div class="container">
-                    <form method="Post" action="search" class="d-flex justify-content-between">
-                        <input name="inputSearch" type="text" class="form-control" id="search_input" placeholder="Search Here">
-                        <span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
-                    </form>
-                </div>
-            </div>
-
-
-        </header>
+        <%@ include file="Component/Header.jsp" %>
         <!-- End Header Area -->
 
         <!-- start banner Area -->
@@ -282,47 +193,13 @@
 
 
         <!-- Deposit Popup-->
-                <div id="depositModal" class="modal">
-            <div class="modal-content">
-                <div class="modal-background" onclick="closeDepositPopup()"></div>
-                    <!-- Deposit form-->
-                    <div class="deposit-form"  style="width: 80%">
-                        <form action="ajaxServlet" id="frmCreateOrder" method="post">
-                            <div class="deposit__header" style="margin-left: 150px">
-                                <h2>DEPOSIT REQUEST</h2>
-                            </div>
-                            <table style="margin-left: -20px; width: 50%">
-                                <tr>
-                                    <td style="padding-right:10px;">CHOOSE PAYMENT METHOD(*)</td>
-                                    <td class="button">
-                                        <div>
-                                            <input type="radio" id="money1" value="" name="deposit_method" required>
-                                            <label for="money1">PAYMENT GATEWAY (CHARGING AN ADDITIONAL 3% SERVICE FEE OR 3K FOR TRANSACTIONS BELOW 100K)</label>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Account (VND)(*)</td>
-                                    <td><input id="tien" type="number" placeholder="Số tiền cần nạp (Tối thiểu 10,000 vnđ)" name="amount" oninput="formatCurrency(this)" required style="width: 626.85px" value="10000">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="des">Payment Description</td>
-                                    <td><textarea type="text" id="description" class="description" placeholder="Ghi chú khoản nạp khi cần thiết" style="overflow-y: auto;width: 646.85px;padding-bottom: 60px;font-family: sans-serif"></textarea>
-                                    </td>
-                                </tr>
-                            </table>
-                            <div class="deposit" style="padding-top:0" ><button onclick="LoadError()" type="submit" id="naptien">DEPOSIT</button></div>
-                        </form>
-                    </div>                           
-            </div>
+        <%@ include file="Component/DepositPop.jsp" %>
+
+
+        <div id="popup" style="display: none; text-align: center; color: red">
+            <p id="popupMessage"></p>
         </div>
-
-
-    <div id="popup" style="display: none; text-align: center; color: red">
-        <p id="popupMessage"></p>
-    </div>
-    <div class="ordertable">
+        <div class="ordertable">
 
             <table  class="table table-striped table-hover">
                 <thead>
@@ -351,18 +228,18 @@
                             <th>${p.price}</th>
                             <th>${p.bearingtransactionfees}</th>
                             <th>${p.transactionfees}</th>
-                            
+
                             <th>
-                            <c:choose>
+                                <c:choose>
                                     <c:when test="${p.bearingtransactionfees eq 'seller'}">
                                         ${p.price - p.transactionfees} 
                                     </c:when>
                                     <c:otherwise>
-                                         ${p.price}
+                                        ${p.price}
                                     </c:otherwise>
                                 </c:choose>
                             </th>
-                            
+
                             <td>
                                 <c:choose>
                                     <c:when test="${p.user_id ne sessionScope.user.id}">
@@ -378,217 +255,223 @@
                 </tbody>    
             </table>
         </div>   
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
-                                        function addToCart(productId) {
-                                            $.ajax({
-                                                type: "POST",
-                                                url: "addtocart",
-                                                data: {
-                                                    id: productId
-                                                },
-                                                success: function (response) {
-                                                    if (response.trim() === "success") {
-                                                        showPopup("Product added to cart successfully!");
-                                                    } else if (response.trim() === "duplicate") {
-                                                        showPopup("Product is already in the cart!");
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+                                                function addToCart(productId) {
+                                                    $.ajax({
+                                                        type: "POST",
+                                                        url: "addtocart",
+                                                        data: {
+                                                            id: productId
+                                                        },
+                                                        success: function (response) {
+                                                            if (response.trim() === "success") {
+                                                                showPopup("Product added to cart successfully!");
+                                                            } else if (response.trim() === "duplicate") {
+                                                                showPopup("Product is already in the cart!");
+                                                            }
+                                                        },
+                                                        error: function () {
+                                                            console.log("An error occurred during the AJAX request.");
+                                                        }
+                                                    });
+                                                }
+
+                                                function showPopup(message) {
+                                                    $("#popupMessage").text(message);
+                                                    $("#popup").show();
+
+                                                    // Tự động ẩn popup sau một khoảng thời gian
+                                                    setTimeout(function () {
+                                                        $("#popup").hide();
+                                                    }, 3000); // 3000 milliseconds (3 seconds) - bạn có thể điều chỉnh thời gian theo ý muốn
+                                                }
+                                                function addToCart(productId) {
+                                                    $.ajax({
+                                                        type: "POST",
+                                                        url: "addtocart",
+                                                        data: {
+                                                            id: productId
+                                                        },
+                                                        success: function (response) {
+                                                            if (response.trim() === "success") {
+                                                                showPopup("Product added to cart successfully!");
+                                                            } else if (response.trim() === "duplicate") {
+                                                                showPopup("Product is already in the cart!");
+                                                            }
+                                                        },
+                                                        error: function () {
+                                                            console.log("An error occurred during the AJAX request.");
+                                                        }
+                                                    });
+                                                }
+
+                                                function showPopup(message) {
+                                                    $("#popupMessage").text(message);
+                                                    $("#popup").show();
+
+                                                    // Tự động ẩn popup sau một khoảng thời gian
+                                                    setTimeout(function () {
+                                                        $("#popup").hide();
+                                                    }, 3000); // 3000 milliseconds (3 seconds) - bạn có thể điều chỉnh thời gian theo ý muốn
+                                                }
+
+                                                document.getElementById('tien').addEventListener('input', function () {
+                                                    var numberInput = parseInt(this.value);
+                                                    var textOutput = numbered.stringify(numberInput);
+                                                    document.getElementById('number_text').value = textOutput;
+                                                });
+                                                window.addEventListener('DOMContentLoaded', function () { //bat event khi tai lai trang la doc luon
+                                                    var numberInput = document.getElementById('tien').value;
+                                                    var textOutput = numbered.stringify(parseInt(numberInput));
+                                                    document.getElementById('number_text').value = textOutput;
+                                                });
+                                                $(document).ready(function () {
+                                                    // Thực hiện kiểm tra ở đây, ví dụ:
+                                                    var userLoggedIn = "<%= session.getAttribute("user") != null %>";
+                                                    if (userLoggedIn) {
+                                                        $("#loginPopup").hide();
+                                                        $("#backgroundOverlay").hide();
                                                     }
-                                                },
-                                                error: function () {
-                                                    console.log("An error occurred during the AJAX request.");
-                                                }
-                                            });
-                                        }
-
-                                        function showPopup(message) {
-                                            $("#popupMessage").text(message);
-                                            $("#popup").show();
-
-                                            // Tự động ẩn popup sau một khoảng thời gian
-                                            setTimeout(function () {
-                                                $("#popup").hide();
-                                            }, 3000); // 3000 milliseconds (3 seconds) - bạn có thể điều chỉnh thời gian theo ý muốn
-                                        }
-                                        function addToCart(productId) {
-                                            $.ajax({
-                                                type: "POST",
-                                                url: "addtocart",
-                                                data: {
-                                                    id: productId
-                                                },
-                                                success: function (response) {
-                                                    if (response.trim() === "success") {
-                                                        showPopup("Product added to cart successfully!");
-                                                    } else if (response.trim() === "duplicate") {
-                                                        showPopup("Product is already in the cart!");
+                                                });
+                                                function LoadError() {
+                                                    var element = document.getElementById('naptien');
+                                                    var value = document.getElementById('tien').value;
+                                                    if (value < 10000) {
+                                                        element.type = "button";
+                                                    } else {
+                                                        element.type = "submit";
                                                     }
-                                                },
-                                                error: function () {
-                                                    console.log("An error occurred during the AJAX request.");
+                                                    $.ajax({
+                                                        url: "ajaxServlet",
+                                                        type: "POST",
+                                                        data: {amount: $("#tien").val()}, // Gửi giá trị số tiền từ input với id là "tien" đến servlet
+                                                        success: function (response) {
+                                                            var error = document.getElementById('error');
+                                                            error.innerHTML = response;
+                                                        },
+                                                        error: function (xhr, status, error) {
+                                                            console.error('Error:', error); // Xử lý lỗi nếu request không thành công
+                                                        }
+                                                    });
                                                 }
-                                            });
-                                        }
+                                                const btnpop_open = document.getElementById('btnpop-open');
+                                                const btnpop_close = document.getElementById('btnpop-close');
 
-                                        function showPopup(message) {
-                                            $("#popupMessage").text(message);
-                                            $("#popup").show();
-
-                                            // Tự động ẩn popup sau một khoảng thời gian
-                                            setTimeout(function () {
-                                                $("#popup").hide();
-                                            }, 3000); // 3000 milliseconds (3 seconds) - bạn có thể điều chỉnh thời gian theo ý muốn
-                                        }
-
-                                        document.getElementById('tien').addEventListener('input', function () {
-                                            var numberInput = parseInt(this.value);
-                                            var textOutput = numbered.stringify(numberInput);
-                                            document.getElementById('number_text').value = textOutput;
-                                        });
-                                        window.addEventListener('DOMContentLoaded', function () { //bat event khi tai lai trang la doc luon
-                                            var numberInput = document.getElementById('tien').value;
-                                            var textOutput = numbered.stringify(parseInt(numberInput));
-                                            document.getElementById('number_text').value = textOutput;
-                                        });
-                                        
-                                        function LoadError() {
-                                            var element = document.getElementById('naptien');
-                                            var value = document.getElementById('tien').value;
-                                            if (value < 10000) {
-                                                element.type = "button";
-                                            } else {
-                                                element.type = "submit";
-                                            }
-                                            $.ajax({
-                                                url: "ajaxServlet",
-                                                type: "POST",
-                                                data: {amount: $("#tien").val()}, // Gửi giá trị số tiền từ input với id là "tien" đến servlet
-                                                success: function (response) {
-                                                    var error = document.getElementById('error');
-                                                    error.innerHTML = response;
-                                                },
-                                                error: function (xhr, status, error) {
-                                                    console.error('Error:', error); // Xử lý lỗi nếu request không thành công
-                                                }
-                                            });
-                                        }
-                                        const btnpop_open = document.getElementById('btnpop-open');
-                                        const btnpop_close = document.getElementById('btnpop-close');
-
-                                        const modalpop_container = document.getElementById
-                                                ('modalpop-container');
                                                 
-                                                
-                                        function openDepositPopup() {
-                                            var modal = document.getElementById("depositModal");
-                                            modal.style.display = "block";
-                                        }
-
-                                        // Hàm đóng popup
-                                        function closeDepositPopup() {
-                                            var modal = document.getElementById("depositModal");
-                                            modal.style.display = "none";
-                                        }
-                                        btnpop_open.addEventListener('click', function () {    // Thêm class 'showpop' vào modalpop_container khi nút được nhấn
-                                            modalpop_container.classList.add('showpop');
-                                        });
-
-                                        btnpop_close.addEventListener('click', function () {
-                                            // Loại bỏ class 'showpop' khi nút close được nhấn
-                                            modalpop_container.classList.remove('showpop');
-                                        });
-
-    </script>
 
 
+//                                                function openDepositPopup() {
+//                                                    var modal = document.getElementById("depositModal");
+//                                                    modal.style.display = "block";
+//                                                }
+//
+//                                                // Hàm đóng popup
+//                                                function closeDepositPopup() {
+//                                                    var modal = document.getElementById("depositModal");
+//                                                    modal.style.display = "none";
+//                                                }
+//                                                btnpop_open.addEventListener('click', function () {    // Thêm class 'showpop' vào modalpop_container khi nút được nhấn
+//                                                    modalpop_container.classList.add('showpop');
+//                                                });
+//
+//                                                btnpop_close.addEventListener('click', function () {
+//                                                    // Loại bỏ class 'showpop' khi nút close được nhấn
+//                                                    modalpop_container.classList.remove('showpop');
+//                                                });
 
-    <!-- start footer Area -->
-    <footer class="footer-area section_gap">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3  col-md-6 col-sm-6">
-                    <div class="single-footer-widget">
-                        <h6>About Us</h6>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore dolore
-                            magna aliqua.
-                        </p>
+        </script>
+
+
+
+        <!-- start footer Area -->
+        <footer class="footer-area section_gap">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3  col-md-6 col-sm-6">
+                        <div class="single-footer-widget">
+                            <h6>About Us</h6>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore dolore
+                                magna aliqua.
+                            </p>
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-4  col-md-6 col-sm-6">
-                    <div class="single-footer-widget">
-                        <h6>Newsletter</h6>
-                        <p>Stay update with our latest</p>
-                        <div class="" id="mc_embed_signup">
+                    <div class="col-lg-4  col-md-6 col-sm-6">
+                        <div class="single-footer-widget">
+                            <h6>Newsletter</h6>
+                            <p>Stay update with our latest</p>
+                            <div class="" id="mc_embed_signup">
 
-                            <form target="_blank" novalidate="true" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
-                                  method="get" class="form-inline">
+                                <form target="_blank" novalidate="true" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
+                                      method="get" class="form-inline">
 
-                                <div class="d-flex flex-row">
+                                    <div class="d-flex flex-row">
 
-                                    <input class="form-control" name="EMAIL" placeholder="Enter Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Email '"
-                                           required="" type="email">
+                                        <input class="form-control" name="EMAIL" placeholder="Enter Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Email '"
+                                               required="" type="email">
 
 
-                                    <button class="click-btn btn btn-default"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
-                                    <div style="position: absolute; left: -5000px;">
-                                        <input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text">
+                                        <button class="click-btn btn btn-default"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
+                                        <div style="position: absolute; left: -5000px;">
+                                            <input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text">
+                                        </div>
+
                                     </div>
+                                    <div class="info"></div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3  col-md-6 col-sm-6">
+                        <div class="single-footer-widget mail-chimp">
+                            <h6 class="mb-20">Instragram Feed</h6>
+                            <ul class="instafeed d-flex flex-wrap">
+                                <li><img src="img/i1.jpg" alt=""></li>
+                                <li><img src="img/i2.jpg" alt=""></li>
+                                <li><img src="img/i3.jpg" alt=""></li>
+                                <li><img src="img/i4.jpg" alt=""></li>
+                                <li><img src="img/i5.jpg" alt=""></li>
+                                <li><img src="img/i6.jpg" alt=""></li>
+                                <li><img src="img/i7.jpg" alt=""></li>
+                                <li><img src="img/i8.jpg" alt=""></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-6 col-sm-6">
+                        <div class="single-footer-widget">
+                            <h6>Follow Us</h6>
+                            <p>Let us be social</p>
+                            <div class="footer-social d-flex align-items-center">
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-dribbble"></i></a>
+                                <a href="#"><i class="fa fa-behance"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                                </div>
-                                <div class="info"></div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3  col-md-6 col-sm-6">
-                    <div class="single-footer-widget mail-chimp">
-                        <h6 class="mb-20">Instragram Feed</h6>
-                        <ul class="instafeed d-flex flex-wrap">
-                            <li><img src="img/i1.jpg" alt=""></li>
-                            <li><img src="img/i2.jpg" alt=""></li>
-                            <li><img src="img/i3.jpg" alt=""></li>
-                            <li><img src="img/i4.jpg" alt=""></li>
-                            <li><img src="img/i5.jpg" alt=""></li>
-                            <li><img src="img/i6.jpg" alt=""></li>
-                            <li><img src="img/i7.jpg" alt=""></li>
-                            <li><img src="img/i8.jpg" alt=""></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-6 col-sm-6">
-                    <div class="single-footer-widget">
-                        <h6>Follow Us</h6>
-                        <p>Let us be social</p>
-                        <div class="footer-social d-flex align-items-center">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-dribbble"></i></a>
-                            <a href="#"><i class="fa fa-behance"></i></a>
-                        </div>
-                    </div>
-                </div>
             </div>
-
-        </div>
-    </footer>
-    <!-- End footer Area -->
+        </footer>
+        <!-- End footer Area -->
 
 
-    <script src="js/vendor/jquery-2.2.4.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
-    crossorigin="anonymous"></script>
-    <script src="js/vendor/bootstrap.min.js"></script>
-    <script src="js/jquery.ajaxchimp.min.js"></script>
-    <script src="js/jquery.nice-select.min.js"></script>
-    <script src="js/jquery.sticky.js"></script>
-    <script src="js/nouislider.min.js"></script>
-    <script src="js/countdown.js"></script>
-    <script src="js/jquery.magnific-popup.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <!--gmaps Js-->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
-    <script src="js/gmaps.min.js"></script>
-    <script src="js/main.js"></script>
-</body>
+        <script src="js/vendor/jquery-2.2.4.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+        crossorigin="anonymous"></script>
+        <script src="js/vendor/bootstrap.min.js"></script>
+        <script src="js/jquery.ajaxchimp.min.js"></script>
+        <script src="js/jquery.nice-select.min.js"></script>
+        <script src="js/jquery.sticky.js"></script>
+        <script src="js/nouislider.min.js"></script>
+        <script src="js/countdown.js"></script>
+        <script src="js/jquery.magnific-popup.min.js"></script>
+        <script src="js/owl.carousel.min.js"></script>
+        <!--gmaps Js-->
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+        <script src="js/gmaps.min.js"></script>
+        <script src="js/main.js"></script>
+    </body>
 
 </html>

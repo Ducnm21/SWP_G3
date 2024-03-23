@@ -54,7 +54,7 @@ public class WalletDAO {
         List<Wallet> list = new ArrayList<>();
         String sql = "SELECT * FROM wallet WHERE user_id = ?";
         try {
-            PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).pr    epareStatement(sql);
+            PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
             st.setInt(1, uid);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {

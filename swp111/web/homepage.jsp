@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
 
@@ -207,12 +208,12 @@
                 <th>Status</th>
                 <th>Seller</th>
                 <th>Product</th>
-                <th>Contact method</th>
+                <th style="width: 150px">Contact method</th>
                 <th>Public/Private</th>
-                <th>Price(VND)</th>
-                <th>Bearing transaction fees</th>
-                <th>Transaction fees</th>
-                <th>Actual payment</th>             
+                <th style="width: 150px">Price(VND)</th>
+                <th style="width: 150px">Incurred fee</th>
+                <th style="width: 150px">Transaction fees</th>
+                <th style="width: 150px">Actual payment</th>             
                 <th>Action</th>
 
                 </thead>
@@ -225,17 +226,17 @@
                             <th>${p.topic}</th>
                             <th>${p.contactmethod}</th>
                             <th>${p.publicprivate}</th>
-                            <th>${p.price}</th>
+                            <th><fmt:formatNumber value="${p.price}" type="currency" currencySymbol=""/> &#x20AB</th>
                             <th>${p.bearingtransactionfees}</th>
-                            <th>${p.transactionfees}</th>
+                            <th><fmt:formatNumber value="${p.transactionfees}" type="currency" currencySymbol=""/> &#x20AB</th>
 
                             <th>
                                 <c:choose>
                                     <c:when test="${p.bearingtransactionfees eq 'seller'}">
-                                        ${p.price - p.transactionfees} 
+                                        <fmt:formatNumber value="${p.price - p.transactionfees}" type="currency" currencySymbol=""/> &#x20AB
                                     </c:when>
                                     <c:otherwise>
-                                        ${p.price}
+                                        <fmt:formatNumber value="${p.price}" type="currency" currencySymbol=""/> &#x20AB
                                     </c:otherwise>
                                 </c:choose>
                             </th>
@@ -252,138 +253,9 @@
                             </td>
                         </tr>
                     </c:forEach>
-                </tbody>    
+                </tbody>      
             </table>
         </div>   
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script>
-                                                function addToCart(productId) {
-                                                    $.ajax({
-                                                        type: "POST",
-                                                        url: "addtocart",
-                                                        data: {
-                                                            id: productId
-                                                        },
-                                                        success: function (response) {
-                                                            if (response.trim() === "success") {
-                                                                showPopup("Product added to cart successfully!");
-                                                            } else if (response.trim() === "duplicate") {
-                                                                showPopup("Product is already in the cart!");
-                                                            }
-                                                        },
-                                                        error: function () {
-                                                            console.log("An error occurred during the AJAX request.");
-                                                        }
-                                                    });
-                                                }
-
-                                                function showPopup(message) {
-                                                    $("#popupMessage").text(message);
-                                                    $("#popup").show();
-
-                                                    // Tự động ẩn popup sau một khoảng thời gian
-                                                    setTimeout(function () {
-                                                        $("#popup").hide();
-                                                    }, 3000); // 3000 milliseconds (3 seconds) - bạn có thể điều chỉnh thời gian theo ý muốn
-                                                }
-                                                function addToCart(productId) {
-                                                    $.ajax({
-                                                        type: "POST",
-                                                        url: "addtocart",
-                                                        data: {
-                                                            id: productId
-                                                        },
-                                                        success: function (response) {
-                                                            if (response.trim() === "success") {
-                                                                showPopup("Product added to cart successfully!");
-                                                            } else if (response.trim() === "duplicate") {
-                                                                showPopup("Product is already in the cart!");
-                                                            }
-                                                        },
-                                                        error: function () {
-                                                            console.log("An error occurred during the AJAX request.");
-                                                        }
-                                                    });
-                                                }
-
-                                                function showPopup(message) {
-                                                    $("#popupMessage").text(message);
-                                                    $("#popup").show();
-
-                                                    // Tự động ẩn popup sau một khoảng thời gian
-                                                    setTimeout(function () {
-                                                        $("#popup").hide();
-                                                    }, 3000); // 3000 milliseconds (3 seconds) - bạn có thể điều chỉnh thời gian theo ý muốn
-                                                }
-
-                                                document.getElementById('tien').addEventListener('input', function () {
-                                                    var numberInput = parseInt(this.value);
-                                                    var textOutput = numbered.stringify(numberInput);
-                                                    document.getElementById('number_text').value = textOutput;
-                                                });
-                                                window.addEventListener('DOMContentLoaded', function () { //bat event khi tai lai trang la doc luon
-                                                    var numberInput = document.getElementById('tien').value;
-                                                    var textOutput = numbered.stringify(parseInt(numberInput));
-                                                    document.getElementById('number_text').value = textOutput;
-                                                });
-                                                $(document).ready(function () {
-                                                    // Thực hiện kiểm tra ở đây, ví dụ:
-                                                    var userLoggedIn = "<%= session.getAttribute("user") != null %>";
-                                                    if (userLoggedIn) {
-                                                        $("#loginPopup").hide();
-                                                        $("#backgroundOverlay").hide();
-                                                    }
-                                                });
-                                                function LoadError() {
-                                                    var element = document.getElementById('naptien');
-                                                    var value = document.getElementById('tien').value;
-                                                    if (value < 10000) {
-                                                        element.type = "button";
-                                                    } else {
-                                                        element.type = "submit";
-                                                    }
-                                                    $.ajax({
-                                                        url: "ajaxServlet",
-                                                        type: "POST",
-                                                        data: {amount: $("#tien").val()}, // Gửi giá trị số tiền từ input với id là "tien" đến servlet
-                                                        success: function (response) {
-                                                            var error = document.getElementById('error');
-                                                            error.innerHTML = response;
-                                                        },
-                                                        error: function (xhr, status, error) {
-                                                            console.error('Error:', error); // Xử lý lỗi nếu request không thành công
-                                                        }
-                                                    });
-                                                }
-                                                const btnpop_open = document.getElementById('btnpop-open');
-                                                const btnpop_close = document.getElementById('btnpop-close');
-
-                                                
-
-
-//                                                function openDepositPopup() {
-//                                                    var modal = document.getElementById("depositModal");
-//                                                    modal.style.display = "block";
-//                                                }
-//
-//                                                // Hàm đóng popup
-//                                                function closeDepositPopup() {
-//                                                    var modal = document.getElementById("depositModal");
-//                                                    modal.style.display = "none";
-//                                                }
-//                                                btnpop_open.addEventListener('click', function () {    // Thêm class 'showpop' vào modalpop_container khi nút được nhấn
-//                                                    modalpop_container.classList.add('showpop');
-//                                                });
-//
-//                                                btnpop_close.addEventListener('click', function () {
-//                                                    // Loại bỏ class 'showpop' khi nút close được nhấn
-//                                                    modalpop_container.classList.remove('showpop');
-//                                                });
-
-        </script>
-
-
-
         <!-- start footer Area -->
         <footer class="footer-area section_gap">
             <div class="container">
@@ -455,7 +327,111 @@
             </div>
         </footer>
         <!-- End footer Area -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+                                            function addToCart(productId) {
+                                                $.ajax({
+                                                    type: "POST",
+                                                    url: "addtocart",
+                                                    data: {
+                                                        id: productId
+                                                    },
+                                                    success: function (response) {
+                                                        if (response.trim() === "success") {
+                                                            showPopup("Product added to cart successfully!");
+                                                        } else if (response.trim() === "duplicate") {
+                                                            showPopup("Product is already in the cart!");
+                                                        }
+                                                    },
+                                                    error: function () {
+                                                        console.log("An error occurred during the AJAX request.");
+                                                    }
+                                                });
+                                            }
 
+                                            function showPopup(message) {
+                                                $("#popupMessage").text(message);
+                                                $("#popup").show();
+
+                                                // Tự động ẩn popup sau một khoảng thời gian
+                                                setTimeout(function () {
+                                                    $("#popup").hide();
+                                                }, 3000); // 3000 milliseconds (3 seconds) - bạn có thể điều chỉnh thời gian theo ý muốn
+                                            }
+                                            function addToCart(productId) {
+                                                $.ajax({
+                                                    type: "POST",
+                                                    url: "addtocart",
+                                                    data: {
+                                                        id: productId
+                                                    },
+                                                    success: function (response) {
+                                                        if (response.trim() === "success") {
+                                                            showPopup("Product added to cart successfully!");
+                                                        } else if (response.trim() === "duplicate") {
+                                                            showPopup("Product is already in the cart!");
+                                                        }
+                                                    },
+                                                    error: function () {
+                                                        console.log("An error occurred during the AJAX request.");
+                                                    }
+                                                });
+                                            }
+
+                                            function showPopup(message) {
+                                                $("#popupMessage").text(message);
+                                                $("#popup").show();
+
+                                                // Tự động ẩn popup sau một khoảng thời gian
+                                                setTimeout(function () {
+                                                    $("#popup").hide();
+                                                }, 3000); // 3000 milliseconds (3 seconds) - bạn có thể điều chỉnh thời gian theo ý muốn
+                                            }
+
+                                            document.getElementById('tien').addEventListener('input', function () {
+                                                var numberInput = parseInt(this.value);
+                                                var textOutput = numbered.stringify(numberInput);
+                                                document.getElementById('number_text').value = textOutput;
+                                            });
+                                            window.addEventListener('DOMContentLoaded', function () { //bat event khi tai lai trang la doc luon
+                                                var numberInput = document.getElementById('tien').value;
+                                                var textOutput = numbered.stringify(parseInt(numberInput));
+                                                document.getElementById('number_text').value = textOutput;
+                                            });
+                                            $(document).ready(function () {
+                                                // Thực hiện kiểm tra ở đây, ví dụ:
+                                                var userLoggedIn = "<%= session.getAttribute("user") != null %>";
+                                                if (userLoggedIn) {
+                                                    $("#loginPopup").hide();
+                                                    $("#backgroundOverlay").hide();
+                                                }
+                                            });
+                                            function LoadError() {
+                                                var element = document.getElementById('naptien');
+                                                var value = document.getElementById('tien').value;
+                                                if (value < 10000) {
+                                                    element.type = "button";
+                                                } else {
+                                                    element.type = "submit";
+                                                }
+                                                $.ajax({
+                                                    url: "ajaxServlet",
+                                                    type: "POST",
+                                                    data: {amount: $("#tien").val()}, // Gửi giá trị số tiền từ input với id là "tien" đến servlet
+                                                    success: function (response) {
+                                                        var error = document.getElementById('error');
+                                                        error.innerHTML = response;
+                                                    },
+                                                    error: function (xhr, status, error) {
+                                                        console.error('Error:', error); // Xử lý lỗi nếu request không thành công
+                                                    }
+                                                });
+                                            }
+                                            const btnpop_open = document.getElementById('btnpop-open');
+                                            const btnpop_close = document.getElementById('btnpop-close');
+
+
+        </script>
 
         <script src="js/vendor/jquery-2.2.4.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"

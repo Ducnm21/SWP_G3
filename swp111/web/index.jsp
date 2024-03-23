@@ -1,12 +1,7 @@
 <!DOCTYPE html>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="java.text.NumberFormat" %>
-<%@ page import="java.util.Locale" %>
-
-<%
-    NumberFormat formatter = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
-%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <html lang="zxx" class="no-js">
 
@@ -152,7 +147,7 @@
                 <th>Contact method</th>
                 <th>Public/Private</th>
                 <th>Price(VND)</th>
-                <th>Bearing transaction fees</th>
+                <th>Incurred fee</th>
                 <th>Transaction fees</th>
                 <th>Total pay</th>
                 </thead>
@@ -165,10 +160,10 @@
                             <th>${p.topic}</th>
                             <th>${p.contactmethod}</th>
                             <th>${p.publicprivate}</th>
-                            <th>${p.price}</th>
+                            <th><fmt:formatNumber value="${p.price}" type="currency" currencySymbol=""/> &#x20AB</th>
                             <th>${p.bearingtransactionfees}</th>
-                            <th>${p.transactionfees}</th>
-                            <th>${p.actualreceived}</th>
+                            <th><fmt:formatNumber value="${p.transactionfees}" type="currency" currencySymbol=""/> &#x20AB</th>
+                            <th><fmt:formatNumber value="${p.actualreceived}" type="currency" currencySymbol=""/> &#x20AB</th>
                         </tr>
                     </c:forEach>
                 </tbody>    
@@ -253,56 +248,8 @@
                 </div>
             </div>
         </footer>
-        <script>
-            function refreshCaptcha() {
-                // Perform AJAX request to refresh captcha
-                $.ajax({
-                    type: "GET",
-                    url: "captchaGenerate",
-                    success: function (response) {
-                        // Update the captcha image source
-                        $("#captchaImage").attr("src", "captchaGenerate");
-                    },
-                    error: function () {
-                        // Handle error
-                        console.error("Error refreshing captcha");
-                    }
-                });
-            }
-            function login() {
-                var username = $("#username").val();
-                var password = $("#password").val();
-                var captcha = $("#captcha").val();
-
-                // Perform AJAX request
-                $.ajax({
-                    type: "POST",
-                    url: "logincontroller",
-                    data: {
-                        username: username,
-                        password: password,
-                        captchaEntered: captcha
-                    },
-                    success: function (response) {
-                        if (response.trim() === "success") {
-                            window.location.href = "getallproduct";
-                        } else if (response.trim() === "error") {
-                            // Display message for a banned account
-                            $("#error").text("Your Account has been banned!");
-                        } else {
-                            // Display general error message
-                            $("#error").text("Invalid username, password, or captcha");
-                        }
-                    },
-                    error: function () {
-                        // Handle error
-                        $("#error").text("An error occurred during login");
-                    }
-                });
-            }
-
-
-        </script>
+        
+        
         <!-- End footer Area -->
 
         <script src="js/vendor/jquery-2.2.4.min.js"></script>

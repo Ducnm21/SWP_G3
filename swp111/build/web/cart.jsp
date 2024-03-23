@@ -1,4 +1,6 @@
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
 
@@ -16,7 +18,7 @@
         <!-- meta character set -->
         <meta charset="UTF-8">
         <!-- Site Title -->
-        <title>Karma Shop</title>
+        <title>SCLC</title>
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         <!--
                 CSS
@@ -195,7 +197,7 @@
                                 <th style="padding: 8px; border: 1px solid #dddddd;">Status</th>
                                 <th style="padding: 8px; border: 1px solid #dddddd;">Topic</th>                                    
                                 <th style="padding: 8px; border: 1px solid #dddddd;">Contact Method</th>
-                                <th style="padding: 8px; border: 1px solid #dddddd;">Price</th>
+                                <th style="padding: 8px; border: 1px solid #dddddd; width: 100px">Price</th>
                                 <th style="padding: 8px; border: 1px solid #dddddd;">Bearing Transaction Fee</th>
                                 <th style="padding: 8px; border: 1px solid #dddddd;">Transaction Fee</th>
                                 <th style="padding: 8px; border: 1px solid #dddddd;">Actual Receive</th>
@@ -209,11 +211,12 @@
                                     <td style="padding: 8px; border: 1px solid #dddddd;">${c.status}</td>
                                     <td style="padding: 8px; border: 1px solid #dddddd;">${c.topic}</td>
                                     <td style="padding: 8px; border: 1px solid #dddddd;">${c.contactmethod}</td>
-                                    <td style="padding: 8px; border: 1px solid #dddddd;">${c.price}</td>
+                                    <td style="padding: 8px; border: 1px solid #dddddd;"><fmt:formatNumber value="${c.price}" type="currency" currencySymbol=""/> &#x20AB</td>
                                     <td style="padding: 8px; border: 1px solid #dddddd;">${c.bearingtransactionfees}</td>
-                                    <td style="padding: 8px; border: 1px solid #dddddd;">${c.transactionfees}</td>
-                                    <td style="padding: 8px; border: 1px solid #dddddd;">${c.price+c.transactionfees}</td>
-                                    <td style="padding: 8px; border: 1px solid #dddddd;"><a href="deleteOrd?id=${c.product_id}">Delete</a></td>
+                                    <td style="padding: 8px; border: 1px solid #dddddd;"><fmt:formatNumber value="${c.transactionfees}" type="currency" currencySymbol=""/> &#x20AB</td>
+                                    <td style="padding: 8px; border: 1px solid #dddddd;"><fmt:formatNumber value="${c.price+c.transactionfees}" type="currency" currencySymbol=""/> &#x20AB</td>
+                                    <td style="padding: 8px; border: 1px solid #dddddd;"><button onclick="deleteOrd(${c.product_id})">Delete</button></td>
+
                                 </tr>
                             </c:forEach>
                         </tbody>
@@ -319,6 +322,28 @@
             </div>
         </footer>
         <!-- End footer Area -->
+        <script>
+            function deleteOrd(product_id) {
+                if (confirm("Are you sure you want to delete this item?")) {
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200) {
+                            // Xử lý kết quả trả về từ servlet ở đây
+                            // Ví dụ: xóa dòng bảng tương ứng với sản phẩm đã xóa
+                            var table = document.getElementById("tableCart");
+                            for (var i = 0, row; row = table.rows[i]; i++) {
+                                if (row.cells[0].innerText == product_id) {
+                                    table.deleteRow(i);
+                                    break;
+                                }
+                            }
+                        }
+                    };
+                    xhttp.open("GET", "deleteOrd?id=" + product_id, true);
+                    xhttp.send();
+                }
+            }
+        </script>
 
 
         <script src="js/vendor/jquery-2.2.4.min.js"></script>

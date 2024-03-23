@@ -76,7 +76,6 @@
                                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                                        aria-expanded="false">Shop</a>
                                     <ul class="dropdown-menu">
-                                        <li class="nav-item"><a class="nav-link" href="getallproduct">Public Market</a></li>
                                         <li class="nav-item"><a class="nav-link" href="getorderbyuserid">My Products</a></li>
                                         <li class="nav-item"><a class="nav-link" href="cart">My Orders</a></li>
                                         <li class="nav-item"><a class="nav-link" href="productSold">Products Sold</a></li>
@@ -120,11 +119,11 @@
 
 
         <div style="height: 700px" id="loginPopup" class="login_popup">
-            <div class="login_form_inner"> 
+            <div class="login_form_inner">
                 <div class="formlog" style="border: 5px">
                     <h3 style="font-size: 50px">Login</h3>
                     <button class="close_button" onclick="closeLoginPopup(event)"><i class="fas fa-times"></i></button>
-                    <form class="row login_form" id="loginForm" novalidate="novalidate">
+                    <form class="row login_form" id="loginForm" novalidate="novalidate" onkeypress="return checkEnter(event)">
                         <p class="text-danger" style="color: red" id="error"></p>
                         <div class="col-md-12 form-group">
                             <input style="width: 360px ;border-radius: 10px; margin-bottom: 10px; padding-right:8px " type="text" class="form-control" id="username" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
@@ -132,8 +131,8 @@
                         <div class="col-md-12 form-group">
                             <input style="width: 360px ;border-radius: 10px; margin-bottom: 10px;" type="password" class="form-control" id="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
                         </div>
-                        <div class="creat_account"> 
-                            <label> 
+                        <div class="creat_account">
+                            <label>
                                 <div class="input-group-prepend" style="padding-left: 10px">
                                     <div style="display: flex;">
                                         <!-- Add an ID to the image tag for easy selection -->
@@ -151,13 +150,11 @@
                             <a href="forgotpassword.jsp">Forgot Password?</a>
                         </div>
                         <p style="padding-left: 70px">New to our website?<a href="register">Create an Account</a></p>
-                    </form>  
+                    </form>
                 </div>
             </div>
         </div>
         <div class="background_overlay" id="backgroundOverlay"></div>
-
-
 
         <script>
             function openLoginPopup() {
@@ -172,7 +169,7 @@
                 document.getElementById("backgroundOverlay").style.display = "none";
                 document.getElementById("backgroundOverlay").removeEventListener("click", closeLoginPopup);
             }
-            
+
             function refreshCaptcha() {
                 // Perform AJAX request to refresh captcha
                 $.ajax({
@@ -188,6 +185,7 @@
                     }
                 });
             }
+
             function login() {
                 var username = $("#username").val();
                 var password = $("#password").val();
@@ -209,9 +207,11 @@
                         } else if (response.trim() === "error") {
                             // Display message for a banned account
                             $("#error").text("Your Account has been banned!");
+                            refreshCaptcha();
                         } else {
                             // Display general error message
                             $("#error").text("Invalid username, password, or captcha");
+                            refreshCaptcha();
                         }
                     },
                     error: function () {
@@ -221,6 +221,14 @@
                 });
             }
 
+            function checkEnter(event) {
+                if (event.keyCode === 13) {
+                    event.preventDefault();
+                    login();
+                    return false;
+                }
+                return true;
+            }
         </script>
 
     </body>

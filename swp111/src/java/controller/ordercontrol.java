@@ -30,10 +30,7 @@ public class ordercontrol extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        OrderDAO dao = new OrderDAO();
-        List<Order> listO = (List<Order>) dao.getOrderByUser_ID(0);
-        request.setAttribute("listOrder", listO);
-        request.getRequestDispatcher("").forward(request, response);
+        
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

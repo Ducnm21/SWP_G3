@@ -33,53 +33,7 @@ public class loadpublicorder extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        User loggedInUser = (User) session.getAttribute("user");
-        int uid = loggedInUser.getId();
-        OrderDAO dao = new OrderDAO();
-        List<Order> list = dao.getPublicOrderByUser_ID(uid);
-        PrintWriter out = response.getWriter();
-        out.println("<h2>Your Public Orders</h2>");
-        out.println("<table class=\"table table-striped table-hover\">\n"
-                + "   <thead>\n"
-                + "       <th>ID</th>\n"
-                + "       <th>Status</th>\n"
-                + "       <th>Customer</th>\n"
-                + "       <th>Topic</th>\n"
-                + "       <th>Contact Method</th>\n"
-                + "       <th>Public/Private</th>\n"
-                + "       <th>Price</th>\n"
-                + "       <th>Bearing Transaction Fees</th>\n"
-                + "       <th>Transaction Fees</th>\n"
-                + "       <th>Actual Received</th>\n"
-                + "       <th>Created At</th>\n"
-                + "       <th>Updated At</th>\n"
-                + "       <th>Actions</th>\n"
-                + "   </thead>\n"
-                + "   <tbody>\n");
-
-        for (Order o : list) {
-            out.println("<tr class=\"product\">\n"
-                    + "   <td><a href=\"detailoforder?oid=" + o.getId() + "\">" + o.getId() + "</a></td>\n"
-                    + "   <td>" + o.getStatus() + "</td>\n"
-                    + "   <td>" + o.getCustomer() + "</td>\n"
-                    + "   <td>" + o.getTopic() + "</td>\n"
-                    + "   <td>" + o.getContactmethod() + "</td>\n"
-                    + "   <td>" + o.getPublicprivate() + "</td>\n"
-                    + "   <td>" + o.getPrice() + "</td>\n"
-                    + "   <td>" + o.getBearingtransactionfees() + "</td>\n"
-                    + "   <td>" + o.getTransactionfees() + "</td>\n"
-                    + "   <td>" + o.getActualreceived() + "</td>\n"
-                    + "   <td>" + o.getCreated_at() + "</td>\n"
-                    + "   <td>" + o.getUpdated_at() + "</td>\n"
-                    + "   <td>\n"
-                    + "       <a href=\"updateorder?oid=" + o.getId() + "\" class=\"edit\"><i class=\"material-icons\" title=\"Edit\">Update</i></a>\n"
-                    + "       <a href=\"deleteorder?oid=" + o.getId() + "\" class=\"delete\"><i class=\"material-icons\">Delete</i></a>\n"
-                    + "   </td>\n"
-                    + "</tr>\n");
-        }
-
-        out.println("   </tbody>\n"
-                + "</table>");
+        
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

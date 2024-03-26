@@ -100,13 +100,7 @@ public class loadorderbystatusanduserid extends HttpServlet {
         
         
     }
-     public static void main(String[] args) {
-        OrderDAO dao = new OrderDAO();
-        List<Order> list = dao.getOrderByStatusAndUser_ID("Available", 6);
-        for (Order order : list) {
-            System.out.println(order);
-        }
-    }
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

@@ -50,7 +50,7 @@
     <body>
 
         <!-- Start Header Area -->
-         <%@ include file="Component/Header.jsp" %>
+        <%@ include file="Component/Header.jsp" %>
         <!-- End Banner Area -->
 
         <!--================Checkout Area =================-->

@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>My Web Page</title>
+    <title>SCLC</title>
     <style>
         * {
             margin: 0;

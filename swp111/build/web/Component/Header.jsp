@@ -33,7 +33,6 @@
         <link rel="stylesheet" href="css/ion.rangeSlider.skinFlat.css" />
         <link rel="stylesheet" href="css/magnific-popup.css">
         <link rel="stylesheet" href="css/main.css">
-
         <link rel="stylesheet" href="css/popup/PopupDetails.css">
         <link rel="stylesheet" href="css/deposit.css">
         <link rel="stylesheet" href="css/popup/PopupLogin.css">  
@@ -118,7 +117,7 @@
         </header>
 
 
-        <div style="height: 700px" id="loginPopup" class="login_popup">
+        <div style="height: 600px" id="loginPopup" class="login_popup">
             <div class="login_form_inner">
                 <div class="formlog" style="border: 5px">
                     <h3 style="font-size: 50px">Login</h3>
@@ -191,7 +190,6 @@
                 var password = $("#password").val();
                 var captcha = $("#captcha").val();
 
-                // Perform AJAX request
                 $.ajax({
                     type: "POST",
                     url: "logincontroller",
@@ -202,20 +200,17 @@
                     },
                     success: function (response) {
                         if (response.trim() === "success") {
-                            // Nếu đăng nhập thành công, ẩn popup và chuyển trang
+                             
                             window.location.href = "getallproduct";
                         } else if (response.trim() === "error") {
-                            // Display message for a banned account
                             $("#error").text("Your Account has been banned!");
                             refreshCaptcha();
                         } else {
-                            // Display general error message
                             $("#error").text("Invalid username, password, or captcha");
                             refreshCaptcha();
                         }
                     },
                     error: function () {
-                        // Handle error
                         $("#error").text("An error occurred during login");
                     }
                 });

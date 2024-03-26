@@ -46,7 +46,7 @@
     <body>
 
         <!-- Start Header Area -->
-         <%@ include file="Component/Header.jsp" %>
+        <%@ include file="Component/Header.jsp" %>
         <!-- End Header Area -->
 
         <!-- start banner Area -->
@@ -59,12 +59,7 @@
                             <div class="row single-slide align-items-center d-flex">
                                 <div class="col-lg-5 col-md-6">
                                     <div class="banner-content">
-                                        <h1>SCLC<br>Welcome!</h1>
-                                        <h1>${user.username}</h1>
-                                        <div class="add-bag d-flex align-items-center">
-                                            <a class="add-btn" href=""><span class="lnr lnr-cross"></span></a>
-                                            <span class="add-text text-uppercase">Add to Bag</span>
-                                        </div>
+                                        <h1>SCLC<br>Welcome <span style="color: orange;">${user.fullname}!</span></h1>
                                     </div>
                                 </div>
                             </div>
@@ -72,12 +67,7 @@
                             <div class="row single-slide align-items-center d-flex">
                                 <div class="col-lg-5 col-md-6">
                                     <div class="banner-content">
-                                        <h1>SCLC<br>Welcome!</h1>
-                                        <h1>${user.username}</h1>
-                                        <div class="add-bag d-flex align-items-center">
-                                            <a class="add-btn" href=""><span class="lnr lnr-cross"></span></a>
-                                            <span class="add-text text-uppercase">Add to Bag</span>
-                                        </div>
+                                        <h1>SCLC<br>Welcome <span style="color: orange;">${user.fullname}!</span></h1>
                                     </div>
                                 </div>
                             </div>
@@ -104,8 +94,8 @@
         </div>
 
 
-        <div id="producttable" class="ordertable">
-            <table  class="table table-striped table-hover">
+        <div style=" display: flex;justify-content: center; align-items: center" id="producttable" class="ordertable">
+            <table style="width: 700px; " class="table table-striped table-hover">
                 <thead>
                 <th>id</th>
                 <th>Status</th>
@@ -184,7 +174,7 @@
                         <tr class="product">
                             <th><a href="detailoforder?pid=${o.product_id}">${o.product_id}</a></th>
                             <th>${o.status}</th>
-           
+
                             <th>${o.topic}</th>
                             <th>${o.contactmethod}</th>
                             <th>${o.publicprivate}</th>

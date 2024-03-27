@@ -13,7 +13,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import model.Product;
+import model.User;
 
 /**
  *
@@ -57,6 +59,12 @@ public class ViewDetail extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        User loggedInUser = (User) session.getAttribute("user"); 
+        if (loggedInUser == null) {
+            response.sendRedirect(request.getContextPath() + "/Home");
+            return;
+        }
         Product p=new Product();
         String id_raw=request.getParameter("id");
         int id=Integer.parseInt(id_raw);

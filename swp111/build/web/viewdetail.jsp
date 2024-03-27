@@ -46,11 +46,79 @@
         <link rel="stylesheet" href="css/nouislider.min.css">
         <link rel="stylesheet" href="css/bootstrap.css">
         <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/viewdetail.css"/>
     </head>
 
     <body>
+
         <!-- Start Header Area -->
-        <%@ include file="Component/Header.jsp" %>
+        <header class="header_area sticky-header">
+            <div class="main_menu">
+                <nav class="navbar navbar-expand-lg navbar-light main_box">
+                    <div class="container">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <a class="navbar-brand logo_h" href="getallproduct"><img src="img/logosclc.png" alt=""></a>                       
+
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                            <ul class="nav navbar-nav menu_nav ml-auto">
+                                <c:if test="${sessionScope.user.is_admin == 1}">
+                                    <li class="nav-item active"><a class="nav-link" href="LoadAccount">Manage account</a></li>
+                                    </c:if>
+                                <li class="nav-item active"><a class="nav-link" href="getallproduct">Home</a></li>
+                                <li class="nav-item submenu dropdown">
+                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                       aria-expanded="false">Payment</a>
+                                    <ul class="dropdown-menu">
+                                        <li class="nav-item"><a class="nav-link" href="Deposit.jsp">Deposit</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="single-blog.html"></a></li>
+                                    </ul>
+                                </li>
+
+
+                                <li class="nav-item submenu dropdown">
+                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                       aria-expanded="false">Shop</a>
+                                    <ul class="dropdown-menu">
+                                        <li class="nav-item"><a class="nav-link" href="getallproduct">Public Market</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="getorderbyuserid">My Products</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="cart">My Orders</a></li>
+                                    </ul>
+                                </li>                       
+
+                                <c:if test="${sessionScope.user == null}">
+                                    <li class="nav-item"><a class="nav-link" href="login.jsp">Login</a></li>
+                                    </c:if>
+
+
+
+                                <c:if test="${sessionScope.user!=null}">
+                                    <li class="nav-item submenu dropdown">
+                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                           aria-expanded="false">Account</a>
+                                        <ul class="dropdown-menu">
+                                            <li class="nav-item"><a class="nav-link" href="logout">Logout</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="newscontroll">News</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="changepassword.jsp">Change Password</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="UpdateProfile.jsp">Update Profile</a></li>
+                                        </ul>
+                                    </li>
+                                    <li style="padding-top: 10px">${balance}</li> 
+                                    </c:if>
+
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li class="nav-item"><a href="cart" class="cart"><span class="ti-bag"></span></a></li>
+                                <li class="nav-item">
+                                    <button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+
+        </header>
         <!-- End Banner Area -->
 
         <!--================Checkout Area =================-->
@@ -59,7 +127,7 @@
 
                 <div class="billing_details">
                     <div class="row">
-                        <div class="col-lg-8">
+                        <div class="col-lg-7">
                             <h3>Product Details</h3>
                             <form class="row contact_form" novalidate="novalidate">
                                 <c:set var="v" value="${viewdetail}" />
@@ -98,7 +166,35 @@
                             </form>
 
                         </div>
+                        <div class="col-lg-5">
+                            <div class="message">
+                                <h2>Important!</h2>
+                            </div>
+                            <div class="message">
+                                <p class="hl">Remember to check the HIDDEN CONTENT carefully before hitting the [Confirm product matches description] Button ,
+                                    once you hit that button you will fully take response of that product and there will be nothing we can do to help you if there has mistakes</p>
+                            </div>
+                            <div class="message">
+                                <p class="hl">If the [HIDDEN CONTENT] section is not as described by the seller, please contact the seller via [CONTACT METHOD] that the seller provided above</p>
+                            </div>
+                            <div class="message">
+                                <p class="hl">If the seller cannot contact you or you and the seller cannot resolve the issue, please click the [Request Admin] button to have SCLC's admin team resolve it. 
+                                    Thank you for trusting and using SCLC's services.</p>
+                            </div>
+                        </div>
                     </div>                    
+                </div>
+                <div class="requestButton">
+                    <div class="row button-area">
+                        <div class="col-md-9">
+                            <button class="matchesbutton">Confirm product matches description</button>
+                        </div>
+                        <div class="col-md-3">
+                            <form action="" method="">
+                                <button class="requestadminbutton">Request Admin</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
 

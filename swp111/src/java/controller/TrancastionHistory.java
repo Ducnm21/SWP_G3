@@ -65,7 +65,11 @@ public class TrancastionHistory extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         BodyDAO d = new BodyDAO();
-        User u = (User) session.getAttribute("user");     
+        User u = (User) session.getAttribute("user");  
+        if (u == null) {
+            response.sendRedirect(request.getContextPath() + "/Home");
+            return;
+        } 
         List<CartXProduct> list = d.TrancastionHistory(u.getId());
         request.setAttribute("history", list);
         request.getRequestDispatcher("trancastionhistory.jsp").forward(request, response);

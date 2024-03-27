@@ -1,0 +1,31 @@
+.message{
+    border: 5px solid #FF6600;
+    border-radius: 20px;
+    margin-top: 20px;
+}
+.message h2{
+    text-align: center;
+}
+.hl{
+    padding: 15px;
+    font-size: 110%;
+    font-family: sans-serif;
+}
+.highlight{
+    color: #32CD32;
+}
+.button-area{
+    margin-top: 20px;
+}
+.matchesbutton{
+    border-radius: 10px;
+    background-color: #32CD32;
+    padding: 15px;
+    color: white;
+}
+.requestadminbutton{
+    border-radius: 10px;
+    background-color: #FF6600;
+    padding: 15px;
+    color: white;
+}

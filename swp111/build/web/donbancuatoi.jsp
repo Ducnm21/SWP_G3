@@ -46,7 +46,83 @@
     <body>
 
         <!-- Start Header Area -->
-        <%@ include file="Component/Header.jsp" %>
+        <header class="header_area sticky-header">
+            <div class="main_menu">
+                <nav class="navbar navbar-expand-lg navbar-light main_box">
+                    <div class="container">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <a class="navbar-brand logo_h" href="getallproduct"><img src="img/logosclc.png" alt=""></a>                       
+
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                            <ul class="nav navbar-nav menu_nav ml-auto">
+                                <c:if test="${sessionScope.user.is_admin == 1}">
+
+                                    <li class="nav-item submenu dropdown">
+                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                           aria-expanded="false">Management</a>
+                                        <ul class="dropdown-menu">                                         
+                                            <li class="nav-item"><a class="nav-link" href="LoadAccount">Manage account</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="#">Manage order</a></li>
+                                        </ul>
+                                    </li>
+
+                                </c:if>
+                                <li class="nav-item active"><a class="nav-link" href="getallproduct">Home</a></li>
+                                <li class="nav-item submenu dropdown">
+                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                       aria-expanded="false">Payment</a>
+                                    <ul class="dropdown-menu">
+                                        <li class="nav-item"><a class="nav-link" onclick="openDepositPopup()">Deposit</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="WithdrawalRequest.jsp">Withdrawal Request</a></li>
+                                    </ul>
+                                </li>
+
+
+                                <li class="nav-item submenu dropdown">
+                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                       aria-expanded="false">Shop</a>
+                                    <ul class="dropdown-menu">
+                                        <li class="nav-item"><a class="nav-link" href="getorderbyuserid">My Products</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="cart">My Orders</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="productSold">Products Sold</a></li>
+                                    </ul>
+                                </li>                       
+
+                                <c:if test="${sessionScope.user == null}">
+                                    <li class="nav-item active">
+                                        <a class="nav-link" href="javascript:void(0)" onclick="openLoginPopup()">Login</a>
+                                    </li>
+                                </c:if>
+
+                                <c:if test="${sessionScope.user!=null}">
+                                    <li class="nav-item submenu dropdown">
+                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                           aria-expanded="false">Account</a>
+                                        <ul class="dropdown-menu">
+                                            <li class="nav-item"><a class="nav-link" href="logout">Logout</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="newscontroll">News</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="history">Transaction History</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="changepassword.jsp">Change Password</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="UpdateProfile.jsp">Update Profile</a></li>
+                                        </ul>
+                                    </li>                         
+                                    <li style="padding-top: 10px">${balance}</li> 
+                                    </c:if> 
+
+
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li style="margin-top: 2px" class="nav-item"><a href="cart" class="cart"><span class="ti-bag"></span></a></li>
+                                <li class="nav-item">
+                                    <button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </header>
         <!-- End Header Area -->
 
         <!-- start banner Area -->
@@ -59,7 +135,12 @@
                             <div class="row single-slide align-items-center d-flex">
                                 <div class="col-lg-5 col-md-6">
                                     <div class="banner-content">
-                                        <h1>SCLC<br>Welcome <span style="color: orange;">${user.fullname}!</span></h1>
+                                        <h1>SCLC<br>Welcome!</h1>
+                                        <h1>${user.username}</h1>
+                                        <div class="add-bag d-flex align-items-center">
+                                            <a class="add-btn" href=""><span class="lnr lnr-cross"></span></a>
+                                            <span class="add-text text-uppercase">Add to Bag</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -67,7 +148,12 @@
                             <div class="row single-slide align-items-center d-flex">
                                 <div class="col-lg-5 col-md-6">
                                     <div class="banner-content">
-                                        <h1>SCLC<br>Welcome <span style="color: orange;">${user.fullname}!</span></h1>
+                                        <h1>SCLC<br>Welcome!</h1>
+                                        <h1>${user.username}</h1>
+                                        <div class="add-bag d-flex align-items-center">
+                                            <a class="add-btn" href=""><span class="lnr lnr-cross"></span></a>
+                                            <span class="add-text text-uppercase">Add to Bag</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -94,10 +180,10 @@
         </div>
 
 
-        <div style=" display: flex;justify-content: center; align-items: center" id="producttable" class="ordertable">
-            <table style="width: 700px; " class="table table-striped table-hover">
+        <div id="producttable" class="ordertable">
+            <table  class="table table-striped table-hover">
                 <thead>
-                <th>id</th>
+                <th>Detail</th>
                 <th>Status</th>
                 <th>Title</th>
                 <th>Contact method</th>
@@ -150,7 +236,7 @@
                     <select name="bearing" id="bearingSelect">
                         <option value="...">...</option>
                         <option value="Seller">Seller</option>
-                        <option value="Customer">Customer</option>
+                        <option value="Buyer">Customer</option>
                     </select>
                     <button id="loadOrdersButton" onclick="bearing()">Load</button>
                 </th>
@@ -172,9 +258,9 @@
                 <tbody>
                     <c:forEach items="${listProductByUserID}" var="o">
                         <tr class="product">
-                            <th><a href="detailoforder?pid=${o.product_id}">${o.product_id}</a></th>
+                            <th><a href="updateorder?pid=${o.product_id}">Detail</a></th>
                             <th>${o.status}</th>
-
+           
                             <th>${o.topic}</th>
                             <th>${o.contactmethod}</th>
                             <th>${o.publicprivate}</th>
@@ -186,7 +272,7 @@
                             <th>${o.updated_at}</th>
                             <td>
                                 <a href="updateorder?pid=${o.product_id}"  class="edit">Update</a>
-                                <a href="deleteorder?pid=${o.product_id}" class="delete" ><i class="material-icons">Delete</i></a>
+                                <!-- <a href="deleteorder?pid=${o.product_id}" class="delete" ><i class="material-icons">Delete</i></a>comment -->
                             </td>
                         </tr>
 

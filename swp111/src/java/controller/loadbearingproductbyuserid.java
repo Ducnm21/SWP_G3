@@ -46,7 +46,7 @@ public class loadbearingproductbyuserid extends HttpServlet {
                 case "Seller":
                     printOrderTable(out, dao.getSellerBearingOrderByUser_ID(uid));
                     break;
-                case "Customer":
+                case "Buyer":
                     printOrderTable(out, dao.getCustomerBearingOrderByUser_ID(uid));
                     break;
                 default:

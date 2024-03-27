@@ -36,6 +36,10 @@ public class productSold extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         User loggedInUser = (User) session.getAttribute("user");
+        if (loggedInUser == null) {
+            response.sendRedirect(request.getContextPath() + "/Home");
+            return;
+        }
         int uid = loggedInUser.getId();
         ProductDAO dao = new ProductDAO();
         List<Product> productSold = new ArrayList<>();

@@ -1,10 +1,3 @@
-<%-- 
-    Document   : addnewproduct
-    Created on : Feb 6, 2024, 12:57:08 AM
-    Author     : VIVO-S15
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -73,7 +66,7 @@
                     <div class="form-group">
                         <h3>Bearing transaction fees</h3>
                         <input type="radio" name="bearingtransactionfees" value="seller" required>Seller
-                        <input type="radio" name="bearingtransactionfees" value="customer" required>Customer
+                        <input type="radio" name="bearingtransactionfees" value="buyer" required>Customer
                     </div>
                     <div class="form-group">
                         <h3>Transaction fees = 1% of Order price</h3>

@@ -147,7 +147,7 @@ public class ProductDAO {
         double received = 0;
         if (bearingtransactionfees.equals("seller")){
             received = price - transactionfees;
-        } else if (bearingtransactionfees.equals("customer")){
+        } else if (bearingtransactionfees.equals("buyer")){
             received = price;
         }
         String sql = "INSERT INTO products (status, topic, contactmethod, publicprivate, price, bearingtransactionfees, transactionfees, actualreceived, description, hiddencontent, user_id) "
@@ -172,22 +172,25 @@ public class ProductDAO {
         }
     }
 
-    public void updateProduct(int pid, String topic, String contactmethod, String publicprivate, double price, String bearingtransactionfees, double transactionfees, String description, String hiddencontent) {
+    public void updateProduct(int pid, String topic, String contactmethod, String publicprivate, double price, 
+            String bearingtransactionfees, double transactionfees, String description, String hiddencontent, String updated_at) {
         // Tính toán lại giá trị của transactionfees dựa trên giá trị mới của price (1% của price)
         double newTransactionFees = Math.round(price * 0.01);
 
-        String sql = "UPDATE products\n"
-                + "SET \n"
-                + "    topic = ?,\n"
-                + "    contactmethod = ?,\n"
-                + "    publicprivate = ?,\n"
-                + "    price = ?,\n"
-                + "    bearingtransactionfees = ?,\n"
-                + "    transactionfees = ?,\n"
-                + "    description = ?,\n"
-                + "    hiddencontent = ?\n"
-                + "WHERE\n"
-                + "    product_id = ?;";
+       String sql = "UPDATE products\n"
+            + "SET \n"
+            + "    topic = ?,\n"
+            + "    contactmethod = ?,\n"
+            + "    publicprivate = ?,\n"
+            + "    price = ?,\n"
+            + "    bearingtransactionfees = ?,\n"
+            + "    transactionfees = ?,\n"
+            + "    description = ?,\n"
+            + "    hiddencontent = ?,\n"
+            + "    updated_at = ?\n"
+            + "WHERE\n"
+            + "    product_id = ?;";
+
         try {
             PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
             st.setString(1, topic);
@@ -198,7 +201,8 @@ public class ProductDAO {
             st.setDouble(6, newTransactionFees); // Sử dụng giá trị mới của transactionfees
             st.setString(7, description);
             st.setString(8, hiddencontent);
-            st.setInt(9, pid);
+            st.setString(9, updated_at);
+            st.setInt(10, pid);
             st.executeUpdate();
         } catch (SQLException e) {
             // Handle exceptions appropriately, e.g., log them
@@ -719,7 +723,7 @@ public class ProductDAO {
 
     public List<Product> getSellerBearingOrderByUser_ID(int uid) {
         List<Product> list = new ArrayList<>();
-        String sql = "SELECT * FROM products where bearingtransactionfees = 'Seller' and user_id = ?";
+        String sql = "SELECT * FROM products where bearingtransactionfees = 'seller' and user_id = ?";
         try {
             PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
             st.setInt(1, uid);
@@ -748,7 +752,7 @@ public class ProductDAO {
 
     public List<Product> getCustomerBearingOrderByUser_ID(int uid) {
         List<Product> list = new ArrayList<>();
-        String sql = "SELECT * FROM products where bearingtransactionfees = 'Customer' and user_id = ?";
+        String sql = "SELECT * FROM products where bearingtransactionfees = 'buyer' and user_id = ?";
         try {
             PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
             st.setInt(1, uid);

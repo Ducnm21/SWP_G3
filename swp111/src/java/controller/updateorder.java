@@ -12,8 +12,10 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import model.Order;
 import model.Product;
+import model.User;
 
 /**
  *
@@ -31,6 +33,12 @@ public class updateorder extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
+        User loggedInUser = (User) session.getAttribute("user"); 
+        if (loggedInUser == null) {
+            response.sendRedirect(request.getContextPath() + "/Home");
+            return;
+        }
         ProductDAO dao = new ProductDAO();
         int pid = Integer.parseInt(request.getParameter("pid"));
         Product p = dao.getProductByID(pid);

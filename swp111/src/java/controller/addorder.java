@@ -34,7 +34,7 @@ public class addorder extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         User loggedInUser = (User) session.getAttribute("user");
-
+        
         if (loggedInUser != null) {
             int user_id = loggedInUser.getId();
             String title = request.getParameter("topic");
@@ -47,7 +47,7 @@ public class addorder extends HttpServlet {
             
             
             try {
-                double price = Integer.parseInt(prices);
+                double price = Double.parseDouble(prices);
                 if (price < 0) {
                     request.setAttribute("errorMessage", "Price must be greater than 0.");
                     request.getRequestDispatcher("addneworder.jsp").forward(request, response);

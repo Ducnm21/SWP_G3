@@ -14,7 +14,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.Order;
 import model.User;
-
+import java.util.Date;
+import java.text.SimpleDateFormat;
 /**
  *
  * @author VIVO-S15
@@ -43,14 +44,17 @@ public class updatesellingorder extends HttpServlet {
         String description = request.getParameter("description");
         String hiddencontent = request.getParameter("hiddencontent");
         if (status.equals("Available")) {
+            Date currentDate = new Date();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String updated_at = dateFormat.format(currentDate);
             try {
-                int price = Integer.parseInt(prices);
+                double price = Double.parseDouble(prices);
                 int transactionfees = (int) Math.round(price * 0.01);
 
                 HttpSession session = request.getSession();
                 User loggedInUser = (User) session.getAttribute("user");
                 ProductDAO dao = new ProductDAO();
-                dao.updateProduct(pid, title, contactmethod, publicprivate, price, bearingtransactionfees, transactionfees, description, hiddencontent);
+                dao.updateProduct(pid, title, contactmethod, publicprivate, price, bearingtransactionfees, transactionfees, description, hiddencontent, updated_at);
                 response.sendRedirect("getorderbyuserid");
             } catch (NumberFormatException e) {
                 request.setAttribute("errorMessage", "Price must be a number.");

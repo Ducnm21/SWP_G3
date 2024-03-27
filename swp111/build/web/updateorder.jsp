@@ -1,10 +1,4 @@
-<%-- 
-    Document   : orderdetail
-    Created on : Feb 8, 2024, 3:40:21 PM
-    Author     : VIVO-S15
---%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -87,7 +81,7 @@
                         <h3>Bearing transaction fees : </h3>
 
                         <input value="seller" type="radio" name="bearingtransactionfees" ${detail.bearingtransactionfees == 'seller' ? 'checked' : ''} required>Seller
-                        <input value="customer" type="radio" name="bearingtransactionfees" ${detail.bearingtransactionfees == 'customer' ? 'checked' : ''} required>Customer
+                        <input value="buyer" type="radio" name="bearingtransactionfees" ${detail.bearingtransactionfees == 'buyer' ? 'checked' : ''} required>Customer
                     </div>
                     <div class="form-group">
                         <h3>Transaction fees</h3>

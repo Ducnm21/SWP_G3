@@ -38,6 +38,11 @@ public class Cart extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
+        User LoggedUser = (User) session.getAttribute("user"); 
+        if (LoggedUser == null) {
+            response.sendRedirect(request.getContextPath() + "/Home");
+            return;
+        }
         BodyDAO d = new BodyDAO();
         User u = (User) session.getAttribute("user");
         

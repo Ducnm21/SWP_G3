@@ -40,7 +40,7 @@ public class GetAllProductHome extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-
+        
         if (user == null) {
             // Người dùng chưa đăng nhập, chuyển hướng đến trang đăng nhập hoặc trang chính
             response.sendRedirect("Home");

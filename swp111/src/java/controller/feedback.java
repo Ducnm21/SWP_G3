@@ -32,7 +32,11 @@ public class feedback extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        User loggedInUser = (User) session.getAttribute("user");
+        User loggedInUser = (User) session.getAttribute("user"); 
+        if (loggedInUser == null) {
+            response.sendRedirect(request.getContextPath() + "/Home");
+            return;
+        }
         int senderid = loggedInUser.getId();
         String content = request.getParameter("content");
         int receiverid = (int) session.getAttribute("receiverid");

@@ -1,10 +1,4 @@
-<%-- 
-    Document   : product_detail_seller
-    Created on : Mar 11, 2024, 10:52:57 AM
-    Author     : VIVO-S15
---%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -99,7 +93,7 @@
                     </tr>
                 </tbody>
             </table>
-            <button class="button" onclick='window.history.go(-1);'>Back to Homepage</button>
+            <button class="button" onclick='window.history.go(-1);'>Back to Shopping</button>
         </div>
 
 

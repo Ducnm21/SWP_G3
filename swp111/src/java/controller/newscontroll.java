@@ -24,7 +24,11 @@ public class newscontroll extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        User LoggedUser = (User) session.getAttribute("user");
+        User LoggedUser = (User) session.getAttribute("user"); 
+        if (LoggedUser == null) {
+            response.sendRedirect(request.getContextPath() + "/Home");
+            return;
+        }
         int uid = LoggedUser.getId();
 
         // Số trang hiện tại

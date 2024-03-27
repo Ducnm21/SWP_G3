@@ -11,6 +11,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import model.User;
 
 /**
@@ -31,6 +32,12 @@ public class unbanmanagement extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
+        User LoggedUser = (User) session.getAttribute("user"); 
+        if (LoggedUser == null) {
+            response.sendRedirect(request.getContextPath() + "/Home");
+            return;
+        }
         UserDAO dao = new UserDAO();
         int u_id = Integer.parseInt(request.getParameter("u_id"));
         User u = dao.getUserByID(u_id);

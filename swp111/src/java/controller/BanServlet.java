@@ -11,6 +11,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import model.User;
 
 /**
@@ -57,6 +58,12 @@ public class BanServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        User loggedInUser = (User) session.getAttribute("user");  
+        if (loggedInUser == null) {
+            response.sendRedirect(request.getContextPath() + "/Home");
+            return;
+        } 
         UserDAO dao = new UserDAO();
         int u_id = Integer.parseInt(request.getParameter("u_id"));
         User u = dao.getUserByID(u_id);

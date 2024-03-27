@@ -67,6 +67,11 @@ public class LoadAccount extends HttpServlet {
         UserDAO dao = new UserDAO();
         List<User> users = dao.getAllUser();
         HttpSession session = request.getSession();
+        User loggedInUser = (User) session.getAttribute("user"); 
+        if (loggedInUser == null) {
+            response.sendRedirect(request.getContextPath() + "/Home");
+            return;
+        }
         WalletDAO dw = new WalletDAO();
         Wallet AdW = dw.GetWalletAdmin();
         request.setAttribute("AdminBalance", String.format("%,.0f", AdW.getBalance()) + " ₫");

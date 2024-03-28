@@ -1,10 +1,5 @@
-<%-- 
-    Document   : withdrawalList
-    Created on : Jan 30, 2024, 9:28:56 PM
-    Author     : Admin
---%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html; charset=UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -23,7 +18,7 @@
                 font-family: Arial, sans-serif;
             }
 
-            .container {
+            .container1 {
                 margin-top: 100px;
                 margin-bottom: 110px;
             }
@@ -94,26 +89,28 @@
         </style>
     </head>
     <body>
-        <div class="container">
+         <%@include file="Component/HeaderW.jsp" %>
+        <div class="container1">
             <div class="table-wrapper">
-                <div class="table-title">
+                <div class="table-title" style="padding-top: 45px;padding-bottom: 2px;background-color: white;padding-left: 190px;padding-right: 189px;">
                     <h2>Withdrawal History</h2>
-                    <form action="withdrawSelect" method="post" id="withdrawForm">
-                        <h3>Status:</h3>
-                        <select name="withdrawSelect" onchange="submitForm()">
-                            <option ${sessionScope.withdrawFilter == null ? 'hidden' : ''}>${sessionScope.withdrawFilter}</option>
-                            <option value="All" ${sessionScope.withdrawFilter == 'All' ? 'hidden' : ''}>All</option>
-                            <option value="Error" ${sessionScope.withdrawFilter == 'Error' ? 'hidden' : ''}>Error</option>
-                            <option value="Finished" ${sessionScope.withdrawFilter == 'Finished' ? 'hidden' : ''}>Finished</option>
-                            <option value="In process" ${sessionScope.withdrawFilter == 'Processing' ? 'hidden' : ''}>Processing</option>
-                            <option value="Denied" ${sessionScope.withdrawFilter == 'Denied' ? 'hidden' : ''}>Denied</option>
-                        </select>
-                    </form>
+                    <form class="col-lg-3" action="withdrawSelect" method="post" id="withdrawForm">
+                            <h3 style="font-weight: bold; color: white; font-size: 20px; display: inline-block; margin-right: 10px">Status:</h3>
+                            <select type="submit" name="withdrawSelect" class="btn btn-primary" style="background-color: white; font-weight: bold; color: #3498db; border: none;" onchange="submitForm()">
+                                <option ${sessionScope.withdrawSelect == null ? 'hidden' : ''}>${sessionScope.withdrawSelect}</option>
+                                <option value="All" ${sessionScope.withdrawSelect == 'All' ? 'hidden' : ''}>All</option>
+<!--                                <option value="Error" ${sessionScope.withdrawSelect == 'Error' ? 'hidden' : ''}>Error</option>-->
+                                <option value="Finished" ${sessionScope.withdrawSelect == 'Finished' ? 'hidden' : ''}>Finished</option>
+                                <option value="In process" ${sessionScope.withdrawSelect == 'In process' ? 'hidden' : ''}>In process</option>
+                                <option value="Denied" ${sessionScope.withdrawSelect == 'Denied' ? 'hidden' : ''}>Denied</option>
+                            </select>
+                        </form>
+
                     <a href="WithdrawalRequest.jsp">
                         <button style="background-color: #ff5722;">+ Make a new request</button>
                     </a>
                 </div>
-                <table>
+                <table >
                     <thead>
                         <tr>
                             <th>Request ID</th>
@@ -124,27 +121,34 @@
                             <th>Account Holder</th>
                             <th>Created Time</th>
                             <th>Last Updated</th>
-                            <th>Edit</th>
+
                         </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${listWithdraw}" var="p">
-                        <tr>
-                            <td>${p.withdrawal_id}</td>
-                            <td>${p.status}</td>
-                            <td>${p.amount}</td>
-                            <td>${p.bank_name}</td>
-                            <td>${p.bank_number}</td>
-                            <td>${p.bank_user}</td>
-                            <td>${p.create_datetime}</td>
-                            <td>${p.update_datetime}</td>
-                            <td>
-                                <a href="${pageContext.request.contextPath}/withdrawDetail?withdrawID=${p.withdrawal_id}">
-                                    <button style="background-color: #ff5722;">Edit</button>
-                                </a>
-                            </td>
-                        </tr>
-                    </c:forEach>
+                        <c:forEach items="${listWithdraw}" var="p">
+                            <tr>
+                                <td>${p.withdrawal_id}</td>
+                                <td><c:choose>
+                                        <c:when test="${p.getStatus() eq 'Finished'}">
+                                            <a href="#" class="btn btn-success">${p.getStatus()}</a>
+                                        </c:when>
+                                        <c:when test="${p.getStatus() eq 'Denied'}">
+                                            <a href="#" class="btn btn-danger">${p.getStatus()}</a>
+                                        </c:when>                                                                                                                          
+                                        <c:otherwise>
+                                            <a href="#" class="btn btn-secondary">${p.getStatus()}</a>
+                                        </c:otherwise>
+                                    </c:choose></td>
+                                <td><c:out value="${String.format('%,.0f', p.amount)}" /></td>
+                                <td>${p.bank_name}</td>
+                                <td>${p.bank_number}</td>
+                                <td>${p.bank_user}</td>
+                                <td>${p.create_datetime}</td>
+                                <td>${p.update_datetime}</td>
+
+                            </tr>
+                        </c:forEach>
+
                     </tbody>
                 </table>
             </div>

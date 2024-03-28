@@ -29,21 +29,18 @@ import model.Withdrawal;
 @WebServlet(name = "WithdrawRequest", urlPatterns = {"/withdraw"})
 public class WithdrawRequest extends HttpServlet {
 
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
     }
 
- 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-   
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -51,40 +48,38 @@ public class WithdrawRequest extends HttpServlet {
         User user = (User) session.getAttribute("user");
         WalletDAO wa = new WalletDAO();
         Wallet w = wa.getWalletByID(user.getId());
-        
 
         String Amount1 = request.getParameter("amount");
 
         double amount = Double.parseDouble(Amount1);
         String next = "withdrawalList.jsp";
-       
+
         if (amount > w.getBalance()) {
-            session.setAttribute("errorWithdraw", "The amount you requested exceeds the funds available in your account, please try again.");
+            session.setAttribute("errorWithdraw", "Balance not enough, please try again.");
             next = "WithdrawalRequest.jsp";
         } else {
             String bankName = request.getParameter("bankName");
             String bankUser = request.getParameter("bankUser");
             String bankNumber = request.getParameter("bankNumber");
             WithdrawalDAO wdb = new WithdrawalDAO();
-            Withdrawal w1 = new Withdrawal( (int)amount, "In Process", bankUser, bankNumber, bankName, w.getId());
+            Withdrawal w1 = new Withdrawal((int) amount, "In Process", bankUser, bankNumber, bankName, w.getId());
             wdb.InsertWithdrawal(w1);
-            
+
             double newBalance = w.getBalance() - w1.getAmount();
-            w.setBalance(newBalance); 
+            w.setBalance(newBalance);
             WalletDAO wadb = new WalletDAO();
-            wadb.updateWalletByID(w);
-            
-   
+            wadb.updateWalletByID(newBalance,w.getId());
 
             List<Withdrawal> list = wdb.GetAllWithdrawalByWalletID(w1.getId());
             session.removeAttribute("errorWithdraw");
             session.setAttribute("listWithdraw", list);
-            
+
         }
-        
-        request.getRequestDispatcher(next).forward(request, response);
+
+   
+
+       request.getRequestDispatcher(next).forward(request, response);
     }
-    
 
     /**
      * Returns a short description of the servlet.

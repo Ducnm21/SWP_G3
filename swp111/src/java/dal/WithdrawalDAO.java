@@ -26,7 +26,7 @@ public class WithdrawalDAO {
 
   
     public Withdrawal GetWithdrawalByID(int id) {
-        String sql = "SELECT * FROM withdrawal where wallet_id = ?";
+        String sql = "SELECT * FROM withdrawal where id = ?";
         try {
             PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
             st.setInt(1, id);
@@ -202,7 +202,7 @@ public class WithdrawalDAO {
 
     public static void main(String[] args) {
       WithdrawalDAO wa = new WithdrawalDAO();
-      Withdrawal ww = wa.GetWithdrawalByID(1);
+      Withdrawal ww = wa.GetWithdrawalByID(39);
 
             System.out.println(ww);
     }

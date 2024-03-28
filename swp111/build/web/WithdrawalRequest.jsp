@@ -1,6 +1,6 @@
 
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -8,6 +8,7 @@
         <title>Withdrawal Request</title>
     </head>
     <body>
+         <%@include file="Component/HeaderW.jsp" %>
         <style>
             body {
                 background-color: #ff7f50; /* Màu cam */
@@ -142,7 +143,7 @@
     </script>
     <script>
         function confirmWithdrawRequest() {
-            return confirm("Xác nhận đúng thông tin TK Ngân hàng? Nếu thông tin bị sai, admin hoàn toàn không chịu trách nhiệm");
+            return confirm("Confirm the correct bank account information? If the information is incorrect, the admin bears no responsibility");
         }
     </script>
 </html>

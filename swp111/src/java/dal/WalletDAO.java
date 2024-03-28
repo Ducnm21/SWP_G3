@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import model.Wallet;
+import model.Withdrawal;
 
 public class WalletDAO {
 
@@ -109,7 +110,7 @@ public class WalletDAO {
     }
 
     public Wallet getWalletByUserID(int id) {
-        String sql = "SELECT * FROM swpproject.wallet WHERE user_id = ?";
+        String sql = "SELECT * FROM wallet WHERE user_id = ?";
         try ( Connection con = getConnection(DB_URL, USER_NAME, PASSWORD);  PreparedStatement st = con.prepareStatement(sql)) {
             st.setInt(1, id);
             try ( ResultSet rs = st.executeQuery()) {
@@ -126,7 +127,25 @@ public class WalletDAO {
         }
         return null;
     }
-    
+     public Wallet GetWalletByWithdrawal(Withdrawal withdrawal) {
+        String sql = "SELECT * FROM wallet where wallet_id = ?";
+        try {
+           PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
+            st.setInt(1, withdrawal.getId());
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Wallet w = new Wallet();
+                w.setId(rs.getInt(1));
+                w.setUser_id(rs.getInt(3));
+                w.setBalance(rs.getDouble(2));
+                return w;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     
     public void updateWalletAfterAdd(Wallet w, double balance) {
         String sql = "UPDATE wallet SET balance = ? WHERE wallet_id = ?";
@@ -139,20 +158,34 @@ public class WalletDAO {
         }
     }
 
-    public void updateWalletByID(Wallet w) {
+    public void updateWalletByID(double balance, int uid) {
         String sql = "UPDATE wallet SET balance = ? WHERE wallet_id = ?";
         try ( Connection con = getConnection(DB_URL, USER_NAME, PASSWORD);  PreparedStatement st = con.prepareStatement(sql)) {
-            st.setDouble(1, w.getBalance());
-            st.setInt(2, w.getId());
+            st.setDouble(1, balance);
+            st.setInt(2, uid);
             st.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+    public void updateAmount(double balance, int uid) {
+        String sql = "UPDATE Wallet SET balance = ? WHERE user_id =?";
+        
+        try {
+            Connection con = getConnection(DB_URL, USER_NAME, PASSWORD);  PreparedStatement st = con.prepareStatement(sql);
+            st.setDouble(1, balance);
+            st.setInt(2, uid);   
+            st.executeUpdate();
+        } catch (Exception e) {
+           e.printStackTrace();
+        }
+    }
 
     public static void main(String[] args) {
         WalletDAO wd = new WalletDAO();
-        Wallet w = wd.GetWalletAdmin();
-        System.out.println(w);
+        WithdrawalDAO w1 = new WithdrawalDAO();
+        Withdrawal w2 = w1.GetWithdrawalByID(25);
+        Wallet w3 =wd.GetWalletByWithdrawal(w2);
+        System.out.println(w3.getBalance());
     }
 }

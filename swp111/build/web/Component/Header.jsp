@@ -68,7 +68,12 @@
                                            aria-expanded="false">Payment</a>
                                         <ul class="dropdown-menu">
                                             <li class="nav-item"><a class="nav-link" onclick="openDepositPopup()">Deposit</a></li>
-                                            <li class="nav-item"><a class="nav-link" href="WithdrawalRequest.jsp">Withdrawal Request</a></li>
+                                            <c:if test="${sessionScope.user.is_admin == 1}">
+                                            <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/withdrawListAdmin">Withdrawal Request</a></li>
+                                            </c:if>
+                                            <c:if test="${sessionScope.user.is_admin==0}">
+                                            <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/withdrawList">Withdrawal Request</a></li>
+                                            </c:if>
                                         </ul>
                                     </li>
                                 </c:if>

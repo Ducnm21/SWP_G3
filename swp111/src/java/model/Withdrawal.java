@@ -14,7 +14,7 @@ import java.util.logging.Logger;
  */
 public class Withdrawal extends Wallet{
     private int withdrawal_id;
-    private int amount;
+    private double amount;
     private String create_datetime;
     private String status;
     private String bank_user;
@@ -25,7 +25,9 @@ public class Withdrawal extends Wallet{
     public Withdrawal() {
     }
 
-    public Withdrawal(int withdrawal_id, int id,int amount, String create_datetime, String status, String bank_user, String bank_number, String bank_name, String update_datetime) {
+
+
+    public Withdrawal(int withdrawal_id,  int id, double amount, String create_datetime, String status, String bank_user, String bank_number, String bank_name, String update_datetime) {
         super(id);
         this.withdrawal_id = withdrawal_id;
         this.amount = amount;
@@ -37,7 +39,11 @@ public class Withdrawal extends Wallet{
         this.update_datetime = update_datetime;
     }
 
-    public Withdrawal(int amount, String status, String bank_user, String bank_number, String bank_name, int id) {
+    
+
+   
+
+    public Withdrawal(double amount, String status, String bank_user, String bank_number, String bank_name, int id) {
         super(id);
         this.amount = amount;
         this.status = status;
@@ -45,15 +51,6 @@ public class Withdrawal extends Wallet{
         this.bank_number = bank_number;
         this.bank_name = bank_name;
     }
-  
-
-  
-    
-  
-
-  
-
-   
 
     public String getBank_number() {
         return bank_number;
@@ -71,13 +68,15 @@ public class Withdrawal extends Wallet{
         this.withdrawal_id = withdrawal_id;
     }
 
-    public int getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
+
+ 
 
     public String getCreate_datetime() {
         return create_datetime;
@@ -123,6 +122,10 @@ public class Withdrawal extends Wallet{
     public String toString() {
         return "Withdrawal{" + "withdrawal_id=" + withdrawal_id + ", amount=" + amount + ", create_datetime=" + create_datetime + ", status=" + status + ", bank_user=" + bank_user + ", bank_number=" + bank_number + ", bank_name=" + bank_name + ", update_datetime=" + update_datetime + '}';
     }
+
+ 
+
+    
 
    
     

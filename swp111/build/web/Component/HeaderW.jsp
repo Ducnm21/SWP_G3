@@ -33,9 +33,72 @@
         <link rel="stylesheet" href="css/ion.rangeSlider.skinFlat.css" />
         <link rel="stylesheet" href="css/magnific-popup.css">
         <link rel="stylesheet" href="css/main.css">
+
         <link rel="stylesheet" href="css/popup/PopupDetails.css">
         <link rel="stylesheet" href="css/deposit.css">
-        <link rel="stylesheet" href="css/popup/PopupLogin.css">  
+        <link rel="stylesheet" href="css/popup/PopupLogin.css">
+        <style>
+            .ordertable {
+                margin-left: 0%;
+                margin-right: 15%;
+            }
+
+            table {
+                width: 80%;
+                margin-left: 10%;
+            }
+            .navbar-brand img {
+                width: 150px;
+                height: auto;
+                margin-top: -10px;
+                margin-bottom: -10px;
+            }
+
+
+            .login_popup {
+                display: none;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 40%;
+                height: 75%;
+                z-index: 999;
+            }
+
+            .login_form_inner {
+                background-color: rgba(255, 255, 255, 0.9);
+                padding: 30px;
+                border-radius: 5px;
+                position: relative;
+            }
+
+            .background_overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 998;
+                display: none;
+            }
+            .close_button {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                border: none;
+                background: none;
+                cursor: pointer;
+                font-size: 20px;
+                color: #000;
+            }
+
+            .close_button:hover {
+                color: #555;
+            }
+
+        </style>
     </head>
     <body>
         <header class="header_area sticky-header">
@@ -61,33 +124,32 @@
 
                                 </c:if>
                                 <li class="nav-item active"><a class="nav-link" href="getallproduct">Home</a></li>
-
-                                <c:if test="${sessionScope.user != null}">
-                                    <li class="nav-item submenu dropdown">
-                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                                           aria-expanded="false">Payment</a>
-                                        <ul class="dropdown-menu">
-                                            <li class="nav-item"><a class="nav-link" onclick="openDepositPopup()">Deposit</a></li>
-                                            <c:if test="${sessionScope.user.is_admin == 1}">
+                                <li class="nav-item submenu dropdown">
+                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                       aria-expanded="false">Payment</a>
+                                    <ul class="dropdown-menu">
+                                        <li class="nav-item"><a class="nav-link" onclick="openDepositPopup()">Deposit</a></li>
+                                         <c:if test="${sessionScope.user.is_admin == 1}">
                                             <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/withdrawListAdmin">Withdrawal Request</a></li>
                                             </c:if>
                                             <c:if test="${sessionScope.user.is_admin==0}">
                                             <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/withdrawList">Withdrawal Request</a></li>
                                             </c:if>
-                                        </ul>
-                                    </li>
-                                </c:if>
-                                <c:if test="${sessionScope.user != null}">
-                                    <li class="nav-item submenu dropdown">
-                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                                           aria-expanded="false">Shop</a>
-                                        <ul class="dropdown-menu">
-                                            <li class="nav-item"><a class="nav-link" href="getorderbyuserid">My Products</a></li>
-                                            <li class="nav-item"><a class="nav-link" href="cart">My Orders</a></li>
-                                            <li class="nav-item"><a class="nav-link" href="productSold">Products Sold</a></li>
-                                        </ul>
-                                    </li>                       
-                                </c:if>
+                                    </ul>
+                                </li>
+
+
+                                <li class="nav-item submenu dropdown">
+                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                       aria-expanded="false">Shop</a>
+                                    <ul class="dropdown-menu">
+                                        <li class="nav-item"><a class="nav-link" href="getallproduct">Public Market</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="getorderbyuserid">My Products</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="cart">My Orders</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="productSold">Products Sold</a></li>
+                                    </ul>
+                                </li>                       
+
                                 <c:if test="${sessionScope.user == null}">
                                     <li class="nav-item active">
                                         <a class="nav-link" href="javascript:void(0)" onclick="openLoginPopup()">Login</a>
@@ -99,7 +161,7 @@
                                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                                            aria-expanded="false">Account</a>
                                         <ul class="dropdown-menu">
-                                            <li class="nav-item"><a class="nav-link" href="logout">Logout</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="Home">Logout</a></li>
                                             <li class="nav-item"><a class="nav-link" href="newscontroll">News</a></li>
                                             <li class="nav-item"><a class="nav-link" href="history">Transaction History</a></li>
                                             <li class="nav-item"><a class="nav-link" href="changepassword.jsp">Change Password</a></li>
@@ -111,11 +173,8 @@
 
 
                             </ul>
-
                             <ul class="nav navbar-nav navbar-right">
-                                <c:if test="${sessionScope.user!=null}">
-                                    <li style="margin-top: 2px" class="nav-item"><a href="cart" class="cart"><span class="ti-bag"></span></a></li>
-                                        </c:if> 
+                                <li style="margin-top: 2px" class="nav-item"><a href="cart" class="cart"><span class="ti-bag"></span></a></li>
                                 <li class="nav-item">
                                     <button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
                                 </li>
@@ -127,12 +186,12 @@
         </header>
 
 
-        <div style="height: 600px" id="loginPopup" class="login_popup">
-            <div class="login_form_inner">
+        <div id="loginPopup" class="login_popup">
+            <div class="login_form_inner"> 
                 <div class="formlog" style="border: 5px">
                     <h3 style="font-size: 50px">Login</h3>
                     <button class="close_button" onclick="closeLoginPopup(event)"><i class="fas fa-times"></i></button>
-                    <form class="row login_form" id="loginForm" novalidate="novalidate" onkeypress="return checkEnter(event)">
+                    <form class="row login_form" id="loginForm" novalidate="novalidate">
                         <p class="text-danger" style="color: red" id="error"></p>
                         <div class="col-md-12 form-group">
                             <input style="width: 360px ;border-radius: 10px; margin-bottom: 10px; padding-right:8px " type="text" class="form-control" id="username" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
@@ -140,8 +199,8 @@
                         <div class="col-md-12 form-group">
                             <input style="width: 360px ;border-radius: 10px; margin-bottom: 10px;" type="password" class="form-control" id="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
                         </div>
-                        <div class="creat_account">
-                            <label>
+                        <div class="creat_account"> 
+                            <label> 
                                 <div class="input-group-prepend" style="padding-left: 10px">
                                     <div style="display: flex;">
                                         <!-- Add an ID to the image tag for easy selection -->
@@ -159,11 +218,13 @@
                             <a href="forgotpassword.jsp">Forgot Password?</a>
                         </div>
                         <p style="padding-left: 70px">New to our website?<a href="register">Create an Account</a></p>
-                    </form>
+                    </form>  
                 </div>
             </div>
         </div>
         <div class="background_overlay" id="backgroundOverlay"></div>
+
+
 
         <script>
             function openLoginPopup() {
@@ -178,7 +239,6 @@
                 document.getElementById("backgroundOverlay").style.display = "none";
                 document.getElementById("backgroundOverlay").removeEventListener("click", closeLoginPopup);
             }
-
             function refreshCaptcha() {
                 // Perform AJAX request to refresh captcha
                 $.ajax({
@@ -194,12 +254,12 @@
                     }
                 });
             }
-
             function login() {
                 var username = $("#username").val();
                 var password = $("#password").val();
                 var captcha = $("#captcha").val();
 
+                // Perform AJAX request
                 $.ajax({
                     type: "POST",
                     url: "logincontroller",
@@ -210,29 +270,20 @@
                     },
                     success: function (response) {
                         if (response.trim() === "success") {
-
                             window.location.href = "getallproduct";
                         } else if (response.trim() === "error") {
+                            // Display message for a banned account
                             $("#error").text("Your Account has been banned!");
-                            refreshCaptcha();
                         } else {
+                            // Display general error message
                             $("#error").text("Invalid username, password, or captcha");
-                            refreshCaptcha();
                         }
                     },
                     error: function () {
+                        // Handle error
                         $("#error").text("An error occurred during login");
                     }
                 });
-            }
-
-            function checkEnter(event) {
-                if (event.keyCode === 13) {
-                    event.preventDefault();
-                    login();
-                    return false;
-                }
-                return true;
             }
         </script>
 

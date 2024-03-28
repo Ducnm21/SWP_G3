@@ -111,17 +111,17 @@
     <script src="js/jquery.min.js"></script>
     <script>
                                                 function showMessage(productId, newsId) {
-                                                    console.log(productId); // Make sure orderId is correctly logged
-                                                    var message = "Đơn hàng có productId ID " + productId + " đã được đăng bán thành công.";
-                                                    alert(message);
+                                                    console.log(productId); // Make sure orderId is correctly logged                                                                                                     
 
                                                     // Update read status to "Đã đọc"
                                                     document.getElementById("readStatus_" + newsId).innerHTML = "Đã đọc";
-                                                    const url = 'updateorder?pid=' + productId;
+                                                    const url = 'viewdetail?id=' + productId;
                                                     // Redirect to another page with the updated order ID
 
                                                     location.href = url;
                                                 }
+
+
 
     </script>
 </body>

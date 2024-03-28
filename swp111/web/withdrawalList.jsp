@@ -90,7 +90,7 @@
     </head>
     <body>
          <%@include file="Component/HeaderW.jsp" %>
-        <div class="container1">
+         <div style="margin-top: 200px; width: 79%; margin-left: 160px" class="container1">
             <div class="table-wrapper">
                 <div class="table-title" style="padding-top: 45px;padding-bottom: 2px;background-color: white;padding-left: 190px;padding-right: 189px;">
                     <h2>Withdrawal History</h2>

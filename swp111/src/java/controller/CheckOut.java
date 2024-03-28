@@ -46,10 +46,13 @@ public class CheckOut extends HttpServlet {
             fee += list.get(i).getPrice() + list.get(i).getTransactionfees();
         }
         Wallet w = d.getWalletById(u.getId());
+        
         double balance = w.getBalance();
-
+        request.setAttribute("balance", String.format("%,.0f", w.getBalance()) + " ₫");
+        
+        
         if (balance < fee) {
-            
+
             request.setAttribute("errorcheckout", "Your account is not enough to pay this bill");
             request.getRequestDispatcher("checkout.jsp").forward(request, response);
         } else {
@@ -58,7 +61,7 @@ public class CheckOut extends HttpServlet {
             for (CartXProduct cart : list) {
                 d.chgStatusProduct(cart.getProduct_id());
             }
-            
+
             request.setAttribute("checkoutsuccessfull", "Thank you for your trust in us");
             try {
                 // Tạm dừng thực thi trong 5 giây

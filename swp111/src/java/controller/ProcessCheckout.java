@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.CartXProduct;
 import model.User;
+import model.Wallet;
 
 /**
  *
@@ -40,6 +41,8 @@ public class ProcessCheckout extends HttpServlet {
         BodyDAO d = new BodyDAO();
         User u = (User) session.getAttribute("user");
         List<CartXProduct> list = d.getAllCart(u.getId());
+        Wallet w = d.getWalletById(u.getId());
+        request.setAttribute("balance", String.format("%,.0f", w.getBalance()) + " ₫");
         double fee = 0;
         for (int i = 0; i < list.size(); i++) {
             fee += list.get(i).getPrice() + list.get(i).getTransactionfees();

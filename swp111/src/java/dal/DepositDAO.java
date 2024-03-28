@@ -25,7 +25,7 @@ public class DepositDAO {
     }
 
     public void updateStatus(Wallet wallet, String status) {
-        String sql = "UPDATE swpproject.vnpay_transaction SET status = ? WHERE Wallet_id = ?";
+        String sql = "UPDATE vnpay_transaction SET status = ? WHERE Wallet_id = ?";
         try (Connection con = getConnection(DB_URL, USER_NAME, PASSWORD);
              PreparedStatement st = con.prepareStatement(sql)) {
             st.setString(1, status);

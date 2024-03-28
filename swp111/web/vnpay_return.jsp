@@ -14,6 +14,7 @@
 <%@page import="dal.DepositDAO" %>
 <%@page import="dal.WalletDAO" %>
 <%@page import="model.Wallet" %>
+<%@page import="model.User" %>
 <%@page import="java.util.Queue" %>
 <%@page import="java.util.LinkedList" %>
 <!DOCTYPE html>
@@ -33,7 +34,7 @@
         <link rel="stylesheet" href="css/bootstrap-grid.css"/>
 
     </head>
-    <body>
+  <body>
         <%
             //Begin process return from VNPAY
             Map fields = new HashMap();
@@ -86,10 +87,14 @@
                 <tr class="form-group">
                     <td>6. Payment Status:</td>
                     <td style="padding-left: 370px" id="status">
+
                         <%
                             DepositDAO dao = new DepositDAO();
-                            WalletDAO wadb = new WalletDAO();
+                            
                             HttpSession ss = request.getSession();
+                            User user = (User) ss.getAttribute("user");
+                            WalletDAO wa = new WalletDAO();
+                            Wallet w = wa.getWalletByID(user.getId());
                             Wallet wallet = (Wallet) ss.getAttribute("walletCurrent");
     
                             // Tao queue
@@ -100,11 +105,11 @@
                                     if ("00".equals(request.getParameter("vnp_TransactionStatus"))) {
                                         out.print("Thành công");
                                          int removedNumber = numbers.poll();
-                                        double amount2 = dao.getBalanceByDeposit(wallet.getId());
+                                        double amount2 = dao.getBalanceByDeposit(w.getId());
                                         double amount = Double.parseDouble(request.getParameter("vnp_Amount")) / 100;
                                         double total = amount2 + amount;
                                         dao.setAmount(wallet, total);
-                                        Wallet wa2 = wadb.getWalletByID3(wallet.getId(), (total));
+                                        Wallet wa2 = wa.getWalletByID3(w.getId(), (total));
 
                                         ss.setAttribute("walletCurrent", wa2);
 
@@ -119,13 +124,14 @@
                             }
                             
                         %>
-
                     </td>
                 </tr> 
                 <%
                 String transactionStatus = request.getParameter("vnp_TransactionStatus");
                 boolean isSuccess = "00".equals(transactionStatus);
                 %>
+                <tr>
+
                 <tr>
                     <td style="display: block; margin: 0 auto; padding-top: 10px; padding-bottom: 10px">
                         <% if (isSuccess) { %>

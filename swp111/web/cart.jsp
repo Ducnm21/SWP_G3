@@ -140,7 +140,7 @@
                                     <td style="padding: 8px; border: 1px solid #dddddd;"><fmt:formatNumber value="${c.price}" type="currency" currencySymbol=""/> &#x20AB</td>
                                     <td style="padding: 8px; border: 1px solid #dddddd;">${c.bearingtransactionfees}</td>
                                     <td style="padding: 8px; border: 1px solid #dddddd;"><fmt:formatNumber value="${c.transactionfees}" type="currency" currencySymbol=""/> &#x20AB</td>
-                                    <td style="padding: 8px; border: 1px solid #dddddd;"><fmt:formatNumber value="${c.price+c.transactionfees}" type="currency" currencySymbol=""/> &#x20AB</td>
+                                    <td style="padding: 8px; border: 1px solid #dddddd;"><fmt:formatNumber value="${c.actualreceived}" type="currency" currencySymbol=""/> &#x20AB</td>
                                     <td style="padding: 8px; border: 1px solid #dddddd;"><button onclick="deleteOrd(${c.product_id})">Delete</button></td>
 
                                 </tr>

@@ -26,7 +26,6 @@ import model.Wallet;
  */
 public class BodyDAO extends DBContext {
 
-
     public void deleteOrder(String oid) {
         String sql = "DELETE FROM orders WHERE order_id = ?";
         try {
@@ -101,9 +100,10 @@ public class BodyDAO extends DBContext {
             e.printStackTrace();
         }
     }
+
     public List<CartXProduct> getAllCart(int user_id) {
         List<CartXProduct> list = new ArrayList<>();
-        String sql = "SELECT cart.cart_id, products.product_id, products.user_id, products.status, products.topic, products.contactmethod, products.price, products.bearingtransactionfees, products.transactionfees\n"
+        String sql = "SELECT cart.cart_id, products.product_id, products.user_id, products.status, products.topic, products.contactmethod, products.price, products.bearingtransactionfees, products.transactionfees, products.actualreceived\n"
                 + "FROM products\n"
                 + "INNER JOIN cart ON cart.product_id = products.product_id\n"
                 + "WHERE cart.status='pending'and cart.user_id=?";
@@ -120,7 +120,9 @@ public class BodyDAO extends DBContext {
                         rs.getString("contactmethod"),
                         rs.getDouble("price"),
                         rs.getString("bearingtransactionfees"),
-                        rs.getInt("transactionfees"));
+                        rs.getInt("transactionfees"),
+                        rs.getDouble("actualreceived")
+                );
                 list.add(c);
             }
         } catch (Exception e) {
@@ -128,7 +130,6 @@ public class BodyDAO extends DBContext {
         }
         return list;
     }
-
 
     public Wallet updateWallet(double balance, int user_id) {
         String sql = "UPDATE wallet SET balance= ?\n"
@@ -159,7 +160,6 @@ public class BodyDAO extends DBContext {
         return null;
     }
 
-
     public Cart deleteCart(int product_id, int user_id) {
         String sql = "UPDATE cart\n"
                 + "SET status= 'cancelled'\n"
@@ -174,14 +174,15 @@ public class BodyDAO extends DBContext {
         }
         return null;
     }
-   public List<CartXProduct> TrancastionHistory(int uid) {
+
+    public List<CartXProduct> TrancastionHistory(int uid) {
         List<CartXProduct> list = new ArrayList<>();
-        String sql = "SELECT cart.cart_id,products.product_id,products.user_id,users.username, cart.status, products.topic, products.contactmethod,\n" +
-"                 products.price, products.bearingtransactionfees, products.transactionfees, cart.created_at\n" +
-"                FROM products \n" +
-"                INNER JOIN cart ON cart.product_id = products.product_id \n" +
-"                join users on products.user_id=users.user_id\n" +
-"                WHERE cart.status='completely' and cart.user_id=?";
+        String sql = "SELECT cart.cart_id,products.product_id,products.user_id,users.username, cart.status, products.topic, products.contactmethod,\n"
+                + "                 products.price, products.bearingtransactionfees, products.transactionfees, cart.created_at\n"
+                + "                FROM products \n"
+                + "                INNER JOIN cart ON cart.product_id = products.product_id \n"
+                + "                join users on products.user_id=users.user_id\n"
+                + "                WHERE cart.status='completely' or cart.status='tracking' and cart.user_id=?";
         try {
             PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
             st.setInt(1, uid);
@@ -205,16 +206,32 @@ public class BodyDAO extends DBContext {
         }
         return list;
     }
-    public boolean UpdateWalletSeller(PayDTO p){     
-        ProductDAO pd=new ProductDAO();      
-        Product p1=pd.getProductByID(p.getProduct_id());
-        Wallet w=getWalletById(p1.getUser_id());
-        double balance=w.getBalance()+p1.getActualreceived();
+
+    public void updateCartCompletely(int user_id, int product_id) {
+        String sql = "UPDATE cart\n"
+                + "SET status= 'completely'\n"
+                + "WHERE user_id = ? and status ='tracking' and product_id=?;";
+        try {
+            PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
+            st.setInt(1, user_id);
+            st.setInt(2, product_id);
+            st.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean UpdateWalletSeller(PayDTO p) {
+        ProductDAO pd = new ProductDAO();
+        Product p1 = pd.getProductByID(p.getProduct_id());
+        Wallet w = getWalletById(p1.getUser_id());
+        double balance = w.getBalance() + p1.getActualreceived();
         updateWallet(balance, p.getUser_id());
         return true;
     }
-    public void PurchaseSellers(List<PayDTO> list){
-        for(int i=0;i<list.size();i++){
+
+    public void PurchaseSellers(List<PayDTO> list) {
+        for (int i = 0; i < list.size(); i++) {
             UpdateWalletSeller(list.get(i));
         }
     }

@@ -21,7 +21,17 @@ public class CartXProduct {
     private int transactionfees;
     private int seller_id;
     private String create_at;
+    private double actualreceived;
 
+    public double getActualreceived() {
+        return actualreceived;
+    }
+
+    public void setActualreceived(double actualreceived) {
+        this.actualreceived = actualreceived;
+    }
+
+  
     
 
     public String getCreate_at() {
@@ -95,6 +105,20 @@ public class CartXProduct {
         this.seller_id = seller_id;
         this.create_at = create_at;
     }
+
+    public CartXProduct(int cart_id, int product_id,int seller_id, String status, String topic, String contactmethod, double price, String bearingtransactionfees, int transactionfees, double actualreceived) {
+        this.cart_id = cart_id;
+        this.product_id = product_id;
+        this.seller_id = seller_id;
+        this.status = status;
+        this.topic = topic;
+        this.contactmethod = contactmethod;
+        this.price = price;
+        this.bearingtransactionfees = bearingtransactionfees;
+        this.transactionfees = transactionfees;
+        this.actualreceived = actualreceived;
+    }
+
 
     public String getUsername() {
         return username;

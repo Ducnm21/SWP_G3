@@ -52,6 +52,19 @@ public class ProductDAO {
         return list;
     }
 
+    public void updateIsConfirm(int pid) {
+        String sql = "UPDATE products\n"
+                + "SET isConfirm=1\n"
+                + "WHERE product_id = ? ";
+        try {
+            PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
+            st.setInt(1, pid);
+            st.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public Product getProductByID(int id) {
         String sql = "SELECT * FROM products WHERE product_id = ?";
         try {
@@ -73,7 +86,9 @@ public class ProductDAO {
                         rs.getString("hiddencontent"),
                         rs.getString("created_at"),
                         rs.getString("updated_at"),
-                        rs.getInt("user_id"));
+                        rs.getInt("user_id"),
+                        rs.getString("sellerName"),
+                        rs.getInt("isConfirm"));
             }
         } catch (Exception e) {
 
@@ -109,7 +124,7 @@ public class ProductDAO {
         }
         return list;
     }
-    
+
     public List<Product> getProductByUser_IDToProfile(int uid) {
         List<Product> list = new ArrayList<>();
         String sql = "SELECT * FROM Products where status = 'Available' and user_id = ?;";
@@ -138,16 +153,14 @@ public class ProductDAO {
         }
         return list;
     }
-    
-    
 
     public void addNewProduct(String topic, String contactmethod, String publicprivate, double price, String bearingtransactionfees, String description, String hiddencontent, int user_id) {
         // Tính toán giá trị của transactionfees dựa trên giá trị của price (1% của price)
-        double transactionfees =  Math.round(price * 0.01);
+        double transactionfees = Math.round(price * 0.01);
         double received = 0;
-        if (bearingtransactionfees.equals("seller")){
+        if (bearingtransactionfees.equals("seller")) {
             received = price - transactionfees;
-        } else if (bearingtransactionfees.equals("buyer")){
+        } else if (bearingtransactionfees.equals("buyer")) {
             received = price;
         }
         String sql = "INSERT INTO products (status, topic, contactmethod, publicprivate, price, bearingtransactionfees, transactionfees, actualreceived, description, hiddencontent, user_id) "
@@ -172,24 +185,24 @@ public class ProductDAO {
         }
     }
 
-    public void updateProduct(int pid, String topic, String contactmethod, String publicprivate, double price, 
+    public void updateProduct(int pid, String topic, String contactmethod, String publicprivate, double price,
             String bearingtransactionfees, double transactionfees, String description, String hiddencontent, String updated_at) {
         // Tính toán lại giá trị của transactionfees dựa trên giá trị mới của price (1% của price)
         double newTransactionFees = Math.round(price * 0.01);
 
-       String sql = "UPDATE products\n"
-            + "SET \n"
-            + "    topic = ?,\n"
-            + "    contactmethod = ?,\n"
-            + "    publicprivate = ?,\n"
-            + "    price = ?,\n"
-            + "    bearingtransactionfees = ?,\n"
-            + "    transactionfees = ?,\n"
-            + "    description = ?,\n"
-            + "    hiddencontent = ?,\n"
-            + "    updated_at = ?\n"
-            + "WHERE\n"
-            + "    product_id = ?;";
+        String sql = "UPDATE products\n"
+                + "SET \n"
+                + "    topic = ?,\n"
+                + "    contactmethod = ?,\n"
+                + "    publicprivate = ?,\n"
+                + "    price = ?,\n"
+                + "    bearingtransactionfees = ?,\n"
+                + "    transactionfees = ?,\n"
+                + "    description = ?,\n"
+                + "    hiddencontent = ?,\n"
+                + "    updated_at = ?\n"
+                + "WHERE\n"
+                + "    product_id = ?;";
 
         try {
             PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
@@ -632,7 +645,7 @@ public class ProductDAO {
         }
         return list;
     }
-    
+
     public List<Product> searchByContactWithUser_ID(String txtSearchC, int uid) {
         List<Product> list = new ArrayList<>();
         String sql = "SELECT * FROM products where contactmethod like ? and user_id = ?";
@@ -662,7 +675,7 @@ public class ProductDAO {
         }
         return list;
     }
-    
+
     public List<Product> getPublicOrderByUser_ID(int uid) {
         List<Product> list = new ArrayList<>();
         String sql = "SELECT * FROM products where publicprivate = 'public' and user_id = ?";
@@ -778,32 +791,33 @@ public class ProductDAO {
         }
         return list;
     }
-    public List<Product> getProductByDate(){
+
+    public List<Product> getProductByDate() {
         List<Product> list = new ArrayList<>();
-        String sql = "SELECT * FROM products\n" +
-                     "WHERE created_at >= ? AND created_at <= ? AND user_id = ?;";
-        try{
-            
-        }catch(Exception e){
-            
+        String sql = "SELECT * FROM products\n"
+                + "WHERE created_at >= ? AND created_at <= ? AND user_id = ?;";
+        try {
+
+        } catch (Exception e) {
+
         }
         return list;
     }
-    
-    public List<Product> getProductWithCustomerNameAndUser_ID(int uid){
+
+    public List<Product> getProductWithCustomerNameAndUser_ID(int uid) {
         List<Product> list = new ArrayList<>();
-        String sql = "SELECT \n" +
-                        "    users.username AS 'CustomerName', \n" +
-                        "    products.*\n" +
-                        "FROM \n" +
-                        "    cart\n" +
-                        "JOIN \n" +
-                        "    products ON cart.product_id = products.product_id\n" +
-                        "JOIN \n" +
-                        "    users ON users.user_id = cart.user_id\n" +
-                        "WHERE \n" +
-                        "    products.user_id = ?;";
-        try{
+        String sql = "SELECT \n"
+                + "    users.username AS 'CustomerName', \n"
+                + "    products.*\n"
+                + "FROM \n"
+                + "    cart\n"
+                + "JOIN \n"
+                + "    products ON cart.product_id = products.product_id\n"
+                + "JOIN \n"
+                + "    users ON users.user_id = cart.user_id\n"
+                + "WHERE \n"
+                + "    products.user_id = ?;";
+        try {
             PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
             st.setInt(1, uid);
             ResultSet rs = st.executeQuery();
@@ -824,11 +838,12 @@ public class ProductDAO {
                         rs.getInt("user_id"),
                         rs.getString("CustomerName")));
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
         return list;
     }
+
     public static void main(String[] args) {
         ProductDAO dao = new ProductDAO();
         List<Product> list = dao.getAllProduct();

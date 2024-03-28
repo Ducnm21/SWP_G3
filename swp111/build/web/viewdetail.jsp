@@ -18,7 +18,37 @@
         <!-- Site Title -->
         <title>Karma Shop</title>
         <style>
-
+            .message{
+                border: 5px solid #FF6600;
+                border-radius: 20px;
+                margin-top: 20px;
+            }
+            .message h2{
+                text-align: center;
+            }
+            .hl{
+                padding: 15px;
+                font-size: 110%;
+                font-family: sans-serif;
+            }
+            .highlight{
+                color: #32CD32;
+            }
+            .button-area{
+                margin-top: 20px;
+            }
+            .matchesbutton{
+                border-radius: 10px;
+                background-color: #32CD32;
+                padding: 15px;
+                color: white;
+            }
+            .requestadminbutton{
+                border-radius: 10px;
+                background-color: #FF6600;
+                padding: 15px;
+                color: white;
+            }
             .ordertable {
                 margin-left: 0%;
                 margin-right: 15%;
@@ -184,18 +214,22 @@
                         </div>
                     </div>                    
                 </div>
-                <div class="requestButton">
-                    <div class="row button-area">
-                        <div class="col-md-9">
-                            <button class="matchesbutton">Confirm product matches description</button>
-                        </div>
-                        <div class="col-md-3">
-                            <form action="" method="">
-                                <button class="requestadminbutton">Request Admin</button>
-                            </form>
+                <c:if test="${v.isConfirm==0}" >
+                    <div class="requestButton">
+                        <div class="row button-area">
+                            <div class="col-md-9">
+
+                                <a href="confirm?pid=${v.product_id}" class="matchesbutton">Confirm product matches description</a>
+
+                            </div>
+                            <div class="col-md-3">
+                                <form action="" method="">
+                                    <button href="reqadmin" class="requestadminbutton">Request Admin</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </c:if>
             </div>
 
         </section>

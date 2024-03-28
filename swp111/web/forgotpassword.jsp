@@ -41,7 +41,86 @@
     <body>
 
         <!-- Start Header Area -->
-         <%@ include file="Component/Header.jsp" %>
+        <header class="header_area sticky-header">
+            <div class="main_menu">
+                <nav class="navbar navbar-expand-lg navbar-light main_box">
+                    <div class="container">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <a class="navbar-brand logo_h" href="getallproduct"><img src="img/logosclc.png" alt=""></a>                       
+
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                            <ul class="nav navbar-nav menu_nav ml-auto">
+                                <c:if test="${sessionScope.user.is_admin == 1}">
+                                    <li class="nav-item active"><a class="nav-link" href="LoadAccount">Manage account</a></li>
+                                    </c:if>
+                                <li class="nav-item active"><a class="nav-link" href="getallproduct">Home</a></li>
+                                <li class="nav-item submenu dropdown">
+                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                       aria-expanded="false">Payment</a>
+                                    <ul class="dropdown-menu">
+                                        <li class="nav-item"><a class="nav-link" href="Deposit.jsp">Deposit</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="single-blog.html"></a></li>
+                                    </ul>
+                                </li>
+
+
+                                <li class="nav-item submenu dropdown">
+                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                       aria-expanded="false">Shop</a>
+                                    <ul class="dropdown-menu">
+                                        <li class="nav-item"><a class="nav-link" href="getallproduct">Public Market</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="getorderbyuserid">My Products</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="cart">My Orders</a></li>
+                                    </ul>
+                                </li>                       
+
+                                <c:if test="${sessionScope.user == null}">
+                                    <li class="nav-item"><a class="nav-link" href="login.jsp">Login</a></li>
+                                    </c:if>
+
+
+
+                                <c:if test="${sessionScope.user!=null}">
+                                    <li class="nav-item submenu dropdown">
+                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                           aria-expanded="false">Account</a>
+                                        <ul class="dropdown-menu">
+                                            <li class="nav-item"><a class="nav-link" href="logout">Logout</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="newscontroll">News</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="history">Transaction History</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="changepassword.jsp">Change Password</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="UpdateProfile.jsp">Update Profile</a></li>
+                                        </ul>
+                                    </li>
+                                    <li style="padding-top: 10px">${balance}</li> 
+                                    </c:if>
+
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li class="nav-item"><a href="cart" class="cart"><span class="ti-bag"></span></a></li>
+                                <li class="nav-item">
+                                    <button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+
+
+            <!-- Search -->
+            <div class="search_input" id="search_input_box">
+                <div class="container">
+                    <form method="Post" action="search" class="d-flex justify-content-between">
+                        <input name="inputSearch" type="text" class="form-control" id="search_input" placeholder="Search Here">
+                        <span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
+                    </form>
+                </div>
+            </div>
+
+
+        </header>
         <!-- End Header Area -->
 
         <!-- Start Banner Area -->

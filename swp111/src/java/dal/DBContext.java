@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 public class DBContext {
     public static String DB_URL = "jdbc:mysql://localhost:3306/sclc";
     public static String USER_NAME = "root";
-    public static String PASSWORD = "1234";
+    public static String PASSWORD = "Quangnn03!";
 
     public static void main(String args[]) {
         Connection conn = null;

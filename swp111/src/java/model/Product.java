@@ -25,7 +25,7 @@ public class Product {
     private String updated_at;
     private int user_id;
     private String sellerName;
-
+    private int isConfirm;
     public Product() {
     }
 
@@ -77,6 +77,33 @@ public class Product {
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.user_id = user_id;
+    }
+
+    public Product(int product_id, String status, String topic, String contactmethod, String publicprivate, double price, String bearingtransactionfees, double transactionfees, double actualreceived, String description, String hiddencontent, String created_at, String updated_at, int user_id, String sellerName, int isConfirm) {
+        this.product_id = product_id;
+        this.status = status;
+        this.topic = topic;
+        this.contactmethod = contactmethod;
+        this.publicprivate = publicprivate;
+        this.price = price;
+        this.bearingtransactionfees = bearingtransactionfees;
+        this.transactionfees = transactionfees;
+        this.actualreceived = actualreceived;
+        this.description = description;
+        this.hiddencontent = hiddencontent;
+        this.created_at = created_at;
+        this.updated_at = updated_at;
+        this.user_id = user_id;
+        this.sellerName = sellerName;
+        this.isConfirm = isConfirm;
+    }
+
+    public int getIsConfirm() {
+        return isConfirm;
+    }
+
+    public void setIsConfirm(int isConfirm) {
+        this.isConfirm = isConfirm;
     }
 
 

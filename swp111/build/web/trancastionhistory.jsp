@@ -28,6 +28,25 @@
                 margin-top: -10px;
                 margin-bottom: -10px;
             }
+            .btn-view-detail,
+            .btn-send-feedback {
+                text-decoration: none;
+                padding: 8px;
+                border: 1px solid #dddddd;
+                transition: background-color 0.3s ease;
+                font-size: 16px;
+                font-weight: bold;
+                color: #333333;
+                background-color: orange;
+                border-radius: 5px;
+            }
+
+            .btn-view-detail:hover,
+            .btn-send-feedback:hover {
+                background-color: #007bff;
+                color: #ffffff;
+            }
+
         </style>
         <link rel="stylesheet" href="css/linearicons.css">
         <link rel="stylesheet" href="css/owl.carousel.css">
@@ -40,8 +59,84 @@
     </head>
 
     <body>
+
+
         <!-- Start Header Area -->
-        <%@ include file="Component/Header.jsp" %>
+        <header class="header_area sticky-header">
+            <div class="main_menu">
+                <nav class="navbar navbar-expand-lg navbar-light main_box">
+                    <div class="container">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <a class="navbar-brand logo_h" href="getallproduct"><img src="img/logosclc.png" alt=""></a>                       
+
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                            <ul class="nav navbar-nav menu_nav ml-auto">
+                                <c:if test="${sessionScope.user.is_admin == 1}">
+                                    <li class="nav-item active"><a class="nav-link" href="LoadAccount">Manage account</a></li>
+                                    </c:if>
+                                <li class="nav-item active"><a class="nav-link" href="getallproduct">Home</a></li>
+                                <li class="nav-item submenu dropdown">
+                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                       aria-expanded="false">Payment</a>
+                                    <ul class="dropdown-menu">
+                                        <li class="nav-item"><a class="nav-link" href="Deposit.jsp">Deposit</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="single-blog.html"></a></li>
+                                    </ul>
+                                </li>
+
+
+                                <li class="nav-item submenu dropdown">
+                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                       aria-expanded="false">Shop</a>
+                                    <ul class="dropdown-menu">
+                                        <li class="nav-item"><a class="nav-link" href="getallproduct">Public Market</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="getorderbyuserid">My Products</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="cart">My Orders</a></li>
+                                    </ul>
+                                </li>                       
+
+                                <c:if test="${sessionScope.user == null}">
+                                    <li class="nav-item"><a class="nav-link" href="login.jsp">Login</a></li>
+                                    </c:if>
+
+
+
+                                <c:if test="${sessionScope.user!=null}">
+                                    <li class="nav-item submenu dropdown">
+                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                           aria-expanded="false">Account</a>
+                                        <ul class="dropdown-menu">
+                                            <li class="nav-item"><a class="nav-link" href="logout">Logout</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="newscontroll">News</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="changepassword.jsp">Change Password</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="UpdateProfile.jsp">Update Profile</a></li>
+                                        </ul>
+                                    </li>
+                                    <li style="padding-top: 10px">${balance}</li> 
+                                    </c:if>
+
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li class="nav-item"><a href="cart" class="cart"><span class="ti-bag"></span></a></li>
+                                <li class="nav-item">
+                                    <button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            <div class="search_input" id="search_input_box">
+                <div class="container">
+                    <form class="d-flex justify-content-between">
+                        <input type="text" class="form-control" id="search_input" placeholder="Search Here">
+                        <button type="submit" class="btn"></button>
+                        <span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
+                    </form>
+                </div>
+            </div>
+        </header>
         <!-- End Header Area -->
 
         <!-- Start Banner Area -->
@@ -49,7 +144,7 @@
             <div class="container">
                 <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
                     <div class="col-first">
-                        <h1>Cart</h1>
+                        <h1>My History Transaction</h1>
                         <nav class="d-flex align-items-center">
                             <a href="history"Purchase History<span class="lnr lnr-arrow-right"></span></a>
                             <a href="soldhistory">Sold History</a>
@@ -95,10 +190,11 @@
                                         <td style="padding: 8px; border: 1px solid #dddddd;">${c.transactionfees}</td>
                                         <td style="padding: 8px; border: 1px solid #dddddd;">${c.price+c.transactionfees}</td>
                                         <td style="padding: 8px; border: 1px solid #dddddd;">${c.create_at}</td>
-                                        <td style="padding: 8px; border: 1px solid #dddddd;"><a href="viewdetail?id=${c.product_id}">View Detail</a></td>
-                                        <td style="padding: 8px; border: 1px solid #dddddd;"><a href="sendfeedback?uid=${c.seller_id}&pid=${c.product_id}">Send Feedback</a></td> 
+                                        <td style="padding: 8px; border: 1px solid #dddddd;"><a href="viewdetail?id=${c.product_id}" class="btn-view-detail">View Detail</a></td>
+                                        <td style="padding: 8px; border: 1px solid #dddddd; "><a href="sendfeedback?uid=${c.seller_id}&pid=${c.product_id}" class="btn-send-feedback">Send Feedback</a></td> 
                                     </tr>
                                 </c:forEach>
+
                             </tbody>
                         </table>
                     </div>

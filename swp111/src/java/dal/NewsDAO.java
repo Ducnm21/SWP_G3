@@ -39,25 +39,25 @@ public class NewsDAO {
         return null;
     }
 
-    public News getNewsByUserID(int user_id) {
-        String sql = "select * from news where user_id = ? order by product_id desc limit 1";
-        try ( PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql)) {
-            st.setInt(1, user_id);
-            try ( ResultSet rs = st.executeQuery()) {
-                if (rs.next()) {
-                    return new News(
-                            rs.getInt(1),
-                            rs.getString(2),
-                            rs.getInt(3),
-                            rs.getInt(4),
-                            rs.getInt(5)
-                    );
-                }
+   
+
+    public void addNews(int user_id, String content, int is_seen, int product_id) {
+        String sql = "INSERT INTO news (content, is_seen, user_id, product_id) VALUES (?, ?, ?, ?)";
+        try ( Connection conn = getConnection(DB_URL, USER_NAME, PASSWORD);  PreparedStatement st = conn.prepareStatement(sql)) {
+            st.setString(1, content);
+            st.setInt(2, is_seen);
+            st.setInt(3, user_id);
+            st.setInt(4, product_id);
+
+            int rowsAffected = st.executeUpdate();
+            if (rowsAffected == 0) {
+                System.out.println("Insertion failed, no rows affected.");
+            } else {
+                System.out.println("News inserted successfully.");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
     }
 
     public List<News> getNewsListByUserID(int user_id) {

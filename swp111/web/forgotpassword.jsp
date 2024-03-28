@@ -41,86 +41,7 @@
     <body>
 
         <!-- Start Header Area -->
-        <header class="header_area sticky-header">
-            <div class="main_menu">
-                <nav class="navbar navbar-expand-lg navbar-light main_box">
-                    <div class="container">
-                        <!-- Brand and toggle get grouped for better mobile display -->
-                        <a class="navbar-brand logo_h" href="getallproduct"><img src="img/logosclc.png" alt=""></a>                       
-
-                        <!-- Collect the nav links, forms, and other content for toggling -->
-                        <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
-                            <ul class="nav navbar-nav menu_nav ml-auto">
-                                <c:if test="${sessionScope.user.is_admin == 1}">
-                                    <li class="nav-item active"><a class="nav-link" href="LoadAccount">Manage account</a></li>
-                                    </c:if>
-                                <li class="nav-item active"><a class="nav-link" href="getallproduct">Home</a></li>
-                                <li class="nav-item submenu dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                                       aria-expanded="false">Payment</a>
-                                    <ul class="dropdown-menu">
-                                        <li class="nav-item"><a class="nav-link" href="Deposit.jsp">Deposit</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="single-blog.html"></a></li>
-                                    </ul>
-                                </li>
-
-
-                                <li class="nav-item submenu dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                                       aria-expanded="false">Shop</a>
-                                    <ul class="dropdown-menu">
-                                        <li class="nav-item"><a class="nav-link" href="getallproduct">Public Market</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="getorderbyuserid">My Products</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="cart">My Orders</a></li>
-                                    </ul>
-                                </li>                       
-
-                                <c:if test="${sessionScope.user == null}">
-                                    <li class="nav-item"><a class="nav-link" href="login.jsp">Login</a></li>
-                                    </c:if>
-
-
-
-                                <c:if test="${sessionScope.user!=null}">
-                                    <li class="nav-item submenu dropdown">
-                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                                           aria-expanded="false">Account</a>
-                                        <ul class="dropdown-menu">
-                                            <li class="nav-item"><a class="nav-link" href="logout">Logout</a></li>
-                                            <li class="nav-item"><a class="nav-link" href="newscontroll">News</a></li>
-                                            <li class="nav-item"><a class="nav-link" href="history">Transaction History</a></li>
-                                            <li class="nav-item"><a class="nav-link" href="changepassword.jsp">Change Password</a></li>
-                                            <li class="nav-item"><a class="nav-link" href="UpdateProfile.jsp">Update Profile</a></li>
-                                        </ul>
-                                    </li>
-                                    <li style="padding-top: 10px">${balance}</li> 
-                                    </c:if>
-
-                            </ul>
-                            <ul class="nav navbar-nav navbar-right">
-                                <li class="nav-item"><a href="cart" class="cart"><span class="ti-bag"></span></a></li>
-                                <li class="nav-item">
-                                    <button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-
-
-            <!-- Search -->
-            <div class="search_input" id="search_input_box">
-                <div class="container">
-                    <form method="Post" action="search" class="d-flex justify-content-between">
-                        <input name="inputSearch" type="text" class="form-control" id="search_input" placeholder="Search Here">
-                        <span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
-                    </form>
-                </div>
-            </div>
-
-
-        </header>
+        <%@ include file="Component/Header.jsp" %>
         <!-- End Header Area -->
 
         <!-- Start Banner Area -->
@@ -148,8 +69,8 @@
                             <img class="img-fluid" src="img/login.jpg" alt="">
                             <div class="hover">
                                 <h4>New to our website?</h4>
-                                <p>There are advances being made in science and technology everyday, and a good example of this is the</p>
-                                <a class="primary-btn" href="registration.html">Create an Account</a>
+                                 <p>SCLC provides you with a dropshipping website where you can safely trade non-shipping items</p>
+                                
                             </div>
                         </div>
                     </div>
@@ -190,12 +111,13 @@
                 <div class="row">
                     <div class="col-lg-3  col-md-6 col-sm-6">
                         <div class="single-footer-widget">
-                            <h6>About Us</h6>
+                            <h6>SCLC System</h6>
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore dolore
-                                magna aliqua.
+                                This Online Intermediary Marketplace Project is a website that specializes in intermediating purchases and orders from users, 
+                                promoting security and reputation, avoiding cases of fraud when purchasing at other common shopping websites.
                             </p>
                         </div>
+                        
                     </div>
                     <div class="col-lg-4  col-md-6 col-sm-6">
                         <div class="single-footer-widget">
@@ -217,9 +139,6 @@
                                             <input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text">
                                         </div>
 
-                                        <!-- <div class="col-lg-4 col-md-4">
-                                                                        <button class="bb-btn btn"><span class="lnr lnr-arrow-right"></span></button>
-                                                                </div>  -->
                                     </div>
                                     <div class="info"></div>
                                 </form>
@@ -253,12 +172,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="footer-bottom d-flex justify-content-center align-items-center flex-wrap">
-                    <p class="footer-text m-0"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    </p>
                 </div>
             </div>
         </footer>

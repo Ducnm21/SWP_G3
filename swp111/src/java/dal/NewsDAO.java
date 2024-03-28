@@ -39,7 +39,18 @@ public class NewsDAO {
         return null;
     }
 
-   
+    public void SetSeen(int id) {
+        String sql = "update news\n"
+                + "set is_seen =1 \n"
+                + "where news_id = ?";
+        try {
+            PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
+            st.setInt(1, id);
+            st.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public void addNews(int user_id, String content, int is_seen, int product_id) {
         String sql = "INSERT INTO news (content, is_seen, user_id, product_id) VALUES (?, ?, ?, ?)";
@@ -86,7 +97,7 @@ public class NewsDAO {
     public List<News> getPaginatedNewsListByUserID(int user_id, int page, int recordsPerPage) {
         List<News> newsList = new ArrayList<>();
         int start = (page - 1) * recordsPerPage;
-        String sql = "SELECT * FROM news WHERE user_id = ? ORDER BY product_id DESC LIMIT ?, ?";
+        String sql = "SELECT * FROM news WHERE user_id = ? ORDER BY news_id DESC LIMIT ?, ?";
         try ( Connection conn = getConnection(DB_URL, USER_NAME, PASSWORD);  PreparedStatement st = conn.prepareStatement(sql)) {
             st.setInt(1, user_id);
             st.setInt(2, start);
@@ -127,8 +138,7 @@ public class NewsDAO {
 
     public static void main(String[] args) {
         NewsDAO dao = new NewsDAO();
-        List<News> newsList = new ArrayList<>();
-        newsList = dao.getNewsListByUserID(4);
+        List<News> newsList = dao.getPaginatedNewsListByUserID(5, 1, 3);
         for (News news : newsList) {
             System.out.println(news);
         }

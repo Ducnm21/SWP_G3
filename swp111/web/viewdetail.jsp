@@ -196,36 +196,51 @@
                             </form>
 
                         </div>
-                        <div class="col-lg-5">
-                            <div class="message">
-                                <h2>Important!</h2>
+                        <div class="col-lg-5 mes">
+                            <div class="messageBlock" style="overflow: auto; height: 530px;">
+                                <div class="messageHEAD">
+                                    <div class="message">
+                                        <h2>Important!</h2>
+                                    </div>
+                                </div>       
+                                <div class="message">
+                                    <p class="hl">Remember to check the HIDDEN CONTENT carefully before hitting the [Confirm product matches description] Button ,
+                                        once you hit that button you will fully take response of that product and there will be nothing we can do to help you if there has mistakes</p>
+                                </div>
+                                <div class="message">
+                                    <p class="hl">If the [HIDDEN CONTENT] section is not as described by the seller, please contact the seller via [CONTACT METHOD] that the seller provided above</p>
+                                </div>
+                                <div class="message">
+                                    <p class="hl">If the seller cannot contact you or you and the seller cannot resolve the issue, please click the [Request Admin] button to have SCLC's admin team resolve it. 
+                                        An admin team will contact you and the seller to resolve the issue as quickly as possible</p>
+                                </div>
+                                <div class="message">
+                                    <p class="">The cost for sending a request to Admin will be 10,000 (VND), so please check carefully before sending.
+                                        Thank you for trusting and using SCLC's services.</p>
+                                </div>
                             </div>
-                            <div class="message">
-                                <p class="hl">Remember to check the HIDDEN CONTENT carefully before hitting the [Confirm product matches description] Button ,
-                                    once you hit that button you will fully take response of that product and there will be nothing we can do to help you if there has mistakes</p>
-                            </div>
-                            <div class="message">
-                                <p class="hl">If the [HIDDEN CONTENT] section is not as described by the seller, please contact the seller via [CONTACT METHOD] that the seller provided above</p>
-                            </div>
-                            <div class="message">
-                                <p class="hl">If the seller cannot contact you or you and the seller cannot resolve the issue, please click the [Request Admin] button to have SCLC's admin team resolve it. 
-                                    Thank you for trusting and using SCLC's services.</p>
-                            </div>
+
                         </div>
                     </div>                    
                 </div>
                 <c:if test="${v.isConfirm==0}" >
                     <div class="requestButton">
                         <div class="row button-area">
-                            <div class="col-md-9">
+                            <div class="col-md-7">
 
                                 <a href="confirm?pid=${v.product_id}" class="matchesbutton">Confirm product matches description</a>
 
                             </div>
-                            <div class="col-md-3">
-                                <form action="" method="">
-                                    <button href="reqadmin" class="requestadminbutton">Request Admin</button>
-                                </form>
+                            <div class="col-md-5">
+                                <div>
+
+                                    <c:if test="${sessionScope.errorRequest!=null}">
+                                        <h4 style="color:red">${sessionScope.errorRequest}</h4>
+                                    </c:if> 
+                                    <c:if test="${sessionScope.errorRequest==null}">
+                                        <a href="requestToAdmin?pid=${v.product_id}" class="requestadminbutton">Request Admin</a>
+                                    </c:if> 
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -242,13 +257,13 @@
                 <div class="row">
                     <div class="col-lg-3  col-md-6 col-sm-6">
                         <div class="single-footer-widget">
-                            <h6>About Us</h6>
+                            <h6>SCLC System</h6>
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
-                                ut labore dolore
-                                magna aliqua.
+                                This Online Intermediary Marketplace Project is a website that specializes in intermediating purchases and orders from users, 
+                                promoting security and reputation, avoiding cases of fraud when purchasing at other common shopping websites.
                             </p>
                         </div>
+
                     </div>
                     <div class="col-lg-4  col-md-6 col-sm-6">
                         <div class="single-footer-widget">
@@ -261,20 +276,15 @@
 
                                     <div class="d-flex flex-row">
 
-                                        <input class="form-control" name="EMAIL" placeholder="Enter Email" onfocus="this.placeholder = ''"
-                                               onblur="this.placeholder = 'Enter Email '" required="" type="email">
+                                        <input class="form-control" name="EMAIL" placeholder="Enter Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Email '"
+                                               required="" type="email">
 
 
-                                        <button class="click-btn btn btn-default"><i class="fa fa-long-arrow-right"
-                                                                                     aria-hidden="true"></i></button>
+                                        <button class="click-btn btn btn-default"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
                                         <div style="position: absolute; left: -5000px;">
-                                            <input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value=""
-                                                   type="text">
+                                            <input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text">
                                         </div>
 
-                                        <!-- <div class="col-lg-4 col-md-4">
-                                                                                                            <button class="bb-btn btn"><span class="lnr lnr-arrow-right"></span></button>
-                                                                                                    </div>  -->
                                     </div>
                                     <div class="info"></div>
                                 </form>
@@ -308,12 +318,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="footer-bottom d-flex justify-content-center align-items-center flex-wrap">
-                    <p class="footer-text m-0"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    </p>
                 </div>
             </div>
         </footer>

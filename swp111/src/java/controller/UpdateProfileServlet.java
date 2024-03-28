@@ -46,8 +46,10 @@ public class UpdateProfileServlet extends HttpServlet {
         BodyDAO d = new BodyDAO();
         Wallet w = d.getWalletById(LoggedUser.getId());
         System.out.println(w);
-        request.setAttribute("balance", w.getBalance());
+        request.setAttribute("balance", String.format("%,.0f", w.getBalance()) + " ₫");
 
+
+        
         request.getRequestDispatcher("UpdateProfile.jsp").forward(request, response);
     }
 
@@ -97,7 +99,12 @@ public class UpdateProfileServlet extends HttpServlet {
         session.removeAttribute("user");
         session.setAttribute("user", updatedUser);
         session.setMaxInactiveInterval(30000);
-
+        
+        User u = (User) session.getAttribute("user");
+        BodyDAO d = new BodyDAO();
+        Wallet w = d.getWalletById(u.getId());
+        request.setAttribute("balance", String.format("%,.0f", w.getBalance()) + " ₫");
+        
         request.getRequestDispatcher("getallproduct").forward(request, response);
     } catch (NumberFormatException e) {
         System.out.println("Error");

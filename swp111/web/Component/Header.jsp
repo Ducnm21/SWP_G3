@@ -48,19 +48,20 @@
                         <!-- Collect the nav links, forms, and other content for toggling -->
                         <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                             <ul class="nav navbar-nav menu_nav ml-auto">
-                                <c:if test="${sessionScope.user.is_admin == 1}">
+
+                                <li class="nav-item active"><a class="nav-link" href="getallproduct">Home</a></li>
+                                    <c:if test="${sessionScope.user.is_admin == 1}">
 
                                     <li class="nav-item submenu dropdown">
                                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                                            aria-expanded="false">Management</a>
                                         <ul class="dropdown-menu">                                         
                                             <li class="nav-item"><a class="nav-link" href="LoadAccount">Manage account</a></li>
-                                            <li class="nav-item"><a class="nav-link" href="#">Manage order</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="load_all_requests_for_admin">Manage Conflict</a></li>
                                         </ul>
                                     </li>
 
                                 </c:if>
-                                <li class="nav-item active"><a class="nav-link" href="getallproduct">Home</a></li>
 
                                 <c:if test="${sessionScope.user != null}">
                                     <li class="nav-item submenu dropdown">
@@ -68,12 +69,12 @@
                                            aria-expanded="false">Payment</a>
                                         <ul class="dropdown-menu">
                                             <li class="nav-item"><a class="nav-link" onclick="openDepositPopup()">Deposit</a></li>
-                                            <c:if test="${sessionScope.user.is_admin == 1}">
-                                            <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/withdrawListAdmin">Withdrawal Request</a></li>
-                                            </c:if>
-                                            <c:if test="${sessionScope.user.is_admin==0}">
-                                            <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/withdrawList">Withdrawal Request</a></li>
-                                            </c:if>
+                                                <c:if test="${sessionScope.user.is_admin == 1}">
+                                                <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/withdrawListAdmin">Withdrawal Request</a></li>
+                                                </c:if>
+                                                <c:if test="${sessionScope.user.is_admin==0}">
+                                                <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/withdrawList">Withdrawal Request</a></li>
+                                                </c:if>
                                         </ul>
                                     </li>
                                 </c:if>

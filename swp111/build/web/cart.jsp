@@ -94,7 +94,7 @@
 
 
         <!-- Start Header Area -->
-         <%@ include file="Component/Header.jsp" %>
+        <%@ include file="Component/Header.jsp" %>
         <!-- End Header Area -->
 
         <!-- Start Banner Area -->
@@ -113,60 +113,59 @@
         </section>
         <!-- End Banner Area -->
         <!--================Cart Area =================-->
-        <section class="cart_area" >
-            <div class="container" style="text-align: center"  >
-                <div class="cart_inner table-responsive" >
-                    <table style="text-align: center"  >
-                        <thead>
+
+        <div class="container" style="text-align: center; margin-bottom: 50px"  >
+            <div  class="cart_inner table-responsive" >
+                <table  style="margin: 0; width: 1100px" >
+                    <thead>
+                        <tr>
+                            <th style="padding: 8px; border: 1px solid #dddddd; width: 10px">Code</th>
+
+                            <th style="padding: 8px; border: 1px solid #dddddd;width: 10px">Topic</th>                                    
+
+                            <th style="padding: 8px; border: 1px solid #dddddd; width: 100px">Price</th>
+                            <th style="padding: 8px; border: 1px solid #dddddd;width: 40px">Bearing Transaction Fee</th>
+                            <th style="padding: 8px; border: 1px solid #dddddd;width: 40px">Transaction Fee</th>
+                            <th style="padding: 8px; border: 1px solid #dddddd;width: 40px">Actual Receive</th>
+                            <th style="padding: 8px; border: 1px solid #dddddd;width: 20px">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach var="c" items="${listCart}">
                             <tr>
-                                <th style="padding: 8px; border: 1px solid #dddddd;">Code</th>
-                                <th style="padding: 8px; border: 1px solid #dddddd;">Status</th>
-                                <th style="padding: 8px; border: 1px solid #dddddd;">Topic</th>                                    
-                                <th style="padding: 8px; border: 1px solid #dddddd;">Contact Method</th>
-                                <th style="padding: 8px; border: 1px solid #dddddd; width: 100px">Price</th>
-                                <th style="padding: 8px; border: 1px solid #dddddd;">Bearing Transaction Fee</th>
-                                <th style="padding: 8px; border: 1px solid #dddddd;">Transaction Fee</th>
-                                <th style="padding: 8px; border: 1px solid #dddddd;">Actual Receive</th>
-                                <th style="padding: 8px; border: 1px solid #dddddd;">Action</th>
+                                <td >${c.product_id}</td>
+
+                                <td >${c.topic}</td>
+
+                                <td ><fmt:formatNumber value="${c.price}" type="currency" currencySymbol=""/> &#x20AB</td>
+                                <td >${c.bearingtransactionfees}</td>
+                                <td ><fmt:formatNumber value="${c.transactionfees}" type="currency" currencySymbol=""/> &#x20AB</td>
+                                <td ><fmt:formatNumber value="${c.actualreceived}" type="currency" currencySymbol=""/> &#x20AB</td>
+                                <td><button onclick="deleteItem(${c.product_id})">Delete</button></td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach var="c" items="${listCart}">
-                                <tr>
-                                    <td style="padding: 8px; border: 1px solid #dddddd;">${c.product_id}</td>
-                                    <td style="padding: 8px; border: 1px solid #dddddd;">${c.status}</td>
-                                    <td style="padding: 8px; border: 1px solid #dddddd;">${c.topic}</td>
-                                    <td style="padding: 8px; border: 1px solid #dddddd;">${c.contactmethod}</td>
-                                    <td style="padding: 8px; border: 1px solid #dddddd;"><fmt:formatNumber value="${c.price}" type="currency" currencySymbol=""/> &#x20AB</td>
-                                    <td style="padding: 8px; border: 1px solid #dddddd;">${c.bearingtransactionfees}</td>
-                                    <td style="padding: 8px; border: 1px solid #dddddd;"><fmt:formatNumber value="${c.transactionfees}" type="currency" currencySymbol=""/> &#x20AB</td>
-                                    <td style="padding: 8px; border: 1px solid #dddddd;"><fmt:formatNumber value="${c.actualreceived}" type="currency" currencySymbol=""/> &#x20AB</td>
-                                    <td style="padding: 8px; border: 1px solid #dddddd;"><button onclick="deleteOrd(${c.product_id})">Delete</button></td>
-
-                                </tr>
-                            </c:forEach>
-                        </tbody>
+                        </c:forEach>
+                    </tbody>
 
 
-                    </table>
-                    <div class="subtotal_area">
-                        <div style="margin-top:  20px; margin-right: 800px " >
-                            <h5>Subtotal</h5>
-                            <h5>${totalfee}</h5>
-                        </div>
+                </table>
+                <div class="subtotal_area">
+                    <div style="margin-top:  20px; margin-right: 800px " >
+                        <h5>Subtotal</h5>
+                        <h5>${totalfee}</h5>
                     </div>
-
-                    <tr class="shipping_area">
-                        <td>
-                            <div class="checkout_btn_inner d-flex align-items-center">
-                                <a class="primary-btn" style="margin-right: 20px; width: 300px; text-align: center" href="getallproduct">Continue Shopping</a>
-                                <a class="primary-btn" style="width: 300px; text-align: center" href="processcheckout">Proceed to checkout</a>
-                            </div>
-                        </td>
-                    </tr>
                 </div>
+
+                <tr class="shipping_area">
+                    <td>
+                        <div class="checkout_btn_inner d-flex align-items-center">
+                            <a class="primary-btn" style="margin-right: 20px; width: 300px; text-align: center" href="getallproduct">Continue Shopping</a>
+                            <a class="primary-btn" style="width: 300px; text-align: center" href="processcheckout">Proceed to checkout</a>
+                        </div>
+                    </td>
+                </tr>
             </div>
-        </section>
+        </div>
+
         <!--================End Cart Area =================-->
 
         <!-- start footer Area -->
@@ -175,12 +174,13 @@
                 <div class="row">
                     <div class="col-lg-3  col-md-6 col-sm-6">
                         <div class="single-footer-widget">
-                            <h6>About Us</h6>
+                            <h6>SCLC System</h6>
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore dolore
-                                magna aliqua.
+                                This Online Intermediary Marketplace Project is a website that specializes in intermediating purchases and orders from users, 
+                                promoting security and reputation, avoiding cases of fraud when purchasing at other common shopping websites.
                             </p>
                         </div>
+
                     </div>
                     <div class="col-lg-4  col-md-6 col-sm-6">
                         <div class="single-footer-widget">
@@ -202,9 +202,6 @@
                                             <input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text">
                                         </div>
 
-                                        <!-- <div class="col-lg-4 col-md-4">
-                                                                        <button class="bb-btn btn"><span class="lnr lnr-arrow-right"></span></button>
-                                                                </div>  -->
                                     </div>
                                     <div class="info"></div>
                                 </form>
@@ -239,38 +236,17 @@
                         </div>
                     </div>
                 </div>
-                <div class="footer-bottom d-flex justify-content-center align-items-center flex-wrap">
-                    <p class="footer-text m-0"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    </p>
-                </div>
             </div>
         </footer>
         <!-- End footer Area -->
+
         <script>
-            function deleteOrd(product_id) {
-                if (confirm("Are you sure you want to delete this item?")) {
-                    var xhttp = new XMLHttpRequest();
-                    xhttp.onreadystatechange = function () {
-                        if (this.readyState == 4 && this.status == 200) {
-                            // Xử lý kết quả trả về từ servlet ở đây
-                            // Ví dụ: xóa dòng bảng tương ứng với sản phẩm đã xóa
-                            var table = document.getElementById("tableCart");
-                            for (var i = 0, row; row = table.rows[i]; i++) {
-                                if (row.cells[0].innerText == product_id) {
-                                    table.deleteRow(i);
-                                    break;
-                                }
-                            }
-                        }
-                    };
-                    xhttp.open("GET", "deleteOrd?id=" + product_id, true);
-                    xhttp.send();
+            function deleteItem(productId) {
+                if (confirm('Are you sure you want to delete this item?')) {
+                    window.location.href = "deleteOrd?id=" + productId;
                 }
             }
         </script>
-
 
         <script src="js/vendor/jquery-2.2.4.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"

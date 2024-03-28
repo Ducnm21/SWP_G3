@@ -177,12 +177,12 @@ public class BodyDAO extends DBContext {
 
     public List<CartXProduct> TrancastionHistory(int uid) {
         List<CartXProduct> list = new ArrayList<>();
-        String sql = "SELECT cart.cart_id,products.product_id,products.user_id,users.username, cart.status, products.topic, products.contactmethod,\n"
-                + "                 products.price, products.bearingtransactionfees, products.transactionfees, cart.created_at\n"
-                + "                FROM products \n"
-                + "                INNER JOIN cart ON cart.product_id = products.product_id \n"
-                + "                join users on products.user_id=users.user_id\n"
-                + "                WHERE cart.status='completely' or cart.status='tracking' and cart.user_id=?";
+        String sql = "SELECT cart.cart_id,products.product_id,products.user_id,users.username, cart.status, products.topic, products.contactmethod,\n" +
+"                                products.price, products.bearingtransactionfees, products.transactionfees, cart.created_at\n" +
+"                                FROM products\n" +
+"                              INNER JOIN cart ON cart.product_id = products.product_id\n" +
+"                              join users on products.user_id=users.user_id\n" +
+"                            WHERE (cart.status='completely' or cart.status='tracking') and users.user_id=?";
         try {
             PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
             st.setInt(1, uid);

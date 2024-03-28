@@ -72,44 +72,23 @@
     </head>        
 
     <body>
-
-         <%@ include file="Component/Header.jsp" %>
-
-        <!-- start banner Area -->
-        <section class="banner-area">
+        <%@ include file="Component/Header.jsp" %>
+        
+        <section class="banner-area organic-breadcrumb">
             <div class="container">
-                <div class="row fullscreen align-items-center justify-content-start">
-                    <div class="col-lg-12">
-                        <div class="active-banner-slider owl-carousel">
-                            <!-- single-slide -->
-                            <div class="row single-slide align-items-center d-flex">
-                                <div class="col-lg-5 col-md-6">
-                                    <div class="banner-content">
-                                        <h1><span style="color: orange;">Manage Account</span></h1>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- single-slide -->
-                            <div class="row single-slide align-items-center d-flex">
-                                <div class="col-lg-5 col-md-6">
-                                    <div class="banner-content">
-                                        <h1><span style="color: orange;">Manage Account</span></h1>
-                                        <form action="search" method="post">
-                                            <div class="add-bag d-flex align-items-center">
-                                                <input name="txt" type="text" class="form-control" id="search_input" placeholder="Search for account by name">
-                                                <button type="submit" class="btn">Search</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+                    <div class="col-first">
+                        <h1>Account management</h1>
+                        <nav class="d-flex align-items-center">
+                            <a href="#">Home<span class="lnr lnr-arrow-right"></span></a>
+                            <a href="#">Account management</a>
+                        </nav>
                     </div>
                 </div>
             </div>
         </section>
-        <!-- End banner Area -->
+        
+
         <div class="donbanhead" style="text-align: center; margin-left: 20%">
             <div class="row">
                 <div class="col-lg-9">
@@ -148,7 +127,7 @@
                             </c:if> 
                         </tr>
                     </c:forEach>
-                
+
 
             </table>
         </div><!--
@@ -163,12 +142,13 @@
                 <div class="row">
                     <div class="col-lg-3  col-md-6 col-sm-6">
                         <div class="single-footer-widget">
-                            <h6>About Us</h6>
+                            <h6>SCLC System</h6>
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore dolore
-                                magna aliqua.
+                                This Online Intermediary Marketplace Project is a website that specializes in intermediating purchases and orders from users, 
+                                promoting security and reputation, avoiding cases of fraud when purchasing at other common shopping websites.
                             </p>
                         </div>
+
                     </div>
                     <div class="col-lg-4  col-md-6 col-sm-6">
                         <div class="single-footer-widget">
@@ -190,9 +170,6 @@
                                             <input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text">
                                         </div>
 
-                                        <!-- <div class="col-lg-4 col-md-4">
-                                                                <button class="bb-btn btn"><span class="lnr lnr-arrow-right"></span></button>
-                                                        </div>  -->
                                     </div>
                                     <div class="info"></div>
                                 </form>
@@ -226,12 +203,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="footer-bottom d-flex justify-content-center align-items-center flex-wrap">
-                    <p class="footer-text m-0"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    </p>
                 </div>
             </div>
         </footer>

@@ -3,12 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/hung1/OneDrive/Desktop/SWP/swp111/src/java/controller/WithdrawList.java</file>
-            <file>file:/C:/Users/hung1/OneDrive/Desktop/SWP/swp111/src/java/controller/WithdrawRequest.java</file>
-            <file>file:/C:/Users/hung1/OneDrive/Desktop/SWP/swp111/src/java/controller/WithdrawHandle.java</file>
-            <file>file:/C:/Users/hung1/OneDrive/Desktop/SWP/swp111/src/java/dal/WithdrawalDAO.java</file>
-            <file>file:/C:/Users/hung1/OneDrive/Desktop/SWP/swp111/web/withdrawalList.jsp</file>
-            <file>file:/C:/Users/hung1/OneDrive/Desktop/SWP/swp111/web/WithdrawalListAdmin.jsp</file>
+            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/GetAllProductHome.java</file>
+            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/dal/BodyDAO.java</file>
+            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/web/checkout.jsp</file>
+            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/CheckOut.java</file>
+            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/WithdrawList.java</file>
+            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/ProcessCheckout.java</file>
+            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/web/index.jsp</file>
+            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/web/Component/Header.jsp</file>
+            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/web/withdrawalList.jsp</file>
+            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/web/WithdrawalRequest.jsp</file>
         </group>
     </open-files>
 </project-private>

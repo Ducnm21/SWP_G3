@@ -120,6 +120,22 @@
         <servlet-name>FeedbackServlet</servlet-name>
         <servlet-class>controller.FeedbackServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>load_all_requests_for_admin</servlet-name>
+        <servlet-class>controller.load_all_requests_for_admin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>conflictLoadToSolve</servlet-name>
+        <servlet-class>controller.conflictLoadToSolve</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>resolveConflicts</servlet-name>
+        <servlet-class>controller.resolveConflicts</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewDetailNew</servlet-name>
+        <servlet-class>controller.ViewDetailNew</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>logincontroller</servlet-name>
         <url-pattern>/logincontroller</url-pattern>
@@ -235,6 +251,22 @@
     <servlet-mapping>
         <servlet-name>FeedbackServlet</servlet-name>
         <url-pattern>/sendfeedback</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>load_all_requests_for_admin</servlet-name>
+        <url-pattern>/load_all_requests_for_admin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>conflictLoadToSolve</servlet-name>
+        <url-pattern>/conflictLoadToSolve</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>resolveConflicts</servlet-name>
+        <url-pattern>/resolveConflicts</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewDetailNew</servlet-name>
+        <url-pattern>/ViewDetailNew</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

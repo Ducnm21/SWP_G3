@@ -59,7 +59,11 @@ public class ChangePasswordServlet extends HttpServlet {
         String newpassword = request.getParameter("newpassword");
         String confirmPassword = request.getParameter("confirmPassword");
         boolean checknewpass = val.CheckPassword(newpassword);
-
+        HttpSession session = request.getSession();
+        User u = (User) session.getAttribute("user");
+        BodyDAO d = new BodyDAO();
+        Wallet w = d.getWalletById(u.getId());
+        request.setAttribute("balance", String.format("%,.0f", w.getBalance()) + " ₫");
         try {
             int user_id = Integer.parseInt(id_raw);
 
@@ -87,12 +91,7 @@ public class ChangePasswordServlet extends HttpServlet {
                 return;
             }
 
-            BodyDAO d = new BodyDAO();
-            Wallet w = d.getWalletById(user.getId());
-            request.setAttribute("balance", w.getBalance());
-            // Thực hiện thay đổi mật khẩu trong cơ sở dữ liệu và chuyển hướng người dùng đến trang homepage.jsp
-            
-            
+
             ud.updatepassword(newpassword, user_id);
             request.getRequestDispatcher("homepage.jsp").forward(request, response);
 

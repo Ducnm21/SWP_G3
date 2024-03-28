@@ -26,6 +26,7 @@ public class Product {
     private int user_id;
     private String sellerName;
     private int isConfirm;
+
     public Product() {
     }
 
@@ -79,7 +80,7 @@ public class Product {
         this.user_id = user_id;
     }
 
-    public Product(int product_id, String status, String topic, String contactmethod, String publicprivate, double price, String bearingtransactionfees, double transactionfees, double actualreceived, String description, String hiddencontent, String created_at, String updated_at, int user_id, String sellerName, int isConfirm) {
+    public Product(int product_id, String status, String topic, String contactmethod, String publicprivate, double price, String bearingtransactionfees, double transactionfees, double actualreceived, String description, String hiddencontent, String created_at, String updated_at, int user_id, int isConfirm) {
         this.product_id = product_id;
         this.status = status;
         this.topic = topic;
@@ -94,7 +95,6 @@ public class Product {
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.user_id = user_id;
-        this.sellerName = sellerName;
         this.isConfirm = isConfirm;
     }
 
@@ -106,13 +106,9 @@ public class Product {
         this.isConfirm = isConfirm;
     }
 
-
-
     public Product(double price) {
-      this.price = price;
+        this.price = price;
     }
-
-
 
     public int getProduct_id() {
         return product_id;
@@ -129,7 +125,6 @@ public class Product {
     public void setStatus(String status) {
         this.status = status;
     }
-
 
     public String getTopic() {
         return topic;
@@ -240,9 +235,4 @@ public class Product {
         return "Product{" + "product_id=" + product_id + ", status=" + status + ", topic=" + topic + ", contactmethod=" + contactmethod + ", publicprivate=" + publicprivate + ", price=" + price + ", bearingtransactionfees=" + bearingtransactionfees + ", transactionfees=" + transactionfees + ", actualreceived=" + actualreceived + ", description=" + description + ", hiddencontent=" + hiddencontent + ", created_at=" + created_at + ", updated_at=" + updated_at + ", user_id=" + user_id + ", sellerName=" + sellerName + '}';
     }
 
-   
-      
-    
-    
-    
 }

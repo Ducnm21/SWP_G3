@@ -57,7 +57,11 @@ public class WithdrawRequest extends HttpServlet {
         if (amount > w.getBalance()) {
             session.setAttribute("errorWithdraw", "Balance not enough, please try again.");
             next = "WithdrawalRequest.jsp";
-        } else {
+        }else if(amount < 50000){
+            session.setAttribute("errorWithdraw", "Your request amount must above 50,000 VND! Try again.");
+            next = "WithdrawalRequest.jsp";
+        }
+            else {
             String bankName = request.getParameter("bankName");
             String bankUser = request.getParameter("bankUser");
             String bankNumber = request.getParameter("bankNumber");

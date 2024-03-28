@@ -87,7 +87,6 @@ public class ProductDAO {
                         rs.getString("created_at"),
                         rs.getString("updated_at"),
                         rs.getInt("user_id"),
-                        rs.getString("sellerName"),
                         rs.getInt("isConfirm"));
             }
         } catch (Exception e) {
@@ -846,9 +845,7 @@ public class ProductDAO {
 
     public static void main(String[] args) {
         ProductDAO dao = new ProductDAO();
-        List<Product> list = dao.getProductWithCustomerNameAndUser_ID(1);
-        for (Product p : list) {
-            System.out.println(p);
-        }
+        Product p = dao.getProductByID(6);
+        System.out.println(p);
     }
 }

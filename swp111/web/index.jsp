@@ -109,7 +109,7 @@
         <!-- End Header Area -->
 
         <!-- start banner Area -->
-        <section class="banner-area">
+        <section class="banner-area" style="height: 500px">
             <div class="container">
                 <div class="row fullscreen align-items-center justify-content-start">
                     <div class="col-lg-12">
@@ -137,8 +137,8 @@
         </section>
         <!-- End banner Area -->
         <!-- End banner Area -->
-        <div class="ordertable">
-            <table  class="table table-striped table-hover">
+        <div class="ordertable" >
+            <table style="margin-right: 100px;margin-bottom: 100px" class="table table-striped table-hover">
                 <thead>
                 <th>id</th>
                 <th>Status</th>
@@ -147,9 +147,9 @@
                 <th>Contact method</th>
                 <th>Public/Private</th>
                 <th>Price(VND)</th>
-                <th>Incurred fee</th>
+                <th>Fee bearer</th>
                 <th>Transaction fees</th>
-                <th>Total pay</th>
+                <th>Actual payment</th>
                 </thead>
                 <tbody>
                     <c:forEach items="${ListProductI}" var="p">
@@ -163,7 +163,16 @@
                             <th><fmt:formatNumber value="${p.price}" type="currency" currencySymbol=""/> &#x20AB</th>
                             <th>${p.bearingtransactionfees}</th>
                             <th><fmt:formatNumber value="${p.transactionfees}" type="currency" currencySymbol=""/> &#x20AB</th>
-                            <th><fmt:formatNumber value="${p.actualreceived}" type="currency" currencySymbol=""/> &#x20AB</th>
+                            <th>
+                                <c:choose>
+                                    <c:when test="${p.bearingtransactionfees eq 'seller'}">
+                                        <fmt:formatNumber value="${p.price}" type="currency" currencySymbol=""/> &#x20AB
+                                    </c:when>
+                                    <c:otherwise>
+                                        <fmt:formatNumber value="${p.price + p.transactionfees}" type="currency" currencySymbol=""/> &#x20AB
+                                    </c:otherwise>
+                                </c:choose>
+                            </th>
                         </tr>
                     </c:forEach>
                 </tbody>    
@@ -176,12 +185,13 @@
                 <div class="row">
                     <div class="col-lg-3  col-md-6 col-sm-6">
                         <div class="single-footer-widget">
-                            <h6>About Us</h6>
+                            <h6>SCLC System</h6>
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore dolore
-                                magna aliqua.
+                                This Online Intermediary Marketplace Project is a website that specializes in intermediating purchases and orders from users, 
+                                promoting security and reputation, avoiding cases of fraud when purchasing at other common shopping websites.
                             </p>
                         </div>
+                        
                     </div>
                     <div class="col-lg-4  col-md-6 col-sm-6">
                         <div class="single-footer-widget">
@@ -203,9 +213,6 @@
                                             <input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text">
                                         </div>
 
-                                        <!-- <div class="col-lg-4 col-md-4">
-                                                                <button class="bb-btn btn"><span class="lnr lnr-arrow-right"></span></button>
-                                                        </div>  -->
                                     </div>
                                     <div class="info"></div>
                                 </form>
@@ -240,16 +247,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="footer-bottom d-flex justify-content-center align-items-center flex-wrap">
-                    <p class="footer-text m-0"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    </p>
-                </div>
             </div>
         </footer>
-        
-        
+
+
         <!-- End footer Area -->
 
         <script src="js/vendor/jquery-2.2.4.min.js"></script>

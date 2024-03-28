@@ -16,7 +16,7 @@
         <!-- meta character set -->
         <meta charset="UTF-8">
         <!-- Site Title -->
-        <title>Karma Shop</title>
+        <title>SCLC</title>
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         <!--
                 CSS
@@ -72,35 +72,52 @@
                         <!-- Collect the nav links, forms, and other content for toggling -->
                         <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                             <ul class="nav navbar-nav menu_nav ml-auto">
-                                <c:if test="${sessionScope.user.is_admin == 1}">
-                                    <li class="nav-item active"><a class="nav-link" href="LoadAccount">Manage account</a></li>
-                                    </c:if>
+
                                 <li class="nav-item active"><a class="nav-link" href="getallproduct">Home</a></li>
-                                <li class="nav-item submenu dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                                       aria-expanded="false">Payment</a>
-                                    <ul class="dropdown-menu">
-                                        <li class="nav-item"><a class="nav-link" href="Deposit.jsp">Deposit</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="single-blog.html"></a></li>
-                                    </ul>
-                                </li>
+                                    <c:if test="${sessionScope.user.is_admin == 1}">
 
+                                    <li class="nav-item submenu dropdown">
+                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                           aria-expanded="false">Management</a>
+                                        <ul class="dropdown-menu">                                         
+                                            <li class="nav-item"><a class="nav-link" href="LoadAccount">Manage account</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="load_all_requests_for_admin">Manage Conflict</a></li>
+                                        </ul>
+                                    </li>
 
-                                <li class="nav-item submenu dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                                       aria-expanded="false">Shop</a>
-                                    <ul class="dropdown-menu">
-                                        <li class="nav-item"><a class="nav-link" href="getallproduct">Public Market</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="getorderbyuserid">My Products</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="cart">My Orders</a></li>
-                                    </ul>
-                                </li>                       
+                                </c:if>
 
+                                <c:if test="${sessionScope.user != null}">
+                                    <li class="nav-item submenu dropdown">
+                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                           aria-expanded="false">Payment</a>
+                                        <ul class="dropdown-menu">
+                                            <li class="nav-item"><a class="nav-link" onclick="openDepositPopup()">Deposit</a></li>
+                                                <c:if test="${sessionScope.user.is_admin == 1}">
+                                                <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/withdrawListAdmin">Withdrawal Request</a></li>
+                                                </c:if>
+                                                <c:if test="${sessionScope.user.is_admin==0}">
+                                                <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/withdrawList">Withdrawal Request</a></li>
+                                                </c:if>
+                                        </ul>
+                                    </li>
+                                </c:if>
+                                <c:if test="${sessionScope.user != null}">
+                                    <li class="nav-item submenu dropdown">
+                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                           aria-expanded="false">Shop</a>
+                                        <ul class="dropdown-menu">
+                                            <li class="nav-item"><a class="nav-link" href="getorderbyuserid">My Products</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="cart">My Orders</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="productSold">Products Sold</a></li>
+                                        </ul>
+                                    </li>                       
+                                </c:if>
                                 <c:if test="${sessionScope.user == null}">
-                                    <li class="nav-item"><a class="nav-link" href="login.jsp">Login</a></li>
-                                    </c:if>
-
-
+                                    <li class="nav-item active">
+                                        <a class="nav-link" href="javascript:void(0)" onclick="openLoginPopup()">Login</a>
+                                    </li>
+                                </c:if>
 
                                 <c:if test="${sessionScope.user!=null}">
                                     <li class="nav-item submenu dropdown">
@@ -109,16 +126,21 @@
                                         <ul class="dropdown-menu">
                                             <li class="nav-item"><a class="nav-link" href="logout">Logout</a></li>
                                             <li class="nav-item"><a class="nav-link" href="newscontroll">News</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="history">Transaction History</a></li>
                                             <li class="nav-item"><a class="nav-link" href="changepassword.jsp">Change Password</a></li>
                                             <li class="nav-item"><a class="nav-link" href="UpdateProfile.jsp">Update Profile</a></li>
                                         </ul>
-                                    </li>
+                                    </li>                         
                                     <li style="padding-top: 10px">${balance}</li> 
-                                    </c:if>
+                                    </c:if> 
+
 
                             </ul>
+
                             <ul class="nav navbar-nav navbar-right">
-                                <li class="nav-item"><a href="cart" class="cart"><span class="ti-bag"></span></a></li>
+                                <c:if test="${sessionScope.user!=null}">
+                                    <li style="margin-top: 2px" class="nav-item"><a href="cart" class="cart"><span class="ti-bag"></span></a></li>
+                                        </c:if> 
                                 <li class="nav-item">
                                     <button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
                                 </li>
@@ -126,15 +148,6 @@
                         </div>
                     </div>
                 </nav>
-            </div>
-            <div class="search_input" id="search_input_box">
-                <div class="container">
-                    <form class="d-flex justify-content-between">
-                        <input type="text" class="form-control" id="search_input" placeholder="Search Here">
-                        <button type="submit" class="btn"></button>
-                        <span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
-                    </form>
-                </div>
             </div>
         </header>
         <!-- End Header Area -->
@@ -144,10 +157,10 @@
             <div class="container">
                 <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
                     <div class="col-first">
-                        <h1>My History Transaction</h1>
+                        <h1>Transaction History</h1>
                         <nav class="d-flex align-items-center">
                             <a href="history"Purchase History<span class="lnr lnr-arrow-right"></span></a>
-                            <a href="soldhistory">Sold History</a>
+                            <a href="soldhistory">Transaction History</a>
                         </nav>
                     </div>
                 </div>
@@ -156,10 +169,11 @@
         <!-- End Banner Area -->
         <!--================Cart Area =================-->
         <section class="cart_area">
-            <div class="container" style="text-align: center">
+            <div class="container" style="text-align: center; margin-top: -50px; margin-left: 4%">
+                <h3 style="margin-left: 20%">Transaction History</h3>
                 <div class="cart_inner">
-                    <div class="table-responsive">
-                        <table class="table" style ="border-collapse: collapse; width: 100%;">
+                    <div class="table-responsive" style="width: 1400px">
+                        <table class="table" style ="border-collapse: collapse; ">
                             <thead>
                                 <tr>
                                     <th style="padding: 8px; border: 1px solid #dddddd;">Code</th>
@@ -172,8 +186,8 @@
                                     <th style="padding: 8px; border: 1px solid #dddddd;">Transaction Fee</th>
                                     <th style="padding: 8px; border: 1px solid #dddddd;">Actual Receive</th>
                                     <th style="padding: 8px; border: 1px solid #dddddd;">Purchase Time</th>
-                                    <th style="padding: 8px; border: 1px solid #dddddd;">Action</th>
-                                    <th style="padding: 8px; border: 1px solid #dddddd;">Action</th>
+                                    <th style="padding: 8px; border: 1px solid #dddddd;width: 100px">Action</th>
+                                    <th style="padding: 8px; border: 1px solid #dddddd;width: 100px">Action</th>
 
                                 </tr>
                             </thead>
@@ -190,8 +204,8 @@
                                         <td style="padding: 8px; border: 1px solid #dddddd;">${c.transactionfees}</td>
                                         <td style="padding: 8px; border: 1px solid #dddddd;">${c.price+c.transactionfees}</td>
                                         <td style="padding: 8px; border: 1px solid #dddddd;">${c.create_at}</td>
-                                        <td style="padding: 8px; border: 1px solid #dddddd;"><a href="viewdetail?id=${c.product_id}" class="btn-view-detail">View Detail</a></td>
-                                        <td style="padding: 8px; border: 1px solid #dddddd; "><a href="sendfeedback?uid=${c.seller_id}&pid=${c.product_id}" class="btn-send-feedback">Send Feedback</a></td> 
+                                        <td style="padding: 8px; border: 1px solid #dddddd;width: 150px"><a href="viewdetail?id=${c.product_id}" class="btn-view-detail">View Detail</a></td>
+                                        <td style="padding: 8px; border: 1px solid #dddddd;width: 150px "><a href="sendfeedback?uid=${c.seller_id}&pid=${c.product_id}" class="btn-send-feedback">Send Feedback</a></td> 
                                     </tr>
                                 </c:forEach>
 
@@ -202,7 +216,10 @@
             </div>
         </section>
 
+
         <!--================End Cart Area =================-->
+
+        
 
         <!-- start footer Area -->
         <footer class="footer-area section_gap">
@@ -210,12 +227,13 @@
                 <div class="row">
                     <div class="col-lg-3  col-md-6 col-sm-6">
                         <div class="single-footer-widget">
-                            <h6>About Us</h6>
+                            <h6>SCLC System</h6>
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore dolore
-                                magna aliqua.
+                                This Online Intermediary Marketplace Project is a website that specializes in intermediating purchases and orders from users, 
+                                promoting security and reputation, avoiding cases of fraud when purchasing at other common shopping websites.
                             </p>
                         </div>
+
                     </div>
                     <div class="col-lg-4  col-md-6 col-sm-6">
                         <div class="single-footer-widget">
@@ -237,9 +255,6 @@
                                             <input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text">
                                         </div>
 
-                                        <!-- <div class="col-lg-4 col-md-4">
-                                                                        <button class="bb-btn btn"><span class="lnr lnr-arrow-right"></span></button>
-                                                                </div>  -->
                                     </div>
                                     <div class="info"></div>
                                 </form>
@@ -273,12 +288,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="footer-bottom d-flex justify-content-center align-items-center flex-wrap">
-                    <p class="footer-text m-0"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    </p>
                 </div>
             </div>
         </footer>

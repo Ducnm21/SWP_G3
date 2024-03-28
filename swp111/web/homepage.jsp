@@ -164,7 +164,7 @@
         <!-- End Header Area -->
 
         <!-- start banner Area -->
-        <section class="banner-area">
+        <section class="banner-area" style="height: 500px">
             <div class="container">
                 <div class="row fullscreen align-items-center justify-content-start">
                     <div class="col-lg-12">
@@ -200,7 +200,7 @@
         <div id="popup" style="display: none; text-align: center; color: red">
             <p id="popupMessage"></p>
         </div>
-        <div class="ordertable">
+        <div class="ordertable" >
 
             <table  class="table table-striped table-hover">
                 <thead>
@@ -211,7 +211,7 @@
                 <th style="width: 150px">Contact method</th>
                 <th>Public/Private</th>
                 <th style="width: 150px">Price(VND)</th>
-                <th style="width: 150px">Incurred fee</th>
+                <th style="width: 150px">Fee bearer</th>
                 <th style="width: 150px">Transaction fees</th>
                 <th style="width: 150px">Actual payment</th>             
                 <th>Action</th>
@@ -233,10 +233,10 @@
                             <th>
                                 <c:choose>
                                     <c:when test="${p.bearingtransactionfees eq 'seller'}">
-                                        <fmt:formatNumber value="${p.price - p.transactionfees}" type="currency" currencySymbol=""/> &#x20AB
+                                        <fmt:formatNumber value="${p.price}" type="currency" currencySymbol=""/> &#x20AB
                                     </c:when>
                                     <c:otherwise>
-                                        <fmt:formatNumber value="${p.price}" type="currency" currencySymbol=""/> &#x20AB
+                                        <fmt:formatNumber value="${p.price + p.transactionfees}" type="currency" currencySymbol=""/> &#x20AB
                                     </c:otherwise>
                                 </c:choose>
                             </th>
@@ -262,12 +262,13 @@
                 <div class="row">
                     <div class="col-lg-3  col-md-6 col-sm-6">
                         <div class="single-footer-widget">
-                            <h6>About Us</h6>
+                            <h6>SCLC System</h6>
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore dolore
-                                magna aliqua.
+                                This Online Intermediary Marketplace Project is a website that specializes in intermediating purchases and orders from users, 
+                                promoting security and reputation, avoiding cases of fraud when purchasing at other common shopping websites.
                             </p>
                         </div>
+                        
                     </div>
                     <div class="col-lg-4  col-md-6 col-sm-6">
                         <div class="single-footer-widget">
@@ -323,7 +324,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </footer>
         <!-- End footer Area -->

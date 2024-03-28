@@ -65,17 +65,17 @@
 
                 <div class="inputDiv">
                     <label class="inputLabel" for="curentpassword">Curent Password</label> 
-                    <input type="password" id="curentpassword" name="curentpassword" required> 
+                    <input style="width: 80%" type="password" id="curentpassword" name="curentpassword" required> 
                 </div>
 
                 <div class="inputDiv">
                     <label class="inputLabel" for="newpassword">New Password</label>
-                    <input type="password" id="newpassword" name="newpassword" required>
+                    <input style="width: 80%" type="password" id="newpassword" name="newpassword" required>
                 </div>
 
                 <div class="inputDiv">
                     <label class="inputLabel" for="confirmPassword">Confirm Password</label>
-                    <input type="password" id="confirmPassword" name="confirmPassword">
+                    <input style="width: 80%" type="password" id="confirmPassword" name="confirmPassword">
                 </div>
 
                 <div class="buttonWrapper">

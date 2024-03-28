@@ -1,5 +1,6 @@
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
 
@@ -69,26 +70,28 @@
 
                                 </c:if>
                                 <li class="nav-item active"><a class="nav-link" href="getallproduct">Home</a></li>
-                                <li class="nav-item submenu dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                                       aria-expanded="false">Payment</a>
-                                    <ul class="dropdown-menu">
-                                        <li class="nav-item"><a class="nav-link" onclick="openDepositPopup()">Deposit</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="WithdrawalRequest.jsp">Withdrawal Request</a></li>
-                                    </ul>
-                                </li>
 
-
-                                <li class="nav-item submenu dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                                       aria-expanded="false">Shop</a>
-                                    <ul class="dropdown-menu">
-                                        <li class="nav-item"><a class="nav-link" href="getorderbyuserid">My Products</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="cart">My Orders</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="productSold">Products Sold</a></li>
-                                    </ul>
-                                </li>                       
-
+                                <c:if test="${sessionScope.user != null}">
+                                    <li class="nav-item submenu dropdown">
+                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                           aria-expanded="false">Payment</a>
+                                        <ul class="dropdown-menu">
+                                            <li class="nav-item"><a class="nav-link" onclick="openDepositPopup()">Deposit</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="WithdrawalRequest.jsp">Withdrawal Request</a></li>
+                                        </ul>
+                                    </li>
+                                </c:if>
+                                <c:if test="${sessionScope.user != null}">
+                                    <li class="nav-item submenu dropdown">
+                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                           aria-expanded="false">Shop</a>
+                                        <ul class="dropdown-menu">
+                                            <li class="nav-item"><a class="nav-link" href="getorderbyuserid">My Products</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="cart">My Orders</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="productSold">Products Sold</a></li>
+                                        </ul>
+                                    </li>                       
+                                </c:if>
                                 <c:if test="${sessionScope.user == null}">
                                     <li class="nav-item active">
                                         <a class="nav-link" href="javascript:void(0)" onclick="openLoginPopup()">Login</a>
@@ -112,8 +115,11 @@
 
 
                             </ul>
+
                             <ul class="nav navbar-nav navbar-right">
-                                <li style="margin-top: 2px" class="nav-item"><a href="cart" class="cart"><span class="ti-bag"></span></a></li>
+                                <c:if test="${sessionScope.user!=null}">
+                                    <li style="margin-top: 2px" class="nav-item"><a href="cart" class="cart"><span class="ti-bag"></span></a></li>
+                                        </c:if> 
                                 <li class="nav-item">
                                     <button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
                                 </li>
@@ -260,14 +266,13 @@
                         <tr class="product">
                             <th><a href="updateorder?pid=${o.product_id}">Detail</a></th>
                             <th>${o.status}</th>
-           
                             <th>${o.topic}</th>
                             <th>${o.contactmethod}</th>
                             <th>${o.publicprivate}</th>
-                            <th>${o.price}</th>
+                            <th><fmt:formatNumber value="${o.price}" type="currency" currencySymbol=""/> &#x20AB</th>
                             <th>${o.bearingtransactionfees}</th>
-                            <th>${o.transactionfees}</th>
-                            <th>${o.actualreceived}</th>
+                            <th><fmt:formatNumber value="${o.transactionfees}" type="currency" currencySymbol=""/> &#x20AB</th>
+                            <th><fmt:formatNumber value="${o.actualreceived}" type="currency" currencySymbol=""/> &#x20AB</th>
                             <th>${o.created_at}</th>
                             <th>${o.updated_at}</th>
                             <td>
@@ -296,7 +301,7 @@
         </script>
         <% } %>
         <script>
-            // Bi?n global ?? l?u tr? ID c?a h‡m hi?n t?i ?ang ???c hi?n th?
+            // Bi?n global ?? l?u tr? ID c?a h√†m hi?n t?i ?ang ???c hi?n th?
             var currentFunction = null;
 
             function bearing() {
@@ -348,7 +353,7 @@
             }
 
 
-            // H‡m x? l˝ khi click v‡o n˙t t?i ??n h‡ng v?i tr?ng th·i c? th?
+            // H√†m x? l√Ω khi click v√†o n√∫t t?i ??n h√†ng v?i tr?ng th√°i c? th?
             document.getElementById("loadOrdersButton").addEventListener("click", function () {
                 var selectElement = document.getElementById('statusSelect');
                 var status = selectElement.value;
@@ -360,13 +365,13 @@
                         var tableBody = table.getElementsByTagName('tbody')[0];
                         tableBody.innerHTML = response;
 
-                        // ThÍm ph?n thead n?u ch?a t?n t?i
+                        // Th√™m ph?n thead n?u ch?a t?n t?i
                         if (!table.querySelector('thead')) {
                             var theadContent = "<thead><tr><th>ID</th><th>Status</th><th>Customer</th><th>Topic</th><th>Contact Method</th><th>Public/Private</th><th>Price(VND)</th><th>Bearing Transaction Fees</th><th>Transaction Fees</th><th>Actual Money received</th><th>Create at</th><th>Update at</th><th>Actions</th></tr></thead>";
                             table.insertAdjacentHTML('afterbegin', theadContent);
                         }
                         table.style.display = 'block'; // Hi?n th? b?ng
-                        currentFunction = table.id; // C?p nh?t ID c?a h‡m hi?n t?i
+                        currentFunction = table.id; // C?p nh?t ID c?a h√†m hi?n t?i
                     }
                 };
                 xmlhttp.open("GET", "loadorderbystatusanduserid?status=" + status, true);
@@ -429,14 +434,14 @@
                         var tableBody = document.getElementById("producttable").getElementsByTagName('tbody')[0];
                         tableBody.innerHTML = data;
                         tableBody.parentNode.style.display = 'block'; // Hi?n th? b?ng
-                        currentFunction = tableBody.parentNode.id; // C?p nh?t ID c?a h‡m hi?n t?i
+                        currentFunction = tableBody.parentNode.id; // C?p nh?t ID c?a h√†m hi?n t?i
                     },
                     error: function (xhr) {
                         console.log("Error occurred: " + xhr.statusText);
                     }
                 });
             }
-            // H‡m tÏm ki?m theo tÍn kh·ch h‡ng
+            // H√†m t√¨m ki?m theo t√™n kh√°ch h√†ng
             function searchByCustomerName(param) {
                 var txtSearch = param.value;
                 $.ajax({
@@ -447,7 +452,7 @@
                         var tableBody = document.getElementById("producttable").getElementsByTagName('tbody')[0];
                         tableBody.innerHTML = data;
                         tableBody.parentNode.style.display = 'block'; // Hi?n th? b?ng
-                        currentFunction = tableBody.parentNode.id; // C?p nh?t ID c?a h‡m hi?n t?i
+                        currentFunction = tableBody.parentNode.id; // C?p nh?t ID c?a h√†m hi?n t?i
                     },
                     error: function (xhr) {
                         console.log("Error occurred: " + xhr.statusText);
@@ -464,7 +469,7 @@
                         var tableBody = document.getElementById("producttable").getElementsByTagName('tbody')[0];
                         tableBody.innerHTML = data;
                         tableBody.parentNode.style.display = 'block'; // Hi?n th? b?ng
-                        currentFunction = tableBody.parentNode.id; // C?p nh?t ID c?a h‡m hi?n t?i
+                        currentFunction = tableBody.parentNode.id; // C?p nh?t ID c?a h√†m hi?n t?i
                     },
                     error: function (xhr) {
                         console.log("Error occurred: " + xhr.statusText);

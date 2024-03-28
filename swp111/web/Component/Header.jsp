@@ -61,26 +61,28 @@
 
                                 </c:if>
                                 <li class="nav-item active"><a class="nav-link" href="getallproduct">Home</a></li>
-                                <li class="nav-item submenu dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                                       aria-expanded="false">Payment</a>
-                                    <ul class="dropdown-menu">
-                                        <li class="nav-item"><a class="nav-link" onclick="openDepositPopup()">Deposit</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="WithdrawalRequest.jsp">Withdrawal Request</a></li>
-                                    </ul>
-                                </li>
 
-
-                                <li class="nav-item submenu dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                                       aria-expanded="false">Shop</a>
-                                    <ul class="dropdown-menu">
-                                        <li class="nav-item"><a class="nav-link" href="getorderbyuserid">My Products</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="cart">My Orders</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="productSold">Products Sold</a></li>
-                                    </ul>
-                                </li>                       
-
+                                <c:if test="${sessionScope.user != null}">
+                                    <li class="nav-item submenu dropdown">
+                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                           aria-expanded="false">Payment</a>
+                                        <ul class="dropdown-menu">
+                                            <li class="nav-item"><a class="nav-link" onclick="openDepositPopup()">Deposit</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="WithdrawalRequest.jsp">Withdrawal Request</a></li>
+                                        </ul>
+                                    </li>
+                                </c:if>
+                                <c:if test="${sessionScope.user != null}">
+                                    <li class="nav-item submenu dropdown">
+                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                           aria-expanded="false">Shop</a>
+                                        <ul class="dropdown-menu">
+                                            <li class="nav-item"><a class="nav-link" href="getorderbyuserid">My Products</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="cart">My Orders</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="productSold">Products Sold</a></li>
+                                        </ul>
+                                    </li>                       
+                                </c:if>
                                 <c:if test="${sessionScope.user == null}">
                                     <li class="nav-item active">
                                         <a class="nav-link" href="javascript:void(0)" onclick="openLoginPopup()">Login</a>
@@ -104,8 +106,11 @@
 
 
                             </ul>
+
                             <ul class="nav navbar-nav navbar-right">
-                                <li style="margin-top: 2px" class="nav-item"><a href="cart" class="cart"><span class="ti-bag"></span></a></li>
+                                <c:if test="${sessionScope.user!=null}">
+                                    <li style="margin-top: 2px" class="nav-item"><a href="cart" class="cart"><span class="ti-bag"></span></a></li>
+                                        </c:if> 
                                 <li class="nav-item">
                                     <button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
                                 </li>
@@ -200,7 +205,7 @@
                     },
                     success: function (response) {
                         if (response.trim() === "success") {
-                             
+
                             window.location.href = "getallproduct";
                         } else if (response.trim() === "error") {
                             $("#error").text("Your Account has been banned!");

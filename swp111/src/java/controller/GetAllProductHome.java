@@ -50,13 +50,9 @@ public class GetAllProductHome extends HttpServlet {
             List<Product> listP = dao.getAllProduct();
 
             BodyDAO d = new BodyDAO();
-            WalletDAO wd = new WalletDAO();
-            Wallet w = d.getWalletById(user.getId());
-            
-            request.setAttribute("balance", String.format("%,.0f", w.getBalance()) + " ₫");
-            
-            request.setAttribute("ListProduct", listP);
-            
+            Wallet w = d.getWalletById(user.getId());           
+            request.setAttribute("balance", String.format("%,.0f", w.getBalance()) + " ₫");       
+            request.setAttribute("ListProduct", listP);        
             request.getRequestDispatcher("homepage.jsp").forward(request, response);
         }
 

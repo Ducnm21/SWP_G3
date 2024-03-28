@@ -54,7 +54,7 @@ public class getorderbyuserid extends HttpServlet {
         BodyDAO d = new BodyDAO();
         Wallet w = d.getWalletById(loggedInUser.getId());
         
-        request.setAttribute("balancep", w.getBalance());
+        request.setAttribute("balance", String.format("%,.0f", w.getBalance()) + " ₫");
 //        for (Product product : listProductByUserID) {
 //                request.setAttribute("pricepp", String.format("%,.0f",(double) product.getPrice()) + " ₫");
 //                request.setAttribute("transactionfeespp", String.format("%,.0f",(double) product.getTransactionfees()) + " ₫");

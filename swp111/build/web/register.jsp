@@ -15,7 +15,7 @@
         <!-- meta character set -->
         <meta charset="UTF-8">
         <!-- Site Title -->
-        <title>Karma Shop</title>
+        <title>SCLC</title>
 
         <!--
                 CSS
@@ -70,7 +70,7 @@
                             <img class="img-fluid" src="img/login.jpg" style="height: 734px" alt="">
                             <div class="hover">
                                 <h4>New to our website?</h4>
-                                <p>There are advances being made in science and technology everyday, and a good example of this is the</p>
+                                <p>SCLC provides you with a dropshipping website where you can safely trade non-shipping items</p>
 
                             </div>
                         </div>
@@ -100,7 +100,7 @@
                                 </div>
 
                                 <div class="col-md-12 form-group">
-                                    <input type="submit" class="button" value="Sign Up" style="cursor: pointer">
+                                    <input type="submit" class="button" value="Sign Up" style="cursor: pointer; width: 100px">
                                 </div>
                             </form>
                             <div style="color: red;margin-left: 200px" >${error_password} </div>

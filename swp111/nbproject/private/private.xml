@@ -4,97 +4,6 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
 <<<<<<< Updated upstream
         <group>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/model/Product.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/model/RandomNumber.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/CaptchaGeneratorServlet.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/model/PayDTO.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/ChangePasswordServlet.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/GetAllProductHome.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/newscontroll.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/loadorderbyreceivedanduserid.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/GetAllProductIndex.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/web/vnpay_querydr.jsp</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/model/Wallet.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/RefreshCaptcha.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/web/addneworder.jsp</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/loadprivateorder.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/newpassword.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/dal/RegisterDAO.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/RegisterServlet.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/dal/DBContext.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/DeleteOrd.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/UpdateProfileServlet.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/web/Deposit.jsp</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/searchbycustomername.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/web/vnpay_refund.jsp</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/loaduserbalance.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/deleteorder.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/loadmoreorderbyuid.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/dal/ProductDAO.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/Cart.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/updateorder.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/AdminController.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/addorder.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/sellerprofile.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/model/Email.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/model/Feedback.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/dal/DAO.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/loadorderbystatusanduserid.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/web/homepage.jsp</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/WithdrawList.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/ProcessCheckout.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/loadorderbypriceandorderid.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/product_detail_for_customer.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/model/Cart.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/web/withdrawalList.jsp</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/web/forgotpassword.jsp</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/loadmoreorder.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/loadpublicorder.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/forgotpassword.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/ProductDetails.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/productSold.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/searchbytitle.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/dal/WithdrawalDAO.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/WithdrawFilter.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/BanServlet.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/logoutser.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/web/login.jsp</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/web/vnpay_return.jsp</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/unbanmanagement.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/detailoforder.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/LoadAccount.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/dal/FeedbackDAO.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/logincontroller.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/ordercontrol.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/model/Withdrawal.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/OTP.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/updatesellingorder.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/searchbycontact.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/loadbearingproductbyuserid.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/ViewDetail.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/dal/UserDAO.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/model/Order.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/dal/DepositDAO.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/loadpublicprivateproductanduserid.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/CheckOut.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/model/News.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/FeedbackServlet.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/dal/WalletDAO.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/TrancastionHistory.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/loadsellerbearingorder.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/model/CartXProduct.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/model/User.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/dal/NewsDAO.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/getorderbyuserid.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/dal/BodyDAO.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/loadcustomerbearingorder.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/SearchControl.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/AddToCartServlet.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/feedback.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/web/index.jsp</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/WithdrawRequest.java</file>
-        </group>
-        <group>
             <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/web/viewdetail.jsp</file>
             <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/common_vnpay/vnpayQuery.java</file>
             <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/common_vnpay/Config.java</file>
@@ -148,9 +57,19 @@
             <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/web/css/popup/PopupLogin.css</file>
             <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/web/Sold_Product_History.jsp</file>
         </group>
+<<<<<<< Updated upstream
 =======
         <group/>
         <group/>
+>>>>>>> Stashed changes
+=======
+        <group>
+            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/web/donbancuatoi.jsp</file>
+            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/web/Component/Header.jsp</file>
+            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/web/addneworder.jsp</file>
+            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/web/css/donbancuatoi.css</file>
+            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/addorder.java</file>
+        </group>
 >>>>>>> Stashed changes
     </open-files>
 </project-private>

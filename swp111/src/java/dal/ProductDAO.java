@@ -846,7 +846,7 @@ public class ProductDAO {
 
     public static void main(String[] args) {
         ProductDAO dao = new ProductDAO();
-        List<Product> list = dao.getAllProduct();
+        List<Product> list = dao.getProductWithCustomerNameAndUser_ID(1);
         for (Product p : list) {
             System.out.println(p);
         }

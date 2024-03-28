@@ -4,6 +4,7 @@
  */
 package controller;
 
+import dal.BodyDAO;
 import dal.UserDAO;
 import dal.WalletDAO;
 import java.io.IOException;
@@ -67,14 +68,14 @@ public class LoadAccount extends HttpServlet {
         UserDAO dao = new UserDAO();
         List<User> users = dao.getAllUser();
         HttpSession session = request.getSession();
-        User loggedInUser = (User) session.getAttribute("user"); 
+        User loggedInUser = (User) session.getAttribute("user");
         if (loggedInUser == null) {
             response.sendRedirect(request.getContextPath() + "/Home");
             return;
         }
-        WalletDAO dw = new WalletDAO();
-        Wallet AdW = dw.GetWalletAdmin();
-        request.setAttribute("AdminBalance", String.format("%,.0f", AdW.getBalance()) + " ₫");
+        BodyDAO d = new BodyDAO();
+        Wallet w = d.getWalletById(loggedInUser.getId());
+        request.setAttribute("balance", String.format("%,.0f", w.getBalance()) + " ₫");
         request.setAttribute("listAccount", users);
         request.getRequestDispatcher("ManageAccount.jsp").forward(request, response);
 

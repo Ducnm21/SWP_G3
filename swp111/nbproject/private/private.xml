@@ -3,15 +3,31 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/GetAllProductHome.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/dal/BodyDAO.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/web/checkout.jsp</file>
+            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/web/viewdetail.jsp</file>
+            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/web/Feedback.jsp</file>
+            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/OTP.java</file>
+            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/web/conflictLoadToSolve.jsp</file>
+            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/dal/RegisterDAO.java</file>
+            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/RegisterServlet.java</file>
+            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/dal/DepositDAO.java</file>
             <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/CheckOut.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/WithdrawList.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/ProcessCheckout.java</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/web/index.jsp</file>
+            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/web/donbancuatoi.jsp</file>
+            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/web/OTP.jsp</file>
             <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/web/Component/Header.jsp</file>
-            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/web/withdrawalList.jsp</file>
+            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/Confirm.java</file>
+            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/web/trancastionhistory.jsp</file>
+            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/TrancastionHistory.java</file>
+            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/web/homepage.jsp</file>
+            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/ProcessCheckout.java</file>
+            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/web/UpdateProfile.jsp</file>
+            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/web/Component/HeaderW.jsp</file>
+            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/web/WithdrawalListAdmin.jsp</file>
+            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/web/Component/DepositPop.jsp</file>
+            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/dal/BodyDAO.java</file>
+            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/AddToCartServlet.java</file>
+            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/src/java/controller/feedback.java</file>
+            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/web/login.jsp</file>
+            <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/web/vnpay_return.jsp</file>
             <file>file:/C:/Users/admin/Desktop/Semester%205/SWP301/GIT/swp/swp111/web/WithdrawalRequest.jsp</file>
         </group>
     </open-files>

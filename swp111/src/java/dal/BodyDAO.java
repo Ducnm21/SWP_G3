@@ -90,7 +90,7 @@ public class BodyDAO extends DBContext {
 
     public void updateCart(int user_id) {
         String sql = "UPDATE cart\n"
-                + "SET status= 'completely'\n"
+                + "SET status= 'checking'\n"
                 + "WHERE user_id = ? and status ='Pending';";
         try {
             PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
@@ -182,7 +182,7 @@ public class BodyDAO extends DBContext {
 "                                FROM products\n" +
 "                              INNER JOIN cart ON cart.product_id = products.product_id\n" +
 "                              join users on products.user_id=users.user_id\n" +
-"                            WHERE (cart.status='completely' or cart.status='tracking') and users.user_id=?";
+"                            WHERE (cart.status='completely' or cart.status='checking') and cart.user_id=?";
         try {
             PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
             st.setInt(1, uid);
@@ -210,7 +210,7 @@ public class BodyDAO extends DBContext {
     public void updateCartCompletely(int user_id, int product_id) {
         String sql = "UPDATE cart\n"
                 + "SET status= 'completely'\n"
-                + "WHERE user_id = ? and status ='tracking' and product_id=?;";
+                + "WHERE user_id = ? and status ='checking' and product_id=?;";
         try {
             PreparedStatement st = getConnection(DB_URL, USER_NAME, PASSWORD).prepareStatement(sql);
             st.setInt(1, user_id);

@@ -35,7 +35,7 @@
             .modal-content {
                 background-color: #fefefe;
                 margin: 15%;
-                margin-left: 20.5%;
+                margin-left: 18%;
                 padding: 20px;
                 border: 1px solid #888;
                 width: 58%; /* Điều chỉnh kích thước cửa sổ popup tại đây */

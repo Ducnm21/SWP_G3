@@ -37,7 +37,7 @@ public class DepositDAO {
     }
 
     public void setAmount(Wallet wallet, double amount) {
-        String sql = "UPDATE wallet SET balance = ? WHERE wallet_id = ?";
+        String sql = "UPDATE wallet SET balance = ? WHERE user_id = ?";
         try (Connection con = getConnection(DB_URL, USER_NAME, PASSWORD);
              PreparedStatement st = con.prepareStatement(sql)) {
             st.setDouble(1, amount);

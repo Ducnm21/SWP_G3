@@ -41,7 +41,7 @@
         <script src="https://cdn.tiny.cloud/1/jbt73pkrs1o3fqdmhuk6ei1f1ldwnlfbskiepizspw8n7qbs/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     </head>
     <body>
-        
+
         <header class="header_area sticky-header">
             <div class="main_menu">
                 <nav class="navbar navbar-expand-lg navbar-light main_box">
@@ -128,15 +128,13 @@
         </header>
 
 
-        <div class="formto">
-
-
-            <form action="resolveConflicts" method="post">
-                <div class="solveform">
-                    <div class="solveformhead">
+        <div style="margin-bottom: 50px" class="formto">
+            <form style="width: 300px; margin-left: 40%" action="resolveConflicts" method="post">
+                <div style="border: solid 2px; border-radius: 10px" class="solveform">
+                    <div style="margin-top: 10px" class="solveformhead">
                         <h2>Solve Conflict</h2>
                     </div>
-                    <div class="solveformbody">
+                    <div style="margin-left: 30px" class="solveformbody">
                         <div class="form-group">
                             <h3>ID</h3>
                             <input value="${ConflictSolving.requets_id}" name="requets_id" type="text" class="form_control" readonly>
@@ -157,17 +155,84 @@
                     </div>
                     <div class="solveformend">
                         <div class="row">
-                            <div class="col-sm-9">
+                            <div style="margin-bottom: 20px; margin-left: 100px" class="col-sm-9">
                                 <input type="submit" class="btn btn-success" value="Solve">
-                            </div>
-                            <div class="col-sm-3">
-                                <p><button class="button" onclick='window.history.go(-1);'>Cancel</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </form>
         </div>
+
+        <footer class="footer-area section_gap">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3  col-md-6 col-sm-6">
+                        <div class="single-footer-widget">
+                            <h6>SCLC System</h6>
+                            <p>
+                                This Online Intermediary Marketplace Project is a website that specializes in intermediating purchases and orders from users, 
+                                promoting security and reputation, avoiding cases of fraud when purchasing at other common shopping websites.
+                            </p>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-4  col-md-6 col-sm-6">
+                        <div class="single-footer-widget">
+                            <h6>Newsletter</h6>
+                            <p>Stay update with our latest</p>
+                            <div class="" id="mc_embed_signup">
+
+                                <form target="_blank" novalidate="true" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
+                                      method="get" class="form-inline">
+
+                                    <div class="d-flex flex-row">
+
+                                        <input class="form-control" name="EMAIL" placeholder="Enter Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Email '"
+                                               required="" type="email">
+
+
+                                        <button class="click-btn btn btn-default"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
+                                        <div style="position: absolute; left: -5000px;">
+                                            <input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text">
+                                        </div>
+
+                                    </div>
+                                    <div class="info"></div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3  col-md-6 col-sm-6">
+                        <div class="single-footer-widget mail-chimp">
+                            <h6 class="mb-20">Instragram Feed</h6>
+                            <ul class="instafeed d-flex flex-wrap">
+                                <li><img src="img/i1.jpg" alt=""></li>
+                                <li><img src="img/i2.jpg" alt=""></li>
+                                <li><img src="img/i3.jpg" alt=""></li>
+                                <li><img src="img/i4.jpg" alt=""></li>
+                                <li><img src="img/i5.jpg" alt=""></li>
+                                <li><img src="img/i6.jpg" alt=""></li>
+                                <li><img src="img/i7.jpg" alt=""></li>
+                                <li><img src="img/i8.jpg" alt=""></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-6 col-sm-6">
+                        <div class="single-footer-widget">
+                            <h6>Follow Us</h6>
+                            <p>Let us be social</p>
+                            <div class="footer-social d-flex align-items-center">
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-dribbble"></i></a>
+                                <a href="#"><i class="fa fa-behance"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
         <script src="js/vendor/jquery-2.2.4.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
         crossorigin="anonymous"></script>

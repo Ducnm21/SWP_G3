@@ -164,7 +164,7 @@
         <!-- End Header Area -->
 
         <!-- start banner Area -->
-        <section class="banner-area" style="height: 500px">
+        <section class="banner-area" style="height: 700px">
             <div class="container">
                 <div class="row fullscreen align-items-center justify-content-start">
                     <div class="col-lg-12">
